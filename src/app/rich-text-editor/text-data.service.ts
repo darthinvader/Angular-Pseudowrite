@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TextEditorService {
   private _htmlContent: string = '';

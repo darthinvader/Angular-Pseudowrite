@@ -1,6 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { TextEditorService } from './text-data.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+
+toolbarHiddenButtons: [
+  [
+    'undo',
+    'redo',
+    'bold',
+    'italic',
+    'underline',
+    'strikeThrough',
+    'subscript',
+    'superscript',
+    'justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    'justifyFull',
+    'indent',
+    'outdent',
+    'insertUnorderedList',
+    'insertOrderedList',
+    'heading',
+    'fontName'
+  ],
+  [
+    'fontSize',
+    'textColor',
+    'backgroundColor',
+    'customClasses',
+    'link',
+    'unlink',
+    'insertImage',
+    'insertVideo',
+    'insertHorizontalRule',
+    'removeFormat',
+    'toggleEditorMode'
+  ]
+]
+
 const editorConfig: AngularEditorConfig = {
   editable: true,
   spellcheck: true,
@@ -32,7 +69,8 @@ const editorConfig: AngularEditorConfig = {
 @Component({
   selector: 'app-rich-text-editor',
   templateUrl: './rich-text-editor.component.html',
-  styleUrls: ['./rich-text-editor.component.css'],
+  styleUrls: ['./rich-text-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RichTextEditorComponent {
   editorConfig = editorConfig

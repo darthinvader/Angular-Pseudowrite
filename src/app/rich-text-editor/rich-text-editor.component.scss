@@ -1,0 +1,8 @@
+angular-editor .angular-editor-toolbar {
+    @apply bg-blue-500; /* Example for changing toolbar background */
+    
+}
+
+angular-editor#editor .angular-editor-toolbar-set button {
+  @apply text-white p-2 m-1; /* Example for styling buttons */
+}
