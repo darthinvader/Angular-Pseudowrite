@@ -2,29 +2,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { TextEditorService } from './text-data.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
-toolbarHiddenButtons: [
+const toolbarHiddenButtons = [
   [
-    'undo',
-    'redo',
-    'bold',
-    'italic',
-    'underline',
-    'strikeThrough',
     'subscript',
     'superscript',
-    'justifyLeft',
-    'justifyCenter',
-    'justifyRight',
-    'justifyFull',
-    'indent',
-    'outdent',
-    'insertUnorderedList',
-    'insertOrderedList',
-    'heading',
-    'fontName'
   ],
   [
-    'fontSize',
     'textColor',
     'backgroundColor',
     'customClasses',
@@ -61,9 +44,7 @@ const editorConfig: AngularEditorConfig = {
 
   sanitize: true,
   toolbarPosition: 'top',
-  toolbarHiddenButtons: [
-    ['bold', 'italic'],
-  ]
+  toolbarHiddenButtons: toolbarHiddenButtons
 };
 
 @Component({

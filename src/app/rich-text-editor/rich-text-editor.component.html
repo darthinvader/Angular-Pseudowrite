@@ -2,5 +2,5 @@
 <angular-editor id="editor" [(ngModel)]="textEditorService.textContent" [config]="editorConfig">
 </angular-editor>
 </div>
-<button class="bg-indigo-500 p-2 m-1 text-white rounded hover:drop-shadow-lg duration-500" (click)="getSelectedText">Get Selected</button>
+<button class="bg-indigo-500 p-2 m-1 text-white rounded hover:drop-shadow-lg duration-500" (click)="getSelectedText()">Get Selected</button>
 <div [innerHTML]="textEditorService.safeHtmlContent" class="html-content"  ></div>
