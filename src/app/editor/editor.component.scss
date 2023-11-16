@@ -9,3 +9,32 @@ ol{
 ul{
   list-style-type: disc;
 }
+
+// Styling editor
+// !important must be used at some places
+
+// Buttons
+angular-editor {
+  .angular-editor-toolbar-set { 
+    .angular-editor-button:not([hidden]) {
+      @apply m-1;
+      border-radius: 100%;
+      color:black;
+      background-color: transparent!important;
+      border: 0px !important;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1;  
+    }
+  }
+  angular-editor-toolbar .angular-editor-toolbar {
+    display:flex;
+    align-items: center;
+    background-color: white!important;
+  }
+  .angular-editor-textarea{
+    resize: none!important;
+  }
+}
+

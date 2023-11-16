@@ -35,18 +35,17 @@ const editorConfig: AngularEditorConfig = {
   translate: 'yes',
   enableToolbar: true,
   showToolbar: true,
-  placeholder: 'Enter text here...',
+  placeholder: 'Write Chapter Here...',
   defaultFontName: 'roboto',
-  defaultFontSize: '',
+  defaultFontSize: '2',
   fonts: [
     { class: 'roboto', name: 'Roboto' },
     { class: 'arial', name: 'Arial' },
     { class: 'times-new-roman', name: 'Times New Roman' },
   ],
-
   sanitize: true,
   toolbarPosition: 'top',
-  toolbarHiddenButtons: toolbarHiddenButtons
+  toolbarHiddenButtons: toolbarHiddenButtons,
 };
 @Component({
   selector: 'app-editor',
