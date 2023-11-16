@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TextEditorService {
-  private _textContent: string = '';
+  private _htmlContent: string = '';
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   get textContent(): string {
-    return this._textContent;
+    return this._htmlContent;
   }
 
   set textContent(value: string) {
-    this._textContent = value;
+    this._htmlContent = value;
+    console.log(this._htmlContent)
+  }
+
+  get safeHtmlContent() {
+    return this.sanitizer.bypassSecurityTrustHtml(this._htmlContent);
   }
 }
