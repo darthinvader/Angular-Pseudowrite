@@ -1,6 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { TextEditorService } from './text-data.service';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
+import { FormsModule } from '@angular/forms';
+import { ViewEncapsulation } from '@angular/core';
 
 const toolbarHiddenButtons = [
   [
@@ -46,30 +49,24 @@ const editorConfig: AngularEditorConfig = {
   toolbarPosition: 'top',
   toolbarHiddenButtons: toolbarHiddenButtons
 };
-
 @Component({
-  selector: 'app-rich-text-editor',
-  templateUrl: './rich-text-editor.component.html',
-  styleUrls: ['./rich-text-editor.component.scss'],
+  selector: 'app-editor',
+  standalone: true,
+  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule],
+  templateUrl: './editor.component.html',
+  styleUrl: './editor.component.sass',
   encapsulation: ViewEncapsulation.None
 })
-export class RichTextEditorComponent {
+export class EditorComponent {
+  htmlContent = ''
   editorConfig = editorConfig
-
-
-  constructor(public textEditorService: TextEditorService) { }
-
-  handleTextChange(): void {
-    console.log(this.textEditorService.textContent);
-  }
 
   getSelectedText() {
     console.log(window)
     if (window.getSelection) {
       let selection = window.getSelection();
-      console.log(selection.toString())
+      console.log(selection?.toString())
     }
     return '';
   }
-
 }
