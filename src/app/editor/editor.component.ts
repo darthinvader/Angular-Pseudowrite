@@ -36,13 +36,12 @@ const editorConfig: AngularEditorConfig = {
   enableToolbar: true,
   showToolbar: true,
   placeholder: 'Enter text here...',
-  defaultFontName: '',
+  defaultFontName: 'roboto',
   defaultFontSize: '',
   fonts: [
+    { class: 'roboto', name: 'Roboto' },
     { class: 'arial', name: 'Arial' },
     { class: 'times-new-roman', name: 'Times New Roman' },
-    { class: 'calibri', name: 'Calibri' },
-    { class: 'comic-sans-ms', name: 'Comic Sans MS' }
   ],
 
   sanitize: true,
@@ -54,7 +53,7 @@ const editorConfig: AngularEditorConfig = {
   standalone: true,
   imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule],
   templateUrl: './editor.component.html',
-  styleUrl: './editor.component.sass',
+  styleUrl: './editor.component.scss',
   encapsulation: ViewEncapsulation.None
 })
 export class EditorComponent {

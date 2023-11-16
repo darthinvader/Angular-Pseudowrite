@@ -7,7 +7,7 @@ import { EditorComponent } from './editor/editor.component';
   standalone: true,
   imports: [CommonModule, RouterOutlet, EditorComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.sass'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'angular-pseudowrite';
