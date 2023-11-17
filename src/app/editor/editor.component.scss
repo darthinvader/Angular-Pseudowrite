@@ -20,11 +20,12 @@ angular-editor {
   .angular-editor-toolbar{
     padding: 0.5rem!important;
     display:flex;
-    gap: 0.5rem;
+    align-items: center;
   }
   
   .angular-editor-toolbar-set {
     display:flex;
+    margin: 2px!important;
     &:empty{
       display:none!important;
     }
@@ -36,7 +37,10 @@ angular-editor {
       display:flex;
       align-items: center;
       justify-content: center;
-      aspect-ratio: 1;  
+      aspect-ratio: 1;
+      i {
+        font-size:0.7rem;
+      }
     }
     .angular-editor-button:not([hidden]):hover {
       background-color: rgba(0,0,0,0.1)!important;
@@ -75,7 +79,6 @@ angular-editor {
       }
     }
     button.ae-picker-label {
-      appearance: none; /* Hides the default dropdown arrow */
       background-color: white!important; 
       border: 0!important; 
       border-top : 15px; 
@@ -85,6 +88,11 @@ angular-editor {
         outline: none; /* Removes default focus outline */
         box-shadow:#0003 0 2px 8px;
       }
+      &:hover{
+        outline: none; /* Removes default focus outline */
+        box-shadow:#0003 0 2px 8px;
+      }
+      
     }
   }
 }

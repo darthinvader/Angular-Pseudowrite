@@ -37,7 +37,6 @@ const editorConfig: AngularEditorConfig = {
   showToolbar: true,
   placeholder: 'Write Chapter Here...',
   defaultFontName: 'roboto',
-  defaultFontSize: '2',
   fonts: [
     { class: 'roboto', name: 'Roboto' },
     { class: 'arial', name: 'Arial' },
