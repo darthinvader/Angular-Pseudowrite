@@ -11,6 +11,7 @@ const toolbarHiddenButtons = [
     'superscript',
   ],
   [
+    'fontSize',
     'textColor',
     'backgroundColor',
     'customClasses',
