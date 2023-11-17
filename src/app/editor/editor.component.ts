@@ -19,7 +19,6 @@ const toolbarHiddenButtons = [
     'insertImage',
     'insertVideo',
     'insertHorizontalRule',
-    'removeFormat',
     'toggleEditorMode'
   ]
 ]
@@ -27,7 +26,7 @@ const toolbarHiddenButtons = [
 const editorConfig: AngularEditorConfig = {
   editable: true,
   spellcheck: true,
-  height: 'auto',
+  height: 'calc(100vh - 100px)',
   minHeight: '0',
   maxHeight: 'auto',
   width: 'auto',
