@@ -7,11 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:angular-pseudowrite": "node dist/angular-pseudowrite/server/server.mjs"
+    "serve:ssr:angular-pseudowrite": "node dist/angular-pseudowrite/server/server.mjs",
+    "storybook": "ng run angular-pseudowrite:storybook",
+    "build-storybook": "ng run angular-pseudowrite:build-storybook"
   },
   "private": true,
   "dependencies": {
-    "@angular-skyhook/core": "^1.4.0-rc.0",
     "@angular/animations": "^17.0.0",
     "@angular/cdk": "^17.0.1",
     "@angular/common": "^17.0.0",
@@ -29,10 +30,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@kolkov/angular-editor": "^3.0.0-beta.0",
-    "dnd-core": "^16.0.1",
     "express": "^4.18.2",
     "font-awesome": "^4.7.0",
-    "react-dnd": "^16.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -41,6 +40,14 @@
     "@angular-devkit/build-angular": "^17.0.1",
     "@angular/cli": "^17.0.1",
     "@angular/compiler-cli": "^17.0.0",
+    "@compodoc/compodoc": "^1.1.22",
+    "@storybook/addon-docs": "^7.5.3",
+    "@storybook/addon-essentials": "^7.5.3",
+    "@storybook/addon-interactions": "^7.5.3",
+    "@storybook/addon-links": "^7.5.3",
+    "@storybook/angular": "^7.5.3",
+    "@storybook/blocks": "^7.5.3",
+    "@storybook/testing-library": "^0.2.2",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
@@ -52,6 +59,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.31",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.5.3",
     "tailwindcss": "^3.3.5",
     "typescript": "~5.2.2"
   }
