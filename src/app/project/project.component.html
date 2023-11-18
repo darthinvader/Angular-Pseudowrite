@@ -1,0 +1,22 @@
+<div class="m-2 p-2 ">
+  <div class="flex gap-1">
+    <fa-icon [icon]="faBookOpen"></fa-icon>
+    <p>Book</p>
+  </div>
+  <div class="m-2 flex flex-col" cdkDropList (cdkDropListDropped)="onDrop($event)">
+    @for (file of files; track $index) {
+      <div cdkDrag class="py-2 px-4 flex gap-1 bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm">
+        <button>
+          <fa-icon [icon]="faGripVertical"></fa-icon>
+        </button>
+        <fa-icon [icon]="faFileLines"></fa-icon>
+        {{ file }}
+        <button>
+          <fa-icon [icon]="faEllipsisVertical"></fa-icon>
+        </button>
+      </div>
+    } @empty {
+      No files!
+    }
+  </div>
+</div>

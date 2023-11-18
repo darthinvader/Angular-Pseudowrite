@@ -86,7 +86,7 @@ export class EditorComponent {
       let selection = window.getSelection();
       const body = {
         messages: [
-          { role: 'system', content: 'Reword the specific message, do not say anything before the rewording.' },
+          { role: 'system', content: 'Reword the specific message, do not say anything before or after the rewording.' },
           { role: 'user', content: selection?.toString() }
         ],
         temperature: 0.7,
