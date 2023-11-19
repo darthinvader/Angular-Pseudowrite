@@ -39,6 +39,13 @@ export class ProjectComponent {
     this.originalBookName = this.bookName; // Store the original book name
   }
 
+  onTitleEnter(): void {
+    if (!this.bookName.trim()) {
+      this.bookName = this.originalBookName; // Revert to original name if empty
+    }
+    this.editingTitle = false;
+  }
+
   onTitleBlur(): void {
     if (!this.bookName.trim()) {
       this.bookName = this.originalBookName; // Revert to original name if empty

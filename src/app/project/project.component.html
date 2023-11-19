@@ -1,11 +1,11 @@
-<div class="m-2 p-2">
-  <div class="flex gap-1 justify-center items-center">
+<div class="m-4 p-4 border-2 border-gray-300 rounded-lg shadow">
+  <div class="flex gap-1 justify-center items-center mb-4">
     <fa-icon [icon]="faBookOpen" class="text-xl"></fa-icon>
     <div *ngIf="!editingTitle" (click)="onTitleClick()" class="cursor-pointer">
       <p class="text-lg font-semibold">{{ bookName }}</p>
     </div>
     <input *ngIf="editingTitle" [(ngModel)]="bookName" (blur)="onTitleBlur()" 
-           class="form-input border border-gray-300 rounded py-1 px-2 text-lg">
+            (keyup.enter)="onTitleEnter()" class="form-input border border-gray-300 rounded py-1 px-2 text-lg">
     <button (click)="importFiles()" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
       Import
     </button>
@@ -24,7 +24,7 @@
           {{ file }}
         </div>
         <div class="flex items-center gap-2">
-          <button (click)="deleteFile(i)" class="focus:outline-none">
+          <button (click)="deleteFile($index)" class="focus:outline-none">
             <fa-icon [icon]="faTrash"></fa-icon>
           </button>
           <button (click)="exportFile(file)" class="focus:outline-none">
