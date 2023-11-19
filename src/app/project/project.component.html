@@ -1,4 +1,4 @@
-<div class="m-4 p-4 border-2 border-gray-300 rounded-lg shadow">
+<div class="m-4 p-4 border-4 border-gray-300 rounded-lg  shadow">
   <div class="flex gap-1 justify-center items-center mb-4">
     <fa-icon [icon]="faBookOpen" class="text-xl"></fa-icon>
     <div *ngIf="!editingTitle" (click)="onTitleClick()" class="cursor-pointer">
@@ -15,7 +15,7 @@
       Add New
     </button>
   </div>
-  <div class="m-2 flex flex-col" cdkDropList (cdkDropListDropped)="onDrop($event)">
+  <div class="m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md" cdkDropList (cdkDropListDropped)="onDrop($event)">
     @for (file of files; track $index) {
       <div cdkDrag class="py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm">
         <div class="flex items-center gap-1" >
