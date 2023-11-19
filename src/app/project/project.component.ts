@@ -17,6 +17,9 @@ export class ProjectComponent {
   @Input() files: string[] = ['File 1', 'File 2', 'File 3'];
   @Input() bookName: string = 'Book'
   editingTitle: boolean = false;
+  originalBookName: string = ''
+
+
   faBookOpen = faBookOpen
   faFileLines = faFileLines
   faEllipsisVertical = faEllipsisVertical
@@ -30,9 +33,13 @@ export class ProjectComponent {
 
   onTitleClick(): void {
     this.editingTitle = true;
+    this.originalBookName = this.bookName; // Store the original book name
   }
 
   onTitleBlur(): void {
+    if (!this.bookName.trim()) {
+      this.bookName = this.originalBookName; // Revert to original name if empty
+    }
     this.editingTitle = false;
   }
 
