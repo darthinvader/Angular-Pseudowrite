@@ -221,7 +221,7 @@
         },
         {
             "name": "EditorComponent",
-            "id": "component-EditorComponent-a020f00c1d68ac23cb96c708635d8dc0175f0bfafd1e41175d25efa97df548affb6cf2a7198c017426fa5f1598533a9c99f3fbf9dbeb57e4e8cc71c7fab138b6",
+            "id": "component-EditorComponent-ad56b17fbd9b9ef6caad35cc7cd0b92f91a9a9ee8a4d812dc974479791e6c5a9daa668911e48b8ca660d95f6f47749f15eaf7bbaf68f4eef7f081ae9c9832e36",
             "file": "src/app/editor/editor.component.ts",
             "encapsulation": [
                 "ViewEncapsulation.None"
@@ -238,30 +238,28 @@
             ],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
+            "inputsClass": [
                 {
                     "name": "editorConfig",
                     "defaultValue": "editorConfig",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 59
+                    "line": 59,
+                    "type": "AngularEditorConfig",
+                    "decorators": []
                 },
                 {
                     "name": "htmlContent",
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "line": 58,
                     "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 58
+                    "decorators": []
                 }
             ],
+            "outputsClass": [],
+            "propertiesClass": [],
             "methodsClass": [
                 {
                     "name": "giveDifferentWording",
@@ -314,7 +312,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { HttpClient, HttpClientModule } from '@angular/common/http';\r\nimport { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { ViewEncapsulation } from '@angular/core';\r\n\r\nconst toolbarHiddenButtons = [\r\n  [\r\n    'subscript',\r\n    'superscript',\r\n  ],\r\n  [\r\n    'fontSize',\r\n    'textColor',\r\n    'backgroundColor',\r\n    'customClasses',\r\n    'link',\r\n    'unlink',\r\n    'insertImage',\r\n    'insertVideo',\r\n    'insertHorizontalRule',\r\n    'toggleEditorMode'\r\n  ]\r\n]\r\n\r\nconst editorConfig: AngularEditorConfig = {\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n};\r\n@Component({\r\n  selector: 'app-editor',\r\n  standalone: true,\r\n  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule],\r\n  templateUrl: './editor.component.html',\r\n  styleUrl: './editor.component.scss',\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class EditorComponent {\r\n  htmlContent = ''\r\n  editorConfig = editorConfig\r\n\r\n\r\n  constructor(private http: HttpClient) { }\r\n\r\n  performRequest() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Always answer in rhymes.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n  giveDifferentWording() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Reword the specific message, do not say anything before or after the rewording.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n}",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { HttpClient, HttpClientModule } from '@angular/common/http';\r\nimport { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { ViewEncapsulation } from '@angular/core';\r\n\r\nconst toolbarHiddenButtons = [\r\n  [\r\n    'subscript',\r\n    'superscript',\r\n  ],\r\n  [\r\n    'fontSize',\r\n    'textColor',\r\n    'backgroundColor',\r\n    'customClasses',\r\n    'link',\r\n    'unlink',\r\n    'insertImage',\r\n    'insertVideo',\r\n    'insertHorizontalRule',\r\n    'toggleEditorMode'\r\n  ]\r\n]\r\n\r\nconst editorConfig: AngularEditorConfig = {\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n};\r\n@Component({\r\n  selector: 'app-editor',\r\n  standalone: true,\r\n  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule],\r\n  templateUrl: './editor.component.html',\r\n  styleUrl: './editor.component.scss',\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class EditorComponent {\r\n  @Input() htmlContent = ''\r\n  @Input() editorConfig = editorConfig\r\n\r\n\r\n  constructor(private http: HttpClient) { }\r\n\r\n  performRequest() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Always answer in rhymes.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n  giveDifferentWording() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Reword the specific message, do not say anything before or after the rewording.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n}",
             "styleUrl": "./editor.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -791,6 +789,16 @@
                 "defaultValue": "{\n  args: {\n    primary: true,\n    label: 'Button',\n  },\n}"
             },
             {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/editor/editor.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  props: {\r\n    htmlContent: '',\r\n  },\r\n})"
+            },
+            {
                 "name": "Secondary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1064,6 +1072,18 @@
                     "type": "Preview",
                     "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
                 }
+            ],
+            "src/app/editor/editor.stories.ts": [
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/editor/editor.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  props: {\r\n    htmlContent: '',\r\n  },\r\n})"
+                }
             ]
         },
         "groupedFunctions": {},
@@ -1189,6 +1209,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "toolbarHiddenButtons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/editor/editor.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

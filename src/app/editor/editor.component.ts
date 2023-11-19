@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
@@ -55,8 +55,8 @@ const editorConfig: AngularEditorConfig = {
   encapsulation: ViewEncapsulation.None
 })
 export class EditorComponent {
-  htmlContent = ''
-  editorConfig = editorConfig
+  @Input() htmlContent = ''
+  @Input() editorConfig = editorConfig
 
 
   constructor(private http: HttpClient) { }
