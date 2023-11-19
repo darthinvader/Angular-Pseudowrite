@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBookOpen, faFileLines, faEllipsisVertical, faGripVertical, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+import { faBookOpen, faFileLines, faEllipsisVertical, faGripVertical, faFolderOpen, faTrash, faFileExport, faClone } from '@fortawesome/free-solid-svg-icons';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 @Component({
@@ -25,6 +25,9 @@ export class ProjectComponent {
   faEllipsisVertical = faEllipsisVertical
   faGripVertical = faGripVertical
   faFolderOpen = faFolderOpen
+  faTrash = faTrash;
+  faFileExport = faFileExport;
+  faClone = faClone;
 
   onDrop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.files, event.previousIndex, event.currentIndex);
@@ -50,7 +53,17 @@ export class ProjectComponent {
   addNewFile(): void {
     // Implement logic to add a new file
   }
+  deleteFile(index: number): void {
+    // Implement file deletion logic
+  }
 
+  exportFile(file: string): void {
+    // Implement file export logic
+  }
+
+  duplicateFile(file: string): void {
+    // Implement file duplication logic
+  }
 
 }
 

@@ -15,15 +15,25 @@
   </div>
   <div class="m-2 flex flex-col" cdkDropList (cdkDropListDropped)="onDrop($event)">
     @for (file of files; track $index) {
-      <div cdkDrag class="py-2 px-4 flex gap-1 bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm">
-        <button>
-          <fa-icon [icon]="faGripVertical"></fa-icon>
-        </button>
-        <fa-icon [icon]="faFileLines"></fa-icon>
-        {{ file }}
-        <button>
-          <fa-icon [icon]="faEllipsisVertical"></fa-icon>
-        </button>
+      <div cdkDrag class="py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm">
+        <div class="flex items-center gap-1">
+          <button class="focus:outline-none">
+            <fa-icon [icon]="faGripVertical"></fa-icon>
+          </button>
+          <fa-icon [icon]="faFileLines"></fa-icon>
+          {{ file }}
+        </div>
+        <div class="flex items-center gap-2">
+          <button (click)="deleteFile(i)" class="focus:outline-none">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+          <button (click)="exportFile(file)" class="focus:outline-none">
+            <fa-icon [icon]="faFileExport"></fa-icon>
+          </button>
+          <button (click)="duplicateFile(file)" class="focus:outline-none">
+            <fa-icon [icon]="faClone"></fa-icon>
+          </button>
+        </div>
       </div>
     } @empty {
       <div *ngIf="files.length === 0" class="text-center text-gray-600 mt-5">
