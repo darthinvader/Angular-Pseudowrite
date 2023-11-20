@@ -1,20 +1,5 @@
 <div class="m-4 p-4 border-4 border-gray-300 rounded-lg  shadow">
-  <div class="flex gap-1 justify-center items-center mb-4">
-    <fa-icon [icon]="faBookOpen" class="text-xl"></fa-icon>
-    <div *ngIf="!editingTitle" (click)="onTitleClick()" class="cursor-pointer">
-      <p class="text-lg font-semibold">{{ bookName }}</p>
-    </div>
-    <input *ngIf="editingTitle" [(ngModel)]="bookName" (blur)="onTitleBlur()" 
-            (keyup.enter)="onTitleEnter()" class="form-input border border-gray-300 rounded py-1 px-2 text-lg">
-    <button (click)="importFiles()" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1">
-      <fa-icon [icon]="faFileImport" class="text-base"></fa-icon>
-      Import
-    </button>
-    <button (click)="addNewFile()" class="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1">
-      <fa-icon [icon]="faPlus" class="text-base"></fa-icon>
-      Add New
-    </button>
-  </div>
+  <app-project-title></app-project-title>
   <div class="m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md" cdkDropList (cdkDropListDropped)="onDrop($event)">
     @for (file of files; track $index) {
       <div cdkDrag class="py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm">
@@ -38,7 +23,7 @@
         </div>
       </div>
     } @empty {
-      <div *ngIf="files.length === 0" class="text-center text-gray-600 mt-5">
+      <div *ngIf="files.length === 0" class="text-center text-gray-600 m-5">
         <fa-icon [icon]="faFolderOpen" class="text-3xl"></fa-icon>
         <p>No files yet. Click "Add New" to start!</p>
       </div>

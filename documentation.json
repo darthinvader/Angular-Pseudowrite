@@ -201,7 +201,7 @@
         },
         {
             "name": "ProjectComponent",
-            "id": "component-ProjectComponent-b00d1f292c7faac763012ba47f32c17f7e4e81fa406726239734031ad55446f2ae083183d16f48dac22c597e78795eeee260a9613efe5b39b8e309b5123650bb",
+            "id": "component-ProjectComponent-051372484a63f173b27e70b79ed1b617ecd3ece8a61e42804e3ce02c95bf4b4096bae4635ea92fb3d00e64ae9942e1a31c88b88f987ae516d68c433a9f90189a",
             "file": "src/app/project/project.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -224,7 +224,7 @@
                     "defaultValue": "['File 1', 'File 2', 'File 3']",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 16,
+                    "line": 18,
                     "type": "string[]",
                     "decorators": []
                 }
@@ -232,14 +232,14 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
-                    "name": "faBookOpen",
-                    "defaultValue": "faBookOpen",
+                    "name": "faClone",
+                    "defaultValue": "faClone",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 25
                 },
                 {
                     "name": "faEllipsisVertical",
@@ -249,7 +249,27 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
+                },
+                {
+                    "name": "faFileExport",
+                    "defaultValue": "faFileExport",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                },
+                {
+                    "name": "faFileImport",
+                    "defaultValue": "faFileImport",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
                 },
                 {
                     "name": "faFileLines",
@@ -259,7 +279,17 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
+                },
+                {
+                    "name": "faFolderOpen",
+                    "defaultValue": "faFolderOpen",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
                 },
                 {
                     "name": "faGripVertical",
@@ -269,10 +299,114 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 21
+                },
+                {
+                    "name": "faPlus",
+                    "defaultValue": "faPlus",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                },
+                {
+                    "name": "faTrash",
+                    "defaultValue": "faTrash",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "deleteFile",
+                    "args": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "duplicateFile",
+                    "args": [
+                        {
+                            "name": "file",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 41,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "file",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "exportFile",
+                    "args": [
+                        {
+                            "name": "file",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 37,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "file",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "onDrop",
                     "args": [
@@ -286,7 +420,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 29,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -319,12 +453,20 @@
                 {
                     "name": "DragDropModule",
                     "type": "module"
+                },
+                {
+                    "name": "FormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "ProjectTitleComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faBookOpen, faFileLines, faEllipsisVertical, faGripVertical } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\n@Component({\n  selector: 'app-project',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule\n  ],\n  templateUrl: './project.component.html',\n  styleUrls: ['./project.component.css'],\n})\nexport class ProjectComponent {\n  @Input() files: string[] = ['File 1', 'File 2', 'File 3'];\n  faBookOpen = faBookOpen\n  faFileLines = faFileLines\n  faEllipsisVertical = faEllipsisVertical\n  faGripVertical = faGripVertical\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    moveItemInArray(this.files, event.previousIndex, event.currentIndex);\n    console.log(this.files, event)\n  }\n}\n\n\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faBookOpen, faFileLines, faEllipsisVertical, faGripVertical, faFolderOpen, faTrash, faFileExport, faClone, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { FormsModule } from '@angular/forms';\nimport { ProjectTitleComponent } from './title/project-title.component';\n@Component({\n  selector: 'app-project',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, FormsModule, ProjectTitleComponent\n  ],\n  templateUrl: './project.component.html',\n  styleUrls: ['./project.component.css'],\n})\nexport class ProjectComponent {\n  @Input() files: string[] = ['File 1', 'File 2', 'File 3'];\n  faFileLines = faFileLines\n  faEllipsisVertical = faEllipsisVertical\n  faGripVertical = faGripVertical\n  faFolderOpen = faFolderOpen\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n  faFileImport = faFileImport;\n  faPlus = faPlus;\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    moveItemInArray(this.files, event.previousIndex, event.currentIndex);\n    console.log(this.files, event)\n  }\n  deleteFile(index: number): void {\n    // Implement file deletion logic\n  }\n\n  exportFile(file: string): void {\n    // Implement file export logic\n  }\n\n  duplicateFile(file: string): void {\n    // Implement file duplication logic\n  }\n\n}\n\n\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -334,7 +476,169 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"m-2 p-2 \">\n  <div class=\"flex gap-1 justify-center\">\n    <fa-icon [icon]=\"faBookOpen\"></fa-icon>\n    <p>Book</p>\n  </div>\n  <div class=\"m-2 flex flex-col\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n      <div cdkDrag class=\"py-2 px-4 flex gap-1 bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm\">\n        <button>\n          <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n        </button>\n        <fa-icon [icon]=\"faFileLines\"></fa-icon>\n        {{ file }}\n        <button>\n          <fa-icon [icon]=\"faEllipsisVertical\"></fa-icon>\n        </button>\n      </div>\n    } @empty {\n      No files!\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"m-4 p-4 border-4 border-gray-300 rounded-lg  shadow\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n      <div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm\">\n        <div class=\"flex items-center gap-1\" >\n          <button class=\"focus:outline-none\" title=\"Drag File\">\n            <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n          </button>\n          <fa-icon [icon]=\"faFileLines\"></fa-icon>\n          {{ file }}\n        </div>\n        <div class=\"flex items-center gap-2\">\n          <button (click)=\"deleteFile($index)\" title=\"Delete File\" class=\"focus:outline-none\">\n            <fa-icon [icon]=\"faTrash\"></fa-icon>\n          </button>\n          <button (click)=\"exportFile(file)\" title=\"Export File\" class=\"focus:outline-none\">\n            <fa-icon [icon]=\"faFileExport\"></fa-icon>\n          </button>\n          <button (click)=\"duplicateFile(file)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n            <fa-icon [icon]=\"faClone\"></fa-icon>\n          </button>\n        </div>\n      </div>\n    } @empty {\n      <div *ngIf=\"files.length === 0\" class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+        },
+        {
+            "name": "ProjectTitleComponent",
+            "id": "component-ProjectTitleComponent-15551cdb416c98c84b6a2dfa575e9369483ae56dd350a600170c41d1b3b44aceeb74f06b9dd2cee7a5d943ca0b50cbf0a2a5e66070ee78ff99ce6d82f896f8c0",
+            "file": "src/app/project/title/project-title.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-project-title",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./project-title.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "bookName",
+                    "defaultValue": "'Book'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "editingTitle",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
+                {
+                    "name": "faBookOpen",
+                    "defaultValue": "faBookOpen",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                },
+                {
+                    "name": "faFileImport",
+                    "defaultValue": "faFileImport",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "faPlus",
+                    "defaultValue": "faPlus",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "originalBookName",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "addNewFile",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 48,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "importFiles",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 44,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onTitleBlur",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 36,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onTitleClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onTitleEnter",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 29,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "FormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "FontAwesomeModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { faBookOpen, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\n\n@Component({\n  selector: 'app-project-title',\n  standalone: true,\n  imports: [\n    CommonModule, FormsModule, FontAwesomeModule\n  ],\n  templateUrl: './project-title.component.html',\n})\nexport class ProjectTitleComponent {\n  @Input() bookName: string = 'Book'\n  editingTitle: boolean = false;\n  originalBookName: string = ''\n  faFileImport = faFileImport;\n  faPlus = faPlus;\n  faBookOpen = faBookOpen\n\n\n  onTitleClick(): void {\n    this.editingTitle = true;\n    this.originalBookName = this.bookName; // Store the original book name\n  }\n\n  onTitleEnter(): void {\n    if (!this.bookName.trim()) {\n      this.bookName = this.originalBookName; // Revert to original name if empty\n    }\n    this.editingTitle = false;\n  }\n\n  onTitleBlur(): void {\n    if (!this.bookName.trim()) {\n      this.bookName = this.originalBookName; // Revert to original name if empty\n    }\n    this.editingTitle = false;\n  }\n\n\n  importFiles(): void {\n    // Implement file import logic here\n  }\n\n  addNewFile(): void {\n    // Implement logic to add a new file\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"flex gap-1 justify-center items-center mb-4\">\n  <fa-icon [icon]=\"faBookOpen\" class=\"text-xl\"></fa-icon>\n  <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n    <p class=\"text-lg font-semibold\">{{ bookName }}</p>\n  </div>\n  <input *ngIf=\"editingTitle\" [(ngModel)]=\"bookName\" (blur)=\"onTitleBlur()\" \n          (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-gray-300 rounded py-1 px-2 text-lg\">\n  <button (click)=\"importFiles()\" class=\"ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n    <fa-icon [icon]=\"faFileImport\" class=\"text-base\"></fa-icon>\n    Import\n  </button>\n  <button (click)=\"addNewFile()\" class=\"ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n    <fa-icon [icon]=\"faPlus\" class=\"text-base\"></fa-icon>\n    Add New\n  </button>\n</div>"
         }
     ],
     "modules": [],
@@ -378,7 +682,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: ['File 1', 'File 2', 'File 3'], // Example files\r\n  },\r\n})"
+                "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: ['File 1', 'File 2', 'File 3'],\r\n\r\n  },\r\n})"
             },
             {
                 "name": "editorConfig",
@@ -398,7 +702,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: [], // Empty file list\r\n  },\r\n})"
+                "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: [],\r\n  },\r\n})"
             },
             {
                 "name": "preview",
@@ -500,7 +804,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: ['File 1', 'File 2', 'File 3'], // Example files\r\n  },\r\n})"
+                    "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: ['File 1', 'File 2', 'File 3'],\r\n\r\n  },\r\n})"
                 },
                 {
                     "name": "Empty",
@@ -510,7 +814,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: [], // Empty file list\r\n  },\r\n})"
+                    "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: [],\r\n  },\r\n})"
                 }
             ],
             "src/app/editor/editor.component.ts": [
@@ -663,7 +967,7 @@
                 "linktype": "component",
                 "name": "ProjectComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/15",
                 "status": "low"
             },
             {
@@ -684,6 +988,15 @@
                 "name": "Empty",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/project/title/project-title.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ProjectTitleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
                 "status": "low"
             },
             {
