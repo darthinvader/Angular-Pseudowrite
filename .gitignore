@@ -40,3 +40,23 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
+
+# Environment files
+/src/environments/environment.prod.ts
+/src/environments/environment.ts
+
+# e2e test output
+/e2e/*.js
+/e2e/*.map
+
+# Angular files
+/angular.json
+ngcc-lock-file.lock
+
+# Lint
+.eslintcache
