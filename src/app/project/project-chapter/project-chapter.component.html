@@ -1,0 +1,20 @@
+<div cdkDrag class="py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm">
+  <div class="flex items-center gap-1" >
+    <button class="focus:outline-none" title="Drag File">
+      <fa-icon [icon]="faGripVertical"></fa-icon>
+    </button>
+    <fa-icon [icon]="faFileLines"></fa-icon>
+    {{ file }}
+  </div>
+  <div class="flex items-center gap-2">
+    <button (click)="deleteFile(index)" title="Delete File" class="focus:outline-none">
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </button>
+    <button (click)="exportFile(file)" title="Export File" class="focus:outline-none">
+      <fa-icon [icon]="faFileExport"></fa-icon>
+    </button>
+    <button (click)="duplicateFile(file)" title="Duplicate File" class="focus:outline-none">
+      <fa-icon [icon]="faClone"></fa-icon>
+    </button>
+  </div>
+</div>
