@@ -10,12 +10,11 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
   standalone: true,
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './login.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-
-  constructor(private authService: AuthService, private firestore: AngularFirestore) { }
+  constructor(protected authService: AuthService, private firestore: AngularFirestore) { }
   faGoogle = faGoogle
+
   createUserProfile(user: firebase.User | null) {
     if (user === null) {
       console.error('User was noone :/');
@@ -30,12 +29,15 @@ export class LoginComponent {
     return this.firestore.collection('Users').doc(user.uid).set(userProfile);
   }
 
-
   onGoogleLogin() {
     this.authService.signInWithGoogle().then((result) => {
       if (result?.additionalUserInfo?.isNewUser) {
         this?.createUserProfile(result.user);
       }
     });
+  }
+
+  onGoogleLogout() {
+    this.authService.signOutGoogle()
   }
 }
