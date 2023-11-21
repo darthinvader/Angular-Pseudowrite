@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
-import { LocalStorageService } from '../../services/storage-service.service';
+import { LocalStorageService } from './storage-service.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   isLoggedIn: boolean = false;
