@@ -1,7 +1,287 @@
 {
     "pipes": [],
-    "interfaces": [],
-    "injectables": [],
+    "interfaces": [
+        {
+            "name": "Book",
+            "id": "interface-Book-21de27f77cac9748e838e2dac21c18fefbd8abc2d4c07e45ce0908523bee7808e7f8e6e7234310bfb736319cc083e6618bc3b5d618719b35ecb19ef02ed8421b",
+            "file": "src/app/book-explorer/book-explorer.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\n\nexport interface Book {\n  title: string,\n  imgUrl: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule,\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n}\n",
+            "properties": [
+                {
+                    "name": "imgUrl",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "title",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        }
+    ],
+    "injectables": [
+        {
+            "name": "AuthService",
+            "id": "injectable-AuthService-afc7f873c15e78162ac6c97d6ce3a2238df634a131bd340e1d011d2939af8c2ae97e68e074f57c030f38ffa95c6ecb777d585bffedccf3d15a20e67373448193",
+            "file": "src/services/auth.service.ts",
+            "properties": [
+                {
+                    "name": "afAuth",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "AngularFireAuth",
+                    "optional": false,
+                    "description": "",
+                    "line": 9,
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
+                    "name": "isLoggedIn",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                }
+            ],
+            "methods": [
+                {
+                    "name": "signInWithGoogle",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "unknown",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        134
+                    ]
+                },
+                {
+                    "name": "signOutGoogle",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 34,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        134
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { AngularFireAuth } from '@angular/fire/compat/auth';\r\nimport firebase from 'firebase/compat/app';\r\nimport { LocalStorageService } from './storage-service.service';\r\n@Injectable({ providedIn: 'root' })\r\nexport class AuthService {\r\n  isLoggedIn: boolean = false;\r\n  // Using localstorage aas a backup for when app initializes\r\n  constructor(public afAuth: AngularFireAuth, private localStorage: LocalStorageService) {\r\n    this.isLoggedIn = this.localStorage.getItem('user')\r\n    this.afAuth.authState.subscribe(\r\n      (user) => {\r\n        if (user) {\r\n          this.localStorage.setItem('user', true);\r\n          this.isLoggedIn = true;\r\n        } else {\r\n          this.localStorage.setItem('user', false);\r\n          this.isLoggedIn = false;\r\n        }\r\n      }\r\n    );\r\n\r\n  }\r\n  async signInWithGoogle() {\r\n    const provider = new firebase.auth.GoogleAuthProvider();\r\n    try {\r\n      const result = await this.afAuth.signInWithPopup(provider);\r\n      return result;\r\n    } catch (error) {\r\n      console.error(error);\r\n      return null;\r\n    }\r\n  }\r\n  async signOutGoogle() {\r\n    await this.afAuth.signOut()\r\n  }\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "afAuth",
+                        "type": "AngularFireAuth",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "localStorage",
+                        "type": "LocalStorageService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 7,
+                "jsdoctags": [
+                    {
+                        "name": "afAuth",
+                        "type": "AngularFireAuth",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "localStorage",
+                        "type": "LocalStorageService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
+        },
+        {
+            "name": "LocalStorageService",
+            "id": "injectable-LocalStorageService-23ddc74baaa63425813a0ce5c6925b9d0aa5133b28a159fed0ad042450ecc50030f6e7fac182bb4d95756103cfe27fa21bd330fa07d316ecb140db5ce9396b9a",
+            "file": "src/services/storage-service.service.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "getItem",
+                    "args": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "removeItem",
+                    "args": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setItem",
+                    "args": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "value",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 11,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "value",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable, Inject, PLATFORM_ID } from '@angular/core';\nimport { isPlatformBrowser } from '@angular/common';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class LocalStorageService {\n\n  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }\n\n  setItem(key: string, value: any): void {\n    if (isPlatformBrowser(this.platformId)) {\n      localStorage.setItem(key, JSON.stringify(value));\n    }\n  }\n\n  getItem(key: string): any {\n    if (isPlatformBrowser(this.platformId)) {\n      const item = localStorage.getItem(key);\n      return item ? JSON.parse(item) : null;\n    }\n    return null;\n  }\n\n  removeItem(key: string): void {\n    if (isPlatformBrowser(this.platformId)) {\n      localStorage.removeItem(key);\n    }\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "platformId",
+                        "type": "Object",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 7,
+                "jsdoctags": [
+                    {
+                        "name": "platformId",
+                        "type": "Object",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
+        }
+    ],
     "guards": [],
     "interceptors": [],
     "classes": [],
@@ -9,7 +289,7 @@
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-f5240c401cc122244d4a2973d418b3e759157c214ef06617e7f94d018d8136e4ecae01360a385f71c43a17d797fd952ce5b791ba9e1c9a707c1a527d8d50268c",
+            "id": "component-AppComponent-f7d4b6613573d136962d000173fd5285567cb99616a4237eda3682fbc237c3f55fa6203765e766063293d2b834c4aed08d46a2853a6b5700324a203dc26adfc4",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -59,18 +339,127 @@
                 {
                     "name": "ProjectComponent",
                     "type": "component"
+                },
+                {
+                    "name": "LoginComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { EditorComponent } from './editor/editor.component';\r\nimport { ProjectComponent } from './project/project.component';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, EditorComponent, ProjectComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n}\r\n",
-            "styleUrl": "./app.component.scss",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { EditorComponent } from './editor/editor.component';\r\nimport { ProjectComponent } from './project/project.component';\r\nimport { LoginComponent } from './login/login.component';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, EditorComponent, ProjectComponent, LoginComponent],\r\n  templateUrl: './app.component.html',\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<!-- <app-editor></app-editor> -->\r\n<app-project></app-project>\r\n"
+            "templateData": "<app-project></app-project>\r\n<app-login></app-login>"
+        },
+        {
+            "name": "BookCardComponent",
+            "id": "component-BookCardComponent-d7f140419eef9397c5224f0fa0f5760057973ae0bf23197d0bf7f898002a309d226271b4517aa84f95467fc991444317dd93a2c81cba80d08378d55a768f9d62",
+            "file": "src/app/book-explorer/book-card/book-card.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-book-card",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./book-card.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "book",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15,
+                    "type": "Book | null",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { Book } from '../book-explorer.component';\n\n@Component({\n  selector: 'app-book-card',\n  standalone: true,\n  imports: [\n    CommonModule,\n  ],\n  templateUrl: './book-card.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCardComponent {\n  @Input() book: Book | null = null\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"max-w-sm rounded overflow-hidden shadow-lg cursor-pointer hover:bg-gray-100 transform hover:-translate-y-1 hover:scale-105 transition duration-300 ease-in-out\">\n  <div class=\"flex flex-col justify-between h-full\">\n    <div class=\"px-6 py-2 flex justify-center align-middle\">\n      <div class=\"font-bold text-3xl mb-2\">{{book?.title}}</div>\n    </div>\n    <img class=\"w-full flex-1 p-2\" [src]=\"book?.imgUrl\" alt=\"Your Image Description\">\n  </div>\n</div>"
+        },
+        {
+            "name": "BookExplorerComponent",
+            "id": "component-BookExplorerComponent-21de27f77cac9748e838e2dac21c18fefbd8abc2d4c07e45ce0908523bee7808e7f8e6e7234310bfb736319cc083e6618bc3b5d618719b35ecb19ef02ed8421b",
+            "file": "src/app/book-explorer/book-explorer.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-book-explorer",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./book-explorer.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "books",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 19,
+                    "type": "Book[]",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\n\nexport interface Book {\n  title: string,\n  imgUrl: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule,\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4\">\n  @for{}\n  <app-book-card [book]=\"book\"></app-book-card>\n</div>"
         },
         {
             "name": "EditorComponent",
@@ -200,32 +589,199 @@
             "templateData": "<angular-editor id=\"editor\" [(ngModel)]=\"htmlContent\" [config]=\"editorConfig\"></angular-editor>\r\n<button class=\"bg-indigo-500 p-2 m-1 text-white rounded hover:drop-shadow-lg duration-500\" (click)=\"performRequest()\">Suggest</button>\r\n<button class=\"bg-indigo-500 p-2 m-1 text-white rounded hover:drop-shadow-lg duration-500\" (click)=\"giveDifferentWording()\">Provide different wording</button>\r\n\r\n<!-- Generate new buttons for: brainstorming ideas, rephrase/rewrite(with options?), Add certain aspects to scene, grammar, spelling and punctuation corrections, Continue writing, \r\n-->\r\n<!-- character creation,location creation,thing creation, categorical creation, song/poem/writing anything  -->\r\n\r\n<!-- Story Bible -> Braindump, Genre, Style, Synopsis, Characters, Outline -->"
         },
         {
-            "name": "ProjectComponent",
-            "id": "component-ProjectComponent-051372484a63f173b27e70b79ed1b617ecd3ece8a61e42804e3ce02c95bf4b4096bae4635ea92fb3d00e64ae9942e1a31c88b88f987ae516d68c433a9f90189a",
-            "file": "src/app/project/project.component.ts",
+            "name": "LoginComponent",
+            "id": "component-LoginComponent-88391782e3c028bc8dc8aff64ad6e3e6958a5be1a8e9f1031a35f19c90d3ae40663c81cd65207137376299dd1ffeb194d4154f6521a5f6694bf850d7a09c459e",
+            "file": "src/app/login/login.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
             "providers": [],
-            "selector": "app-project",
-            "styleUrls": [
-                "./project.component.css"
-            ],
+            "selector": "app-login",
+            "styleUrls": [],
             "styles": [],
             "templateUrl": [
-                "./project.component.html"
+                "./login.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "authService",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "AuthService",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
+                    "name": "faGoogle",
+                    "defaultValue": "faGoogle",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "createUserProfile",
+                    "args": [
+                        {
+                            "name": "user",
+                            "type": "firebase.User | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 19,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "user",
+                            "type": "firebase.User | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onGoogleLogin",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onGoogleLogout",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 41,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "FontAwesomeModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AuthService } from '../../services/auth.service';\nimport { AngularFirestore } from '@angular/fire/compat/firestore';\nimport firebase from 'firebase/compat/app';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faGoogle } from '@fortawesome/free-brands-svg-icons'\n@Component({\n  selector: 'app-login',\n  standalone: true,\n  imports: [CommonModule, FontAwesomeModule],\n  templateUrl: './login.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class LoginComponent {\n  constructor(public authService: AuthService, private firestore: AngularFirestore) { }\n  faGoogle = faGoogle\n\n  createUserProfile(user: firebase.User | null) {\n    if (user === null) {\n      console.error('User was noone :/');\n      return\n    }\n    const userProfile = {\n      id: user.uid,\n      name: user.displayName,\n      email: user.email,\n      books: {} // Initialize empty books object\n    };\n    return this.firestore.collection('Users').doc(user.uid).set(userProfile);\n  }\n\n  onGoogleLogin() {\n    this.authService.signInWithGoogle().then((result) => {\n      if (result?.additionalUserInfo?.isNewUser) {\n        this?.createUserProfile(result.user);\n      }\n    });\n  }\n\n  onGoogleLogout() {\n    this.authService.signOutGoogle()\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "authService",
+                        "type": "AuthService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "firestore",
+                        "type": "AngularFirestore",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 15,
+                "jsdoctags": [
+                    {
+                        "name": "authService",
+                        "type": "AuthService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "firestore",
+                        "type": "AngularFirestore",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "templateData": "<div *ngIf=\"authService.isLoggedIn; else loginTemplate\">\n  <button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center\" (click)=\"onGoogleLogout()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Logout</span>\n  </button>\n</div>\n<ng-template #loginTemplate>\n  <button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center\" (click)=\"onGoogleLogin()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Login with Google</span>\n  </button>\n</ng-template>\n"
+        },
+        {
+            "name": "ProjectChapterComponent",
+            "id": "component-ProjectChapterComponent-d277b1e618e5345ec5cb890072e7d99d4b74ab32e96f6f35bfa5e327efdb177e5a7dd65908ba9972b964125c2d633517951fbefe9e89a11b01064be52472ee6c",
+            "file": "src/app/project/project-chapter/project-chapter.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-project-chapter",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./project-chapter.component.html"
             ],
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
                 {
-                    "name": "files",
-                    "defaultValue": "['File 1', 'File 2', 'File 3']",
+                    "name": "file",
+                    "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 18,
-                    "type": "string[]",
+                    "line": 15,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "index",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
+                    "type": "number",
                     "decorators": []
                 }
             ],
@@ -239,7 +795,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 25
+                    "line": 23
                 },
                 {
                     "name": "faEllipsisVertical",
@@ -249,7 +805,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 18
                 },
                 {
                     "name": "faFileExport",
@@ -259,7 +815,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 24
+                    "line": 22
                 },
                 {
                     "name": "faFileImport",
@@ -269,7 +825,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 26
+                    "line": 24
                 },
                 {
                     "name": "faFileLines",
@@ -279,7 +835,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 17
                 },
                 {
                     "name": "faFolderOpen",
@@ -289,7 +845,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 22
+                    "line": 20
                 },
                 {
                     "name": "faGripVertical",
@@ -299,7 +855,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 21
+                    "line": 19
                 },
                 {
                     "name": "faPlus",
@@ -309,7 +865,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 25
                 },
                 {
                     "name": "faTrash",
@@ -319,7 +875,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 23
+                    "line": 21
                 }
             ],
             "methodsClass": [
@@ -336,7 +892,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 27,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -364,7 +920,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 35,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -392,7 +948,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 31,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -406,7 +962,79 @@
                             }
                         }
                     ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
                 },
+                {
+                    "name": "FontAwesomeModule",
+                    "type": "module"
+                },
+                {
+                    "name": "DragDropModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFileLines, faEllipsisVertical, faGripVertical, faFolderOpen, faTrash, faFileExport, faClone, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { CommonModule } from '@angular/common';\n@Component({\n  selector: 'app-project-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule\n  ],\n  templateUrl: './project-chapter.component.html',\n})\nexport class ProjectChapterComponent {\n  @Input() file: string = '';\n  @Input() index: number = 0\n  faFileLines = faFileLines\n  faEllipsisVertical = faEllipsisVertical\n  faGripVertical = faGripVertical\n  faFolderOpen = faFolderOpen\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n  faFileImport = faFileImport;\n  faPlus = faPlus;\n\n  deleteFile(index: number): void {\n    // Implement file deletion logic\n  }\n\n  exportFile(file: string): void {\n    // Implement file export logic\n  }\n\n  duplicateFile(file: string): void {\n    // Implement file duplication logic\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\" >\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    {{ file }}\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"deleteFile(index)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(file)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(file)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
+        },
+        {
+            "name": "ProjectComponent",
+            "id": "component-ProjectComponent-06d4c6ac57987ce6874d62b06c5de2d6175265f4408a4a40a8204b0bcedb292deeca4f1784ecc938a0befbc58b942fe034a0fba9172214116c4c4a828c3cc02e",
+            "file": "src/app/project/project.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-project",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./project.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "files",
+                    "defaultValue": "['File 1', 'File 2', 'File 3']",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 17,
+                    "type": "string[]",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "faFolderOpen",
+                    "defaultValue": "faFolderOpen",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "methodsClass": [
                 {
                     "name": "onDrop",
                     "args": [
@@ -420,7 +1048,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29,
+                    "line": 20,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -455,33 +1083,28 @@
                     "type": "module"
                 },
                 {
-                    "name": "FormsModule",
-                    "type": "module"
+                    "name": "ProjectTitleComponent",
+                    "type": "component"
                 },
                 {
-                    "name": "ProjectTitleComponent",
+                    "name": "ProjectChapterComponent",
                     "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faBookOpen, faFileLines, faEllipsisVertical, faGripVertical, faFolderOpen, faTrash, faFileExport, faClone, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { FormsModule } from '@angular/forms';\nimport { ProjectTitleComponent } from './title/project-title.component';\n@Component({\n  selector: 'app-project',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, FormsModule, ProjectTitleComponent\n  ],\n  templateUrl: './project.component.html',\n  styleUrls: ['./project.component.css'],\n})\nexport class ProjectComponent {\n  @Input() files: string[] = ['File 1', 'File 2', 'File 3'];\n  faFileLines = faFileLines\n  faEllipsisVertical = faEllipsisVertical\n  faGripVertical = faGripVertical\n  faFolderOpen = faFolderOpen\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n  faFileImport = faFileImport;\n  faPlus = faPlus;\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    moveItemInArray(this.files, event.previousIndex, event.currentIndex);\n    console.log(this.files, event)\n  }\n  deleteFile(index: number): void {\n    // Implement file deletion logic\n  }\n\n  exportFile(file: string): void {\n    // Implement file export logic\n  }\n\n  duplicateFile(file: string): void {\n    // Implement file duplication logic\n  }\n\n}\n\n\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFolderOpen } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { ProjectTitleComponent } from './project-title/project-title.component';\nimport { ProjectChapterComponent } from './project-chapter/project-chapter.component';\n@Component({\n  selector: 'app-project',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, ProjectTitleComponent, ProjectChapterComponent\n  ],\n  templateUrl: './project.component.html',\n})\nexport class ProjectComponent {\n  @Input() files: string[] = ['File 1', 'File 2', 'File 3'];\n  faFolderOpen = faFolderOpen\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    moveItemInArray(this.files, event.previousIndex, event.currentIndex);\n    console.log(this.files, event)\n  }\n}\n\n\n",
             "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ":host {\n  display: block;\n}\n",
-                    "styleUrl": "./project.component.css"
-                }
-            ],
+            "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"m-4 p-4 border-4 border-gray-300 rounded-lg  shadow\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n      <div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm\">\n        <div class=\"flex items-center gap-1\" >\n          <button class=\"focus:outline-none\" title=\"Drag File\">\n            <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n          </button>\n          <fa-icon [icon]=\"faFileLines\"></fa-icon>\n          {{ file }}\n        </div>\n        <div class=\"flex items-center gap-2\">\n          <button (click)=\"deleteFile($index)\" title=\"Delete File\" class=\"focus:outline-none\">\n            <fa-icon [icon]=\"faTrash\"></fa-icon>\n          </button>\n          <button (click)=\"exportFile(file)\" title=\"Export File\" class=\"focus:outline-none\">\n            <fa-icon [icon]=\"faFileExport\"></fa-icon>\n          </button>\n          <button (click)=\"duplicateFile(file)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n            <fa-icon [icon]=\"faClone\"></fa-icon>\n          </button>\n        </div>\n      </div>\n    } @empty {\n      <div *ngIf=\"files.length === 0\" class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"m-4 p-4 border-4 border-gray-300 rounded-lg  shadow\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "ProjectTitleComponent",
             "id": "component-ProjectTitleComponent-15551cdb416c98c84b6a2dfa575e9369483ae56dd350a600170c41d1b3b44aceeb74f06b9dd2cee7a5d943ca0b50cbf0a2a5e66070ee78ff99ce6d82f896f8c0",
-            "file": "src/app/project/title/project-title.component.ts",
+            "file": "src/app/project/project-title/project-title.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -652,7 +1275,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "ApplicationConfig",
-                "defaultValue": "{\r\n  providers: [provideRouter(routes), provideClientHydration()]\r\n}"
+                "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }\r\n\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
             },
             {
                 "name": "bootstrap",
@@ -678,11 +1301,31 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/book-explorer/book-explorer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: BookExplorerComponent,\r\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/project/project.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: ['File 1', 'File 2', 'File 3'],\r\n\r\n  },\r\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/book-explorer/book-card/book-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: BookCardComponent,\r\n})"
             },
             {
                 "name": "editorConfig",
@@ -703,6 +1346,46 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: [],\r\n  },\r\n})"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.template.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: true,\r\n  firebaseConfig: {\r\n    projectId: \"your-production-projectId\",\r\n    appId: \"your-production-appId\",\r\n    databaseURL: \"your-production-databaseURL\",\r\n    storageBucket: \"your-production-storageBucket\",\r\n    apiKey: \"your-production-apiKey\",\r\n    authDomain: \"your-production-authDomain\",\r\n    messagingSenderId: \"your-production-messagingSenderId\",\r\n    measurementId: \"your-production-measurementId\"\r\n  }\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: true,\r\n  firebaseConfig: {\r\n    projectId: \"your-production-projectId\",\r\n    appId: \"your-production-appId\",\r\n    databaseURL: \"your-production-databaseURL\",\r\n    storageBucket: \"your-production-storageBucket\",\r\n    apiKey: \"your-production-apiKey\",\r\n    authDomain: \"your-production-authDomain\",\r\n    messagingSenderId: \"your-production-messagingSenderId\",\r\n    measurementId: \"your-production-measurementId\"\r\n  }\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.template.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    projectId: \"your-dev-projectId\",\r\n    appId: \"your-dev-appId\",\r\n    databaseURL: \"your-dev-databaseURL\",\r\n    storageBucket: \"your-dev-storageBucket\",\r\n    apiKey: \"your-dev-apiKey\",\r\n    authDomain: \"your-dev-authDomain\",\r\n    messagingSenderId: \"your-dev-messagingSenderId\",\r\n    measurementId: \"your-dev-measurementId\"\r\n  }\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    apiKey: \"AIzaSyCvWDT6ja3EdhL1FnOyitgUO1whXN30XUw\",\r\n    authDomain: \"pseudo-write-dev.firebaseapp.com\",\r\n    databaseURL: \"https://pseudo-write-dev-default-rtdb.europe-west1.firebasedatabase.app\",\r\n    projectId: \"pseudo-write-dev\",\r\n    storageBucket: \"pseudo-write-dev.appspot.com\",\r\n    messagingSenderId: \"813553463399\",\r\n    appId: \"1:813553463399:web:d8bba241cf950c2f7d24c2\",\r\n    measurementId: \"G-S1F5D1JRHV\"\r\n  }\r\n}"
             },
             {
                 "name": "preview",
@@ -758,7 +1441,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApplicationConfig",
-                    "defaultValue": "{\r\n  providers: [provideRouter(routes), provideClientHydration()]\r\n}"
+                    "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }\r\n\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
                 }
             ],
             "src/main.server.ts": [
@@ -795,6 +1478,18 @@
                     "defaultValue": "{\r\n  providers: [\r\n    provideServerRendering(),\r\n  ]\r\n}"
                 }
             ],
+            "src/app/book-explorer/book-explorer.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/book-explorer/book-explorer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: BookExplorerComponent,\r\n})"
+                }
+            ],
             "src/app/project/project.stories.ts": [
                 {
                     "name": "Default",
@@ -817,6 +1512,18 @@
                     "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: [],\r\n  },\r\n})"
                 }
             ],
+            "src/app/book-explorer/book-card/book-card.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/book-explorer/book-card/book-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: BookCardComponent,\r\n})"
+                }
+            ],
             "src/app/editor/editor.component.ts": [
                 {
                     "name": "editorConfig",
@@ -837,6 +1544,54 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[\r\n  [\r\n    'subscript',\r\n    'superscript',\r\n  ],\r\n  [\r\n    'fontSize',\r\n    'textColor',\r\n    'backgroundColor',\r\n    'customClasses',\r\n    'link',\r\n    'unlink',\r\n    'insertImage',\r\n    'insertVideo',\r\n    'insertHorizontalRule',\r\n    'toggleEditorMode'\r\n  ]\r\n]"
+                }
+            ],
+            "src/environments/environment.prod.template.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.template.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: true,\r\n  firebaseConfig: {\r\n    projectId: \"your-production-projectId\",\r\n    appId: \"your-production-appId\",\r\n    databaseURL: \"your-production-databaseURL\",\r\n    storageBucket: \"your-production-storageBucket\",\r\n    apiKey: \"your-production-apiKey\",\r\n    authDomain: \"your-production-authDomain\",\r\n    messagingSenderId: \"your-production-messagingSenderId\",\r\n    measurementId: \"your-production-measurementId\"\r\n  }\r\n}"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: true,\r\n  firebaseConfig: {\r\n    projectId: \"your-production-projectId\",\r\n    appId: \"your-production-appId\",\r\n    databaseURL: \"your-production-databaseURL\",\r\n    storageBucket: \"your-production-storageBucket\",\r\n    apiKey: \"your-production-apiKey\",\r\n    authDomain: \"your-production-authDomain\",\r\n    messagingSenderId: \"your-production-messagingSenderId\",\r\n    measurementId: \"your-production-measurementId\"\r\n  }\r\n}"
+                }
+            ],
+            "src/environments/environment.template.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.template.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    projectId: \"your-dev-projectId\",\r\n    appId: \"your-dev-appId\",\r\n    databaseURL: \"your-dev-databaseURL\",\r\n    storageBucket: \"your-dev-storageBucket\",\r\n    apiKey: \"your-dev-apiKey\",\r\n    authDomain: \"your-dev-authDomain\",\r\n    messagingSenderId: \"your-dev-messagingSenderId\",\r\n    measurementId: \"your-dev-measurementId\"\r\n  }\r\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    apiKey: \"AIzaSyCvWDT6ja3EdhL1FnOyitgUO1whXN30XUw\",\r\n    authDomain: \"pseudo-write-dev.firebaseapp.com\",\r\n    databaseURL: \"https://pseudo-write-dev-default-rtdb.europe-west1.firebasedatabase.app\",\r\n    projectId: \"pseudo-write-dev\",\r\n    storageBucket: \"pseudo-write-dev.appspot.com\",\r\n    messagingSenderId: \"813553463399\",\r\n    appId: \"1:813553463399:web:d8bba241cf950c2f7d24c2\",\r\n    measurementId: \"G-S1F5D1JRHV\"\r\n  }\r\n}"
                 }
             ],
             ".storybook/preview.ts": [
@@ -923,6 +1678,53 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/book-explorer/book-card/book-card.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "BookCardComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/book-explorer/book-card/book-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/book-explorer/book-explorer.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "BookExplorerComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/book-explorer/book-explorer.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Book",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/book-explorer/book-explorer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/editor/editor.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -962,12 +1764,39 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/login/login.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LoginComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/project/project-chapter/project-chapter.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ProjectChapterComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/15",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/project/project-title/project-title.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ProjectTitleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/project/project.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "ProjectComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/15",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -991,12 +1820,43 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/project/title/project-title.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "ProjectTitleComponent",
+                "filePath": "src/environments/environment.prod.template.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
                 "coveragePercent": 0,
-                "coverageCount": "0/12",
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.template.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1007,6 +1867,24 @@
                 "name": "bootstrap",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/services/auth.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "AuthService",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/services/storage-service.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "LocalStorageService",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
                 "status": "low"
             }
         ]
