@@ -1,10 +1,9 @@
 <h6></h6>
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-  @for(book of books; track book.title){
-    <app-book-card [book]="book"></app-book-card>
-  } 
-  @empty {
-    <p>No books available.</p>
-  }
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 m-4 bg-white rounded-lg shadow-xl max-w-screen-2xl mx-auto">
+    @for(book of books; track book.title){
+      <app-book-card [book]="book"></app-book-card>
+    } 
+    @empty {
+      <p>No books available.</p>
+    }
 </div>
-  
