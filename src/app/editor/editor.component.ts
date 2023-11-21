@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import { FormsModule } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
+import { EventEmitter } from 'stream';
 
 const toolbarHiddenButtons = [
   [
@@ -57,9 +58,14 @@ const editorConfig: AngularEditorConfig = {
 export class EditorComponent {
   @Input() htmlContent = ''
   @Input() editorConfig = editorConfig
-
+  @Output() htmlContentChange = new EventEmitter();
 
   constructor(private http: HttpClient) { }
+
+  saveContent() {
+    // Emitting the current htmlContent
+    this.htmlContentChange.emit(this.htmlContent);
+  }
 
   performRequest() {
     const url = 'http://localhost:1234/v1/chat/completions';
