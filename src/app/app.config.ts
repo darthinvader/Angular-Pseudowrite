@@ -12,7 +12,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 // Import routes and environment configuration
 import { routes } from './app.routes';
 import { environment } from '../environments/environment'; // Adjust this path as necessary based on your project structure
-
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 // Define the application configuration using Angular's dependency injection
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,7 +30,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(provideFirestore(() => getFirestore())),
     importProvidersFrom(provideDatabase(() => getDatabase())),
     importProvidersFrom(provideFunctions(() => getFunctions())),
-    importProvidersFrom(provideStorage(() => getStorage()))
+    importProvidersFrom(provideStorage(() => getStorage())),
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }
 
     // ... include other providers as needed for your application
   ]
