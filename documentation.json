@@ -387,7 +387,7 @@
         },
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-9477d387dee3040bcf2159134e88ea5c90033888439ffa1081ba6d84806514e5cf713fbd02e15cf943adca9c49fa2bf4de6101155ecfb8b97c2e9892fa3b8b38",
+            "id": "component-AppComponent-135bad75b91c90e25c806680b04e00013b925a3cbe41712a3efd89babc45ebf0601c1f32b183aad2859d29505b29b2a5b9ca84b69e18761f4bf1ec252bba088b",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -413,7 +413,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 17
                 }
             ],
             "methodsClass": [],
@@ -445,18 +445,22 @@
                 {
                     "name": "BackgroundComponent",
                     "type": "component"
+                },
+                {
+                    "name": "HomeComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { EditorComponent } from './editor/editor.component';\r\nimport { ProjectComponent } from './project/project.component';\r\nimport { LoginComponent } from './login/login.component';\r\nimport { BackgroundComponent } from './background/background.component';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, EditorComponent, ProjectComponent, LoginComponent, BackgroundComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { EditorComponent } from './editor/editor.component';\r\nimport { ProjectComponent } from './project/project.component';\r\nimport { LoginComponent } from './login/login.component';\r\nimport { BackgroundComponent } from './background/background.component';\r\nimport { HomeComponent } from './home/Home.component';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, EditorComponent, ProjectComponent, LoginComponent, BackgroundComponent, HomeComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n}\r\n",
             "styleUrl": "./app.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<app-background></app-background>\r\n<div class=\"project-content\">\r\n  <app-project></app-project>\r\n</div>"
+            "templateData": "<app-background></app-background>\r\n<app-home></app-home>\r\n"
         },
         {
             "name": "BackgroundComponent",
@@ -500,11 +504,11 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"container\">\n  <div class=\"stars\">\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n</div>\n</div>"
+            "templateData": "<div class=\"container\">\n  <div class=\"stars\">\n    @for(_ of [].constructor(50); track $index){\n      <div class=\"star\"></div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "BookCardComponent",
-            "id": "component-BookCardComponent-d7f140419eef9397c5224f0fa0f5760057973ae0bf23197d0bf7f898002a309d226271b4517aa84f95467fc991444317dd93a2c81cba80d08378d55a768f9d62",
+            "id": "component-BookCardComponent-77a62f2c8c12d3be8fc281ec020a752b157d2c65627a1e53135b2706a427dc095ade78374b538f411ee64534f937e79f49271aca863e107bb9373301157a8e21",
             "file": "src/app/book-explorer/book-card/book-card.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -526,11 +530,80 @@
                     "defaultValue": "null",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 15,
+                    "line": 18,
                     "type": "Book | null",
                     "decorators": []
                 }
             ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "faTrashAlt",
+                    "defaultValue": "faTrashAlt",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onDelete",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "FontAwesomeModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { Book } from '../book-explorer.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faTrashAlt } from '@fortawesome/free-solid-svg-icons';\n\n@Component({\n  selector: 'app-book-card',\n  standalone: true,\n  imports: [\n    CommonModule,\n    FontAwesomeModule, // Import FontAwesomeModule\n  ],\n  templateUrl: './book-card.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCardComponent {\n  @Input() book: Book | null = null;\n  faTrashAlt = faTrashAlt; // Icon property\n\n  onDelete() { }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"max-w rounded overflow-hidden shadow-lg cursor-pointer transform hover:scale-105 transition duration-200 ease-in-out\">\n  <div class=\"flex flex-col justify-between h-full\">\n    <div class=\"p-5 flex justify-center align-middle text-center\">\n      <div class=\"font-bold text-3xl mb-2\">{{ book?.title }}</div>\n    </div>\n    <button class=\"...\" (click)=\"onDelete()\"> <!-- Add your Tailwind CSS classes here -->\n      <fa-icon [icon]=\"faTrashAlt\"></fa-icon> Delete\n    </button>\n  </div>\n</div>\n"
+        },
+        {
+            "name": "BookEditorComponent",
+            "id": "component-BookEditorComponent-ef85be6e379cfe5d9771faee4931088b5547ac07a0d9e0c8019ef28add730f948b70aea0d17b4cfbf20dd1057fa3a39f22aff44c1c8b8119619908b6888edebe",
+            "file": "src/app/book-editor/book-editor.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-book-editor",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./book-editor.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [],
@@ -543,17 +616,25 @@
                 {
                     "name": "CommonModule",
                     "type": "module"
+                },
+                {
+                    "name": "ProjectComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "EditorComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { Book } from '../book-explorer.component';\n\n@Component({\n  selector: 'app-book-card',\n  standalone: true,\n  imports: [\n    CommonModule,\n  ],\n  templateUrl: './book-card.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCardComponent {\n  @Input() book: Book | null = null\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { ProjectComponent } from '../project/project.component';\nimport { EditorComponent } from '../editor/editor.component';\n@Component({\n  selector: 'app-book-editor',\n  standalone: true,\n  imports: [\n    CommonModule, ProjectComponent, EditorComponent\n  ],\n  templateUrl: './book-editor.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookEditorComponent { }\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\" max-w rounded overflow-hidden shadow-lg cursor-pointer transform hover: hover:scale-105 transition duration-200 ease-in-out\">\n  <div class=\"flex flex-col justify-between h-full\">\n    <div class=\"p-5 flex justify-center align-middle text-center\">\n      <div class=\"font-bold text-3xl mb-2\">{{book?.title}}</div>\n    </div>\n    <button></button>\n  </div>\n</div>"
+            "templateData": "<div class=\"grid-container h-full\">\n  <div>\n    <app-project></app-project>\n  </div>\n  <div>\n    <app-editor></app-editor>\n  </div>\n  <div>\n    <!-- content for the last div -->\n  </div>\n</div>\n"
         },
         {
             "name": "BookExplorerComponent",
@@ -610,7 +691,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"text-4xl\">Your Books</div>\n<div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 bg-transparent rounded-lg\">\n  @for(book of books; track book.title){\n    <app-book-card [book]=\"book\"></app-book-card>\n  }\n  @empty {\n  <div>No books available.</div>\n  }\n</div>"
+            "templateData": "<div class=\"bg-white p-4 rounded-lg\">\n  <div class=\"text-3xl text-center\">Your Books</div>\n  <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 bg-transparent rounded-lg\">\n    @for(book of books; track book.title){\n      <app-book-card [book]=\"book\"></app-book-card>\n    }\n    @empty {\n    <div>No books available.</div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "EditorComponent",
@@ -761,7 +842,7 @@
         {
             "name": "HomeComponent",
             "id": "component-HomeComponent-740b1e8f0f1088a75811f39749edf14e1705e8938f92d97bcbb7e693e40caeb3ed1f3c8c7f3933e0d1e648e7228a7a6526d757b562f0f396c717435175575f46",
-            "file": "src/app/Home/Home.component.ts",
+            "file": "src/app/home/Home.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
@@ -817,7 +898,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<app-navbar></app-navbar>\n<div class=\"grid grid-cols-10 gap-4 py-10 my-8 mx-10\">\n  <div class=\"col-span-7 col-start-1\">\n    <app-book-explorer></app-book-explorer> \n  </div>\n  <div class=\"col-span-3 bg-gray-100 rounded-lg p-6 text-center\">\n    <h2 class=\"text-2xl font-bold mb-4\">AI Writing Assistant</h2>\n    <p class=\"text-lg text-gray-700\">Enhance your writing with AI-driven insights and suggestions.</p>\n  </div>\n</div>\n"
+            "templateData": "<app-navbar></app-navbar>\n<div class=\"grid grid-cols-10 gap-4 py-10 my-8 mx-10\">\n  <div class=\"col-span-7 col-start-1\">\n    <app-book-explorer></app-book-explorer> \n  </div>\n  <div class=\"col-span-3 bg-white rounded-lg p-6 text-center\">\n    <h2 class=\"text-2xl font-bold mb-4\">AI Writing Assistant</h2>\n    <p class=\"text-lg text-gray-700\">Enhance your writing with AI-driven insights and suggestions.</p>\n  </div>\n</div>\n"
         },
         {
             "name": "LoginComponent",
@@ -977,7 +1058,7 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div *ngIf=\"authService.isLoggedIn; else loginTemplate\">\n  <button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center\" (click)=\"onGoogleLogout()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Logout</span>\n  </button>\n</div>\n<ng-template #loginTemplate>\n  <button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center\" (click)=\"onGoogleLogin()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Login with Google</span>\n  </button>\n</ng-template>\n"
+            "templateData": "<div *ngIf=\"authService.isLoggedIn; else loginTemplate\">\n  <button class=\"text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 transition ease-in-out duration-300\" (click)=\"onGoogleLogout()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Logout</span>\n  </button>\n</div>\n<ng-template #loginTemplate>\n  <button class=\"text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 transition ease-in-out duration-300\" (click)=\"onGoogleLogin()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Login with Google</span>\n  </button>\n</ng-template>\n"
         },
         {
             "name": "NavbarComponent",
@@ -1024,7 +1105,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-slate-200 text-gray-500 p-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a href=\"/home\" class=\"hover:text-slate-900\">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li class=\"mr-6\">\r\n                    <a href=\"/explore\" class=\"flex hover:text-slate-900\">Explore</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"/about\" class=\"flex hover:text-slate-900\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <app-login></app-login>\r\n</div>\r\n"
+            "templateData": "<div class=\"bg-white text-gray-600 p-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a href=\"/home\" class=\"hover:text-gray-900 \">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li >\r\n                    <a href=\"/explore\" class=\"flex hover:text-gray-900 px-6 py-4 hover:bg-slate-200 w-full h-full\">Explore</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"/about\" class=\"flex hover:text-gray-900px-6 px-6 py-4 hover:bg-slate-200 w-full h-full\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <app-login></app-login>\r\n</div>\r\n"
         },
         {
             "name": "ProjectChapterComponent",
@@ -1337,7 +1418,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"m-4 p-4 border-4 border-gray-300 rounded-lg shadow bg-white\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"m-4 p-4 border-4 border-gray-300 rounded-lg shadow bg-white opacity-80\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "ProjectTitleComponent",
@@ -1559,6 +1640,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/book-editor/book-editor.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: BookEditorComponent,\r\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/book-explorer/book-explorer.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1579,7 +1670,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/Home/Home.stories.ts",
+                "file": "src/app/home/Home.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -1613,7 +1704,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: BookCardComponent,\r\n})"
+                "defaultValue": "() => ({\r\n  component: BookCardComponent,\r\n  props: { book: { title: 'Hello' } }\r\n\r\n})"
             },
             {
                 "name": "editorConfig",
@@ -1714,6 +1805,16 @@
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[\r\n  [\r\n    'subscript',\r\n    'superscript',\r\n  ],\r\n  [\r\n    'fontSize',\r\n    'textColor',\r\n    'backgroundColor',\r\n    'customClasses',\r\n    'link',\r\n    'unlink',\r\n    'insertImage',\r\n    'insertVideo',\r\n    'insertHorizontalRule',\r\n    'toggleEditorMode'\r\n  ]\r\n]"
+            },
+            {
+                "name": "WithoutBook",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/book-explorer/book-card/book-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: BookCardComponent,\r\n})"
             }
         ],
         "functions": [],
@@ -1790,6 +1891,18 @@
                     "defaultValue": "() => ({})"
                 }
             ],
+            "src/app/book-editor/book-editor.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/book-editor/book-editor.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: BookEditorComponent,\r\n})"
+                }
+            ],
             "src/app/book-explorer/book-explorer.stories.ts": [
                 {
                     "name": "Default",
@@ -1824,12 +1937,12 @@
                     "defaultValue": "() => ({})"
                 }
             ],
-            "src/app/Home/Home.stories.ts": [
+            "src/app/home/Home.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/Home/Home.stories.ts",
+                    "file": "src/app/home/Home.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -1873,6 +1986,16 @@
             "src/app/book-explorer/book-card/book-card.stories.ts": [
                 {
                     "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/book-explorer/book-card/book-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: BookCardComponent,\r\n  props: { book: { title: 'Hello' } }\r\n\r\n})"
+                },
+                {
+                    "name": "WithoutBook",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/book-explorer/book-card/book-card.stories.ts",
@@ -1985,25 +2108,6 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/Home/Home.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "HomeComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/2",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/Home/Home.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Default",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
                 "filePath": "src/app/about/about.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -2081,12 +2185,31 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/book-editor/book-editor.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "BookEditorComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/book-editor/book-editor.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/book-explorer/book-card/book-card.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "BookCardComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -2095,6 +2218,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/book-explorer/book-card/book-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithoutBook",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -2168,6 +2301,25 @@
             },
             {
                 "filePath": "src/app/editor/editor.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/home/Home.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HomeComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/home/Home.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",

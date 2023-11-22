@@ -1,16 +1,20 @@
-<div class="flex gap-1 justify-center items-center mb-4">
-  <fa-icon [icon]="faBookOpen" class="text-xl"></fa-icon>
-  <div *ngIf="!editingTitle" (click)="onTitleClick()" class="cursor-pointer">
-    <p class="text-lg font-semibold">{{ bookName }}</p>
+<div class="flex flex-col items-center mb-6">
+  <div class="flex mb-2">
+    <fa-icon [icon]="faBookOpen" class="text-xl"></fa-icon>
+    <div *ngIf="!editingTitle" (click)="onTitleClick()" class="cursor-pointer">
+      <p class="text-xl font-semibold">{{ bookName }}</p>
+    </div>
+    <input *ngIf="editingTitle" [(ngModel)]="bookName" (blur)="onTitleBlur()" 
+            (keyup.enter)="onTitleEnter()" class="form-input border border-gray-300 rounded py-1 px-2 text-lg">
   </div>
-  <input *ngIf="editingTitle" [(ngModel)]="bookName" (blur)="onTitleBlur()" 
-          (keyup.enter)="onTitleEnter()" class="form-input border border-gray-300 rounded py-1 px-2 text-lg">
-  <button (click)="importFiles()" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1">
-    <fa-icon [icon]="faFileImport" class="text-base"></fa-icon>
-    Import
-  </button>
-  <button (click)="addNewFile()" class="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1">
-    <fa-icon [icon]="faPlus" class="text-base"></fa-icon>
-    Add New
-  </button>
+  <div class="flex gap-1">
+    <button (click)="importFiles()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1">
+      <fa-icon [icon]="faFileImport" class="text-base"></fa-icon>
+      Import
+    </button>
+    <button (click)="addNewFile()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1">
+      <fa-icon [icon]="faPlus" class="text-base"></fa-icon>
+      Add New
+    </button>
+  </div>
 </div>

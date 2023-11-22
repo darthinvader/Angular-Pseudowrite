@@ -5,7 +5,7 @@ import { EditorComponent } from './editor/editor.component';
 import { ProjectComponent } from './project/project.component';
 import { LoginComponent } from './login/login.component';
 import { BackgroundComponent } from './background/background.component';
-import { HomeComponent } from './Home/Home.component';
+import { HomeComponent } from './home/Home.component';
 @Component({
   selector: 'app-root',
   standalone: true,
