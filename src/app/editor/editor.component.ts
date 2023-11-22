@@ -1,10 +1,8 @@
-import { Component, Input, signal, Output } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import { FormsModule } from '@angular/forms';
-import { ViewEncapsulation } from '@angular/core';
-import { EventEmitter } from 'stream';
 
 const toolbarHiddenButtons = [
   [

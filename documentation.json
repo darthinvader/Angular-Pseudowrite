@@ -3,12 +3,12 @@
     "interfaces": [
         {
             "name": "Book",
-            "id": "interface-Book-21de27f77cac9748e838e2dac21c18fefbd8abc2d4c07e45ce0908523bee7808e7f8e6e7234310bfb736319cc083e6618bc3b5d618719b35ecb19ef02ed8421b",
+            "id": "interface-Book-761354017b45aa053b2da1d761443d96a0a3ecd2ebd294fd20d6ca2c5ed9741fea271d500e6b727e726cf58bb20d8f5d0aad2c0ae419efc7bfe1d911d5bf0e99",
             "file": "src/app/book-explorer/book-explorer.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\n\nexport interface Book {\n  title: string,\n  imgUrl: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule,\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nexport interface Book {\n  title: string,\n  imgUrl: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n}\n",
             "properties": [
                 {
                     "name": "imgUrl",
@@ -410,7 +410,7 @@
         },
         {
             "name": "BookExplorerComponent",
-            "id": "component-BookExplorerComponent-21de27f77cac9748e838e2dac21c18fefbd8abc2d4c07e45ce0908523bee7808e7f8e6e7234310bfb736319cc083e6618bc3b5d618719b35ecb19ef02ed8421b",
+            "id": "component-BookExplorerComponent-761354017b45aa053b2da1d761443d96a0a3ecd2ebd294fd20d6ca2c5ed9741fea271d500e6b727e726cf58bb20d8f5d0aad2c0ae419efc7bfe1d911d5bf0e99",
             "file": "src/app/book-explorer/book-explorer.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -449,21 +449,25 @@
                 {
                     "name": "CommonModule",
                     "type": "module"
+                },
+                {
+                    "name": "BookCardComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\n\nexport interface Book {\n  title: string,\n  imgUrl: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule,\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nexport interface Book {\n  title: string,\n  imgUrl: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4\">\n  @for{}\n  <app-book-card [book]=\"book\"></app-book-card>\n</div>"
+            "templateData": "<div class=\"text-4xl\">Your Books</div>\n    <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 m-4 bg-white rounded-lg shadow-xl max-w-screen-2xl mx-auto\">\n      @for(book of books; track book.title){\n        <app-book-card [book]=\"book\"></app-book-card>\n      \n    }\n    @empty {\n      <div>No books available.</div>\n    }\n</div>"
         },
         {
             "name": "EditorComponent",
-            "id": "component-EditorComponent-ad56b17fbd9b9ef6caad35cc7cd0b92f91a9a9ee8a4d812dc974479791e6c5a9daa668911e48b8ca660d95f6f47749f15eaf7bbaf68f4eef7f081ae9c9832e36",
+            "id": "component-EditorComponent-1c83b23677cf9ed33236aac02142063f2a106c78723c6d911471b9593eb44b4a288a0e483fc5c2c66c269bff3da6b40a70b07d62c57d014b50490583836b6891",
             "file": "src/app/editor/editor.component.ts",
             "encapsulation": [
                 "ViewEncapsulation.None"
@@ -486,7 +490,7 @@
                     "defaultValue": "editorConfig",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 59,
+                    "line": 60,
                     "type": "AngularEditorConfig",
                     "decorators": []
                 },
@@ -495,12 +499,21 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 58,
+                    "line": 59,
                     "type": "string",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "htmlContentChange",
+                    "defaultValue": "new EventEmitter()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 61,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [],
             "methodsClass": [
                 {
@@ -509,7 +522,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 82,
+                    "line": 88,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -519,7 +532,17 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 64,
+                    "line": 70,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "saveContent",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 65,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -554,7 +577,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { HttpClient, HttpClientModule } from '@angular/common/http';\r\nimport { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { ViewEncapsulation } from '@angular/core';\r\n\r\nconst toolbarHiddenButtons = [\r\n  [\r\n    'subscript',\r\n    'superscript',\r\n  ],\r\n  [\r\n    'fontSize',\r\n    'textColor',\r\n    'backgroundColor',\r\n    'customClasses',\r\n    'link',\r\n    'unlink',\r\n    'insertImage',\r\n    'insertVideo',\r\n    'insertHorizontalRule',\r\n    'toggleEditorMode'\r\n  ]\r\n]\r\n\r\nconst editorConfig: AngularEditorConfig = {\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n};\r\n@Component({\r\n  selector: 'app-editor',\r\n  standalone: true,\r\n  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule],\r\n  templateUrl: './editor.component.html',\r\n  styleUrl: './editor.component.scss',\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class EditorComponent {\r\n  @Input() htmlContent = ''\r\n  @Input() editorConfig = editorConfig\r\n\r\n\r\n  constructor(private http: HttpClient) { }\r\n\r\n  performRequest() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Always answer in rhymes.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n  giveDifferentWording() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Reword the specific message, do not say anything before or after the rewording.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n}",
+            "sourceCode": "import { Component, Input, signal, Output } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { HttpClient, HttpClientModule } from '@angular/common/http';\r\nimport { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { ViewEncapsulation } from '@angular/core';\r\nimport { EventEmitter } from 'stream';\r\n\r\nconst toolbarHiddenButtons = [\r\n  [\r\n    'subscript',\r\n    'superscript',\r\n  ],\r\n  [\r\n    'fontSize',\r\n    'textColor',\r\n    'backgroundColor',\r\n    'customClasses',\r\n    'link',\r\n    'unlink',\r\n    'insertImage',\r\n    'insertVideo',\r\n    'insertHorizontalRule',\r\n    'toggleEditorMode'\r\n  ]\r\n]\r\n\r\nconst editorConfig: AngularEditorConfig = {\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n};\r\n@Component({\r\n  selector: 'app-editor',\r\n  standalone: true,\r\n  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule],\r\n  templateUrl: './editor.component.html',\r\n  styleUrl: './editor.component.scss',\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class EditorComponent {\r\n  @Input() htmlContent = ''\r\n  @Input() editorConfig = editorConfig\r\n  @Output() htmlContentChange = new EventEmitter();\r\n\r\n  constructor(private http: HttpClient) { }\r\n\r\n  saveContent() {\r\n    // Emitting the current htmlContent\r\n    this.htmlContentChange.emit(this.htmlContent);\r\n  }\r\n\r\n  performRequest() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Always answer in rhymes.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n  giveDifferentWording() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Reword the specific message, do not say anything before or after the rewording.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n}",
             "styleUrl": "./editor.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -572,7 +595,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 59,
+                "line": 61,
                 "jsdoctags": [
                     {
                         "name": "http",
@@ -1388,6 +1411,16 @@
                 "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    apiKey: \"AIzaSyCvWDT6ja3EdhL1FnOyitgUO1whXN30XUw\",\r\n    authDomain: \"pseudo-write-dev.firebaseapp.com\",\r\n    databaseURL: \"https://pseudo-write-dev-default-rtdb.europe-west1.firebasedatabase.app\",\r\n    projectId: \"pseudo-write-dev\",\r\n    storageBucket: \"pseudo-write-dev.appspot.com\",\r\n    messagingSenderId: \"813553463399\",\r\n    appId: \"1:813553463399:web:d8bba241cf950c2f7d24c2\",\r\n    measurementId: \"G-S1F5D1JRHV\"\r\n  }\r\n}"
             },
             {
+                "name": "ManyBooks",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/book-explorer/book-explorer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: BookExplorerComponent,\r\n  props: { books: [{ title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }] }\r\n})"
+            },
+            {
                 "name": "preview",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1488,6 +1521,16 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "() => ({\r\n  component: BookExplorerComponent,\r\n})"
+                },
+                {
+                    "name": "ManyBooks",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/book-explorer/book-explorer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: BookExplorerComponent,\r\n  props: { books: [{ title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }] }\r\n})"
                 }
             ],
             "src/app/project/project.stories.ts": [
@@ -1725,12 +1768,22 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/book-explorer/book-explorer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ManyBooks",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/editor/editor.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "EditorComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
