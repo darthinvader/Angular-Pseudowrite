@@ -7,4 +7,5 @@ export const routes: Routes = [
   // { path: '', component: HomeComponent },
   // { path: 'book/:bookId/chapter/:chapterId', component: BookComponent },
   // { path: 'user-profile', component: UserProfileComponent }
+  // {path: 'about', component: AboutComponent}
 ];
