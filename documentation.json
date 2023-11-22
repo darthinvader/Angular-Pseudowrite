@@ -452,7 +452,51 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"background\"><app-project></app-project></div>\r\n"
+            "templateData": "<div class=\"background\"></div>\r\n<div class=\"project-content\">\r\n  <app-project></app-project>\r\n</div>"
+        },
+        {
+            "name": "BackgroundComponent",
+            "id": "component-BackgroundComponent-210929d754ff785e4258a92d8d5d492f6e840f610ea9675b3ac54b1e01efb93501a60bdb64c878e907a710f25a2b66e408fd88b105a3541f89077664a3b0a28b",
+            "file": "src/app/background/background.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-background",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./background.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\n\n@Component({\n  selector: 'app-background',\n  standalone: true,\n  imports: [\n    CommonModule,\n  ],\n  templateUrl: './background.component.html',\n  styleUrl: './background.component.scss',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BackgroundComponent { }\n",
+            "styleUrl": "./background.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"stars\">\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n</div>"
         },
         {
             "name": "BookCardComponent",
@@ -1501,6 +1545,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/background/background.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/book-explorer/book-explorer.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1714,6 +1768,18 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/about/about.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({})"
+                }
+            ],
+            "src/app/background/background.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/background/background.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -1987,6 +2053,25 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "appConfig",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/background/background.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "BackgroundComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/background/background.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

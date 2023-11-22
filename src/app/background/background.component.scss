@@ -1,0 +1,116 @@
+@mixin sp-layout($content) {
+  @media screen and (max-width: 750px) {
+    @content;
+  }
+}
+
+@function random($min, $max) {
+  @return $min + random() * ($max - $min);
+}
+
+@mixin star-size($index, $star-count) {
+  &:nth-child(#{$index}) {
+    --star-tail-length: #{random(5em, 7.5em)};
+    --top-offset: #{random(0vh, 100vh)};
+    --fall-duration: #{random(6s, 12s)};
+    --fall-delay: #{random(0s, 10s)};
+  }
+}
+
+@mixin blink-animation {
+  @keyframes blink {
+    50% {
+      opacity: 0.6;
+    }
+  }
+  animation: blink 2s linear infinite;
+}
+
+body {
+  background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+  
+  @include sp-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+}
+
+
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  transform: rotate(-45deg);
+}
+
+.star {
+  $star-count: 50;
+  position: absolute;
+  top: var(--top-offset);
+  left: 0;
+  width: var(--star-tail-length);
+  height: var(--star-tail-height, 2px);
+  background: linear-gradient(45deg, currentColor, transparent);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px currentColor);
+  transform: translate3d(104em, 0, 0);
+  animation: fall var(--fall-duration) var(--fall-delay) linear infinite,
+             tail-fade var(--tail-fade-duration, var(--fall-duration)) var(--fall-delay) ease-out infinite;
+
+  @include sp-layout{
+    animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
+  }; // For mobile performance, tail-fade animation will be removed
+  
+  @include blink-animation;
+
+  @for $i from 1 through $star-count {
+    @include star-size($i, $star-count);
+  }
+
+  &::before,
+  &::after {
+    @include blink-animation;
+    position: absolute;
+    content: '';
+    top: 0;
+    left: calc(var(--star-width, calc(var(--star-tail-length) / 6)) / -2);
+    width: var(--star-width);
+    height: 100%;
+    background: linear-gradient(45deg, transparent, currentColor, transparent);
+    border-radius: inherit;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+
+@keyframes fall {
+  to {
+    transform: translate3d(-30em, 0, 0);
+  }
+}
+
+@keyframes tail-fade {
+  0%, 50% {
+    width: var(--star-tail-length);
+    opacity: 1;
+  }
+  70%, 80% {
+    width: 0;
+    opacity: 0.4;
+  }
+  100% {
+    width: 0;
+    opacity: 0;
+  }
+}
