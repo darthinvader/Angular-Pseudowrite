@@ -1,8 +1,10 @@
-<div class=" max-w rounded overflow-hidden shadow-lg cursor-pointer transform hover: hover:scale-105 transition duration-200 ease-in-out">
+<div class="max-w rounded overflow-hidden shadow-lg cursor-pointer transform hover:scale-105 transition duration-200 ease-in-out">
   <div class="flex flex-col justify-between h-full">
     <div class="p-5 flex justify-center align-middle text-center">
-      <div class="font-bold text-3xl mb-2">{{book?.title}}</div>
+      <div class="font-bold text-3xl mb-2">{{ book?.title }}</div>
     </div>
-    <button></button>
+    <button class="..." (click)="onDelete()"> <!-- Add your Tailwind CSS classes here -->
+      <fa-icon [icon]="faTrashAlt"></fa-icon> Delete
+    </button>
   </div>
 </div>

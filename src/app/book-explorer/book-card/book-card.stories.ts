@@ -7,4 +7,10 @@ export default {
 
 export const Default = () => ({
   component: BookCardComponent,
+  props: { book: { title: 'Hello' } }
+
+});
+
+export const WithoutBook = () => ({
+  component: BookCardComponent,
 });
