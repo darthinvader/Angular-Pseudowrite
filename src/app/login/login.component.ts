@@ -10,7 +10,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
   standalone: true,
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './login.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class LoginComponent {
   constructor(public authService: AuthService, private firestore: AngularFirestore) { }

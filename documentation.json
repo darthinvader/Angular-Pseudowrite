@@ -3,12 +3,12 @@
     "interfaces": [
         {
             "name": "Book",
-            "id": "interface-Book-a7500d3a0dc5b746638cd01ca81ce4052a62307e15d6c68377620b811380ebbb214457d0752ba3ab4b54f6fd2f672a8fcb18f4a2e6929e51d4520b06c4a1a959",
+            "id": "interface-Book-8523e17faceff1bddaa9aa12d2f23cb12dc8cbccd27083b03711e1c4b37c1a0292fe11e1ca3e470b2176ddacaf04868093ca8e016d697d8deea8a8814d67ae93",
             "file": "src/app/book-explorer/book-explorer.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nexport interface Book {\n  title: string,\n  imgUrl?: string,\n  imgTitle?: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n}\n",
+            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nexport interface Book {\n  title: string,\n  imgUrl?: string,\n  imgTitle?: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent, FontAwesomeModule\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n  faPlus = faPlus\n}\n",
             "properties": [
                 {
                     "name": "imgTitle",
@@ -17,7 +17,7 @@
                     "type": "string",
                     "optional": true,
                     "description": "",
-                    "line": 7
+                    "line": 9
                 },
                 {
                     "name": "imgUrl",
@@ -26,7 +26,7 @@
                     "type": "string",
                     "optional": true,
                     "description": "",
-                    "line": 6
+                    "line": 8
                 },
                 {
                     "name": "title",
@@ -35,7 +35,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 5
+                    "line": 7
                 }
             ],
             "indexSignatures": [],
@@ -47,7 +47,7 @@
     "injectables": [
         {
             "name": "AuthService",
-            "id": "injectable-AuthService-afc7f873c15e78162ac6c97d6ce3a2238df634a131bd340e1d011d2939af8c2ae97e68e074f57c030f38ffa95c6ecb777d585bffedccf3d15a20e67373448193",
+            "id": "injectable-AuthService-64ff0b9bc5918fc86599541b760b9a24087c7f3ec851f9261eefeac2c6e95aa1b4116fd603a484c76b143d5dc8820d9d2822396ebe3456981d0af46cce668700",
             "file": "src/services/auth.service.ts",
             "properties": [
                 {
@@ -71,6 +71,16 @@
                     "optional": false,
                     "description": "",
                     "line": 7
+                },
+                {
+                    "name": "onAuthStateChanged",
+                    "defaultValue": "new EventEmitter()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "EventEmitter<boolean>",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
                 }
             ],
             "methods": [
@@ -93,7 +103,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 34,
+                    "line": 35,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -105,7 +115,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { AngularFireAuth } from '@angular/fire/compat/auth';\r\nimport firebase from 'firebase/compat/app';\r\nimport { LocalStorageService } from './storage-service.service';\r\n@Injectable({ providedIn: 'root' })\r\nexport class AuthService {\r\n  isLoggedIn: boolean = false;\r\n  // Using localstorage aas a backup for when app initializes\r\n  constructor(public afAuth: AngularFireAuth, private localStorage: LocalStorageService) {\r\n    this.isLoggedIn = this.localStorage.getItem('user')\r\n    this.afAuth.authState.subscribe(\r\n      (user) => {\r\n        if (user) {\r\n          this.localStorage.setItem('user', true);\r\n          this.isLoggedIn = true;\r\n        } else {\r\n          this.localStorage.setItem('user', false);\r\n          this.isLoggedIn = false;\r\n        }\r\n      }\r\n    );\r\n\r\n  }\r\n  async signInWithGoogle() {\r\n    const provider = new firebase.auth.GoogleAuthProvider();\r\n    try {\r\n      const result = await this.afAuth.signInWithPopup(provider);\r\n      return result;\r\n    } catch (error) {\r\n      console.error(error);\r\n      return null;\r\n    }\r\n  }\r\n  async signOutGoogle() {\r\n    await this.afAuth.signOut()\r\n  }\r\n}\r\n",
+            "sourceCode": "import { EventEmitter, Injectable } from '@angular/core';\r\nimport { AngularFireAuth } from '@angular/fire/compat/auth';\r\nimport firebase from 'firebase/compat/app';\r\nimport { LocalStorageService } from './storage-service.service';\r\n@Injectable({ providedIn: 'root' })\r\nexport class AuthService {\r\n  isLoggedIn: boolean = false;\r\n  onAuthStateChanged: EventEmitter<boolean> = new EventEmitter();\r\n  constructor(public afAuth: AngularFireAuth, private localStorage: LocalStorageService) {\r\n    this.isLoggedIn = this.localStorage.getItem('user')\r\n    this.afAuth.authState.subscribe(\r\n      (user) => {\r\n        if (user) {\r\n          this.localStorage.setItem('user', true);\r\n          this.isLoggedIn = true;\r\n        } else {\r\n          this.localStorage.setItem('user', false);\r\n          this.isLoggedIn = false;\r\n        }\r\n      }\r\n    );\r\n\r\n  }\r\n  async signInWithGoogle() {\r\n    const provider = new firebase.auth.GoogleAuthProvider();\r\n    try {\r\n      const result = await this.afAuth.signInWithPopup(provider);\r\n      return result;\r\n    } catch (error) {\r\n      console.error(error);\r\n      return null;\r\n    }\r\n    this.onAuthStateChanged.emit(true); // Emit event after login\r\n  }\r\n  async signOutGoogle() {\r\n    await this.afAuth.signOut()\r\n    this.onAuthStateChanged.emit(false); // Emit event after logout\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -125,7 +135,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 7,
+                "line": 8,
                 "jsdoctags": [
                     {
                         "name": "afAuth",
@@ -587,7 +597,7 @@
         },
         {
             "name": "BookEditorComponent",
-            "id": "component-BookEditorComponent-ef85be6e379cfe5d9771faee4931088b5547ac07a0d9e0c8019ef28add730f948b70aea0d17b4cfbf20dd1057fa3a39f22aff44c1c8b8119619908b6888edebe",
+            "id": "component-BookEditorComponent-403cba37fb267c575981e3908e48df151c3ded2d337a6c777386ea12ec0c7432c754b54331366d2d54b2fb3cb6e617096e504e2c34ee29b94360d0588ac8dfd8",
             "file": "src/app/book-editor/book-editor.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -629,16 +639,17 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { ProjectComponent } from '../project/project.component';\nimport { EditorComponent } from '../editor/editor.component';\n@Component({\n  selector: 'app-book-editor',\n  standalone: true,\n  imports: [\n    CommonModule, ProjectComponent, EditorComponent\n  ],\n  templateUrl: './book-editor.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookEditorComponent { }\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { ProjectComponent } from '../project/project.component';\nimport { EditorComponent } from '../editor/editor.component';\n@Component({\n  selector: 'app-book-editor',\n  standalone: true,\n  imports: [\n    CommonModule, ProjectComponent, EditorComponent\n  ],\n  styleUrl: './book-editor.component.scss',\n  templateUrl: './book-editor.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookEditorComponent { }\n",
+            "styleUrl": "./book-editor.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"grid-container h-full\">\n  <div>\n    <app-project></app-project>\n  </div>\n  <div>\n    <app-editor></app-editor>\n  </div>\n  <div>\n    <!-- content for the last div -->\n  </div>\n</div>\n"
+            "templateData": "<div class=\"grid-container h-full gap-6 m-4\">\n  <div>\n    <app-project></app-project>\n  </div>\n  <div>\n    <app-editor></app-editor>\n  </div>\n  <div class=\"flex flex-col gap-2  \">\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Chapter</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Character</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Beat</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Building</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Item</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Rewrite</button>\n  </div>\n</div>\n"
         },
         {
             "name": "BookExplorerComponent",
-            "id": "component-BookExplorerComponent-a7500d3a0dc5b746638cd01ca81ce4052a62307e15d6c68377620b811380ebbb214457d0752ba3ab4b54f6fd2f672a8fcb18f4a2e6929e51d4520b06c4a1a959",
+            "id": "component-BookExplorerComponent-8523e17faceff1bddaa9aa12d2f23cb12dc8cbccd27083b03711e1c4b37c1a0292fe11e1ca3e470b2176ddacaf04868093ca8e016d697d8deea8a8814d67ae93",
             "file": "src/app/book-explorer/book-explorer.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -660,13 +671,24 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 20,
+                    "line": 22,
                     "type": "Book[]",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "faPlus",
+                    "defaultValue": "faPlus",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
+                }
+            ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -681,17 +703,21 @@
                 {
                     "name": "BookCardComponent",
                     "type": "component"
+                },
+                {
+                    "name": "FontAwesomeModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nexport interface Book {\n  title: string,\n  imgUrl?: string,\n  imgTitle?: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n}\n",
+            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nexport interface Book {\n  title: string,\n  imgUrl?: string,\n  imgTitle?: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent, FontAwesomeModule\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n  faPlus = faPlus\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-white p-4 rounded-lg\">\n  <div class=\"text-3xl text-center\">Your Books</div>\n  <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 bg-transparent rounded-lg\">\n    @for(book of books; track book.title){\n      <app-book-card [book]=\"book\"></app-book-card>\n    }\n    @empty {\n    <div>No books available.</div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"bg-white p-8 rounded-lg\">\n  <div class=\"flex justify-evenly\"> \n    <div class=\"text-3xl text-center\">Your Books</div>\n    <button class=\"flex gap-2 justify-center align-middletext-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none transition ease-in-out duration-300\">\n      <fa-icon [icon]=\"faPlus\"></fa-icon>Create New Book</button>\n  </div>\n  <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 bg-transparent rounded-lg\">\n    @for(book of books; track book.title){\n      <app-book-card [book]=\"book\"></app-book-card>\n    }\n    @empty {\n    <div>No books available.</div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "EditorComponent",
@@ -902,7 +928,7 @@
         },
         {
             "name": "LoginComponent",
-            "id": "component-LoginComponent-88391782e3c028bc8dc8aff64ad6e3e6958a5be1a8e9f1031a35f19c90d3ae40663c81cd65207137376299dd1ffeb194d4154f6521a5f6694bf850d7a09c459e",
+            "id": "component-LoginComponent-9b52ec6963470a3c6916419b04ab27032520f4c251e437b1f639b438ef2847e4170257b1060bcd29f952b2f3a95e7bbfac4d91eeac4c7d1059efcffd5d21c806",
             "file": "src/app/login/login.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -989,7 +1015,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -1012,7 +1038,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AuthService } from '../../services/auth.service';\nimport { AngularFirestore } from '@angular/fire/compat/firestore';\nimport firebase from 'firebase/compat/app';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faGoogle } from '@fortawesome/free-brands-svg-icons'\n@Component({\n  selector: 'app-login',\n  standalone: true,\n  imports: [CommonModule, FontAwesomeModule],\n  templateUrl: './login.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class LoginComponent {\n  constructor(public authService: AuthService, private firestore: AngularFirestore) { }\n  faGoogle = faGoogle\n\n  createUserProfile(user: firebase.User | null) {\n    if (user === null) {\n      console.error('User was noone :/');\n      return\n    }\n    const userProfile = {\n      id: user.uid,\n      name: user.displayName,\n      email: user.email,\n      books: {} // Initialize empty books object\n    };\n    return this.firestore.collection('Users').doc(user.uid).set(userProfile);\n  }\n\n  onGoogleLogin() {\n    this.authService.signInWithGoogle().then((result) => {\n      if (result?.additionalUserInfo?.isNewUser) {\n        this?.createUserProfile(result.user);\n      }\n    });\n  }\n\n  onGoogleLogout() {\n    this.authService.signOutGoogle()\n  }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';\nimport { AuthService } from '../../services/auth.service';\nimport { AngularFirestore } from '@angular/fire/compat/firestore';\nimport firebase from 'firebase/compat/app';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faGoogle } from '@fortawesome/free-brands-svg-icons'\n@Component({\n  selector: 'app-login',\n  standalone: true,\n  imports: [CommonModule, FontAwesomeModule],\n  templateUrl: './login.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class LoginComponent {\n  constructor(public authService: AuthService, private firestore: AngularFirestore, private cdr: ChangeDetectorRef) { }\n  faGoogle = faGoogle\n\n  createUserProfile(user: firebase.User | null) {\n    if (user === null) {\n      console.error('User was noone :/');\n      return\n    }\n    const userProfile = {\n      id: user.uid,\n      name: user.displayName,\n      email: user.email,\n      books: {} // Initialize empty books object\n    };\n    return this.firestore.collection('Users').doc(user.uid).set(userProfile);\n  }\n\n  onGoogleLogin() {\n    this.authService.signInWithGoogle().then((result) => {\n      if (result?.additionalUserInfo?.isNewUser) {\n        this?.createUserProfile(result.user);\n      }\n      this.cdr.detectChanges()\n    });\n  }\n\n  onGoogleLogout() {\n    this.authService.signOutGoogle().then(() => {\n      this.cdr.detectChanges()\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1031,6 +1057,12 @@
                     {
                         "name": "firestore",
                         "type": "AngularFirestore",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "cdr",
+                        "type": "ChangeDetectorRef",
                         "deprecated": false,
                         "deprecationMessage": ""
                     }
@@ -1054,11 +1086,20 @@
                         "tagName": {
                             "text": "param"
                         }
+                    },
+                    {
+                        "name": "cdr",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
                     }
                 ]
             },
             "extends": [],
-            "templateData": "<div *ngIf=\"authService.isLoggedIn; else loginTemplate\">\n  <button class=\"text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 transition ease-in-out duration-300\" (click)=\"onGoogleLogout()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Logout</span>\n  </button>\n</div>\n<ng-template #loginTemplate>\n  <button class=\"text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 transition ease-in-out duration-300\" (click)=\"onGoogleLogin()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Login with Google</span>\n  </button>\n</ng-template>\n"
+            "templateData": "@if(authService.isLoggedIn){\n  <button class=\"text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none transition ease-in-out duration-300\" (click)=\"onGoogleLogout()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Logout</span>\n  </button>\n} @else {\n  <button class=\"text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none transition ease-in-out duration-300\" (click)=\"onGoogleLogin()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Login with Google</span>\n  </button>\n}"
         },
         {
             "name": "NavbarComponent",
@@ -1314,7 +1355,7 @@
         },
         {
             "name": "ProjectComponent",
-            "id": "component-ProjectComponent-06d4c6ac57987ce6874d62b06c5de2d6175265f4408a4a40a8204b0bcedb292deeca4f1784ecc938a0befbc58b942fe034a0fba9172214116c4c4a828c3cc02e",
+            "id": "component-ProjectComponent-c80fc6d70f560f1e7c587634d1d0be65b07ea28c38679a5095ffa08cb8420f8d4305e13e0d00f3bd397b5eb781ba4519b6d6503529c140ebc5352a68f61aefd0",
             "file": "src/app/project/project.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1332,7 +1373,7 @@
             "inputsClass": [
                 {
                     "name": "files",
-                    "defaultValue": "['File 1', 'File 2', 'File 3']",
+                    "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 17,
@@ -1413,12 +1454,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFolderOpen } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { ProjectTitleComponent } from './project-title/project-title.component';\nimport { ProjectChapterComponent } from './project-chapter/project-chapter.component';\n@Component({\n  selector: 'app-project',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, ProjectTitleComponent, ProjectChapterComponent\n  ],\n  templateUrl: './project.component.html',\n})\nexport class ProjectComponent {\n  @Input() files: string[] = ['File 1', 'File 2', 'File 3'];\n  faFolderOpen = faFolderOpen\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    moveItemInArray(this.files, event.previousIndex, event.currentIndex);\n    console.log(this.files, event)\n  }\n}\n\n\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFolderOpen } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { ProjectTitleComponent } from './project-title/project-title.component';\nimport { ProjectChapterComponent } from './project-chapter/project-chapter.component';\n@Component({\n  selector: 'app-project',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, ProjectTitleComponent, ProjectChapterComponent\n  ],\n  templateUrl: './project.component.html',\n})\nexport class ProjectComponent {\n  @Input() files: string[] = [];\n  faFolderOpen = faFolderOpen\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    moveItemInArray(this.files, event.previousIndex, event.currentIndex);\n    console.log(this.files, event)\n  }\n}\n\n\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"m-4 p-4 border-4 border-gray-300 rounded-lg shadow bg-white opacity-80\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"p-4 border-4 border-gray-300 rounded-lg shadow bg-white opacity-80\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "ProjectTitleComponent",
@@ -1580,7 +1621,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"flex gap-1 justify-center items-center mb-4\">\n  <fa-icon [icon]=\"faBookOpen\" class=\"text-xl\"></fa-icon>\n  <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n    <p class=\"text-lg font-semibold\">{{ bookName }}</p>\n  </div>\n  <input *ngIf=\"editingTitle\" [(ngModel)]=\"bookName\" (blur)=\"onTitleBlur()\" \n          (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-gray-300 rounded py-1 px-2 text-lg\">\n  <button (click)=\"importFiles()\" class=\"ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n    <fa-icon [icon]=\"faFileImport\" class=\"text-base\"></fa-icon>\n    Import\n  </button>\n  <button (click)=\"addNewFile()\" class=\"ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n    <fa-icon [icon]=\"faPlus\" class=\"text-base\"></fa-icon>\n    Add New\n  </button>\n</div>"
+            "templateData": "<div class=\"flex flex-col items-center mb-6\">\n  <div class=\"flex mb-2\">\n    <fa-icon [icon]=\"faBookOpen\" class=\"text-xl\"></fa-icon>\n    <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n      <p class=\"text-xl font-semibold\">{{ bookName }}</p>\n    </div>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"bookName\" (blur)=\"onTitleBlur()\" \n            (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-gray-300 rounded py-1 px-2 text-lg\">\n  </div>\n  <div class=\"flex gap-1\">\n    <button (click)=\"importFiles()\" class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n      <fa-icon [icon]=\"faFileImport\" class=\"text-base\"></fa-icon>\n      Import\n    </button>\n    <button (click)=\"addNewFile()\" class=\"bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n      <fa-icon [icon]=\"faPlus\" class=\"text-base\"></fa-icon>\n      Add New\n    </button>\n  </div>\n</div>\n"
         }
     ],
     "modules": [],
@@ -1660,7 +1701,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/editor/editor.stories.ts",
+                "file": "src/app/home/Home.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -1670,7 +1711,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/home/Home.stories.ts",
+                "file": "src/app/editor/editor.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -1925,24 +1966,24 @@
                     "defaultValue": "() => ({\r\n  component: BookExplorerComponent,\r\n  props: { books: [{ title: 'Hello' }, { title: 'The beautiful Mermaid' }, { title: 'The Barbarian & The wild woman' }, { title: 'Batman & Not Robin' }, { title: '7 Heralds' }, { title: 'Samanthat & Melf' }, { title: 'Trouble In Hell' }, { title: 'Temporal Tempest' }] }\r\n})"
                 }
             ],
-            "src/app/editor/editor.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/editor/editor.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "() => ({})"
-                }
-            ],
             "src/app/home/Home.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/home/Home.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({})"
+                }
+            ],
+            "src/app/editor/editor.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/editor/editor.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -2238,7 +2279,7 @@
                 "linktype": "component",
                 "name": "BookExplorerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -2459,7 +2500,7 @@
                 "linktype": "injectable",
                 "name": "AuthService",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {

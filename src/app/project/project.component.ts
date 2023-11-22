@@ -14,7 +14,7 @@ import { ProjectChapterComponent } from './project-chapter/project-chapter.compo
   templateUrl: './project.component.html',
 })
 export class ProjectComponent {
-  @Input() files: string[] = ['File 1', 'File 2', 'File 3'];
+  @Input() files: string[] = [];
   faFolderOpen = faFolderOpen
 
   onDrop(event: CdkDragDrop<string[]>) {
