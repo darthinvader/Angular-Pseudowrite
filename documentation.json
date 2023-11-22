@@ -463,11 +463,11 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"text-4xl\">Your Books</div>\n    <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 m-4 bg-white rounded-lg shadow-xl max-w-screen-2xl mx-auto\">\n      @for(book of books; track book.title){\n        <app-book-card [book]=\"book\"></app-book-card>\n      \n    }\n    @empty {\n      <div>No books available.</div>\n    }\n</div>"
+            "templateData": "<div class=\"text-4xl\">Your Books</div>\n<div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 m-4 bg-white rounded-lg shadow-xl max-w-screen-2xl mx-auto\">\n  @for(book of books; track book.title){\n    <app-book-card [book]=\"book\"></app-book-card>\n  }\n  @empty {\n  <div>No books available.</div>\n  }\n</div>"
         },
         {
             "name": "EditorComponent",
-            "id": "component-EditorComponent-1c83b23677cf9ed33236aac02142063f2a106c78723c6d911471b9593eb44b4a288a0e483fc5c2c66c269bff3da6b40a70b07d62c57d014b50490583836b6891",
+            "id": "component-EditorComponent-4c2de3f0897c642860f904b8fe9222c7a5a845fd893e057c655663721ccc2b0f6248f2668ace86d78ac8cf488ae14de6353232e772dda663dd5ddf3ba3c24509",
             "file": "src/app/editor/editor.component.ts",
             "encapsulation": [
                 "ViewEncapsulation.None"
@@ -490,7 +490,7 @@
                     "defaultValue": "editorConfig",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 60,
+                    "line": 58,
                     "type": "AngularEditorConfig",
                     "decorators": []
                 },
@@ -499,7 +499,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 59,
+                    "line": 57,
                     "type": "string",
                     "decorators": []
                 }
@@ -510,7 +510,7 @@
                     "defaultValue": "new EventEmitter()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 61,
+                    "line": 59,
                     "type": "EventEmitter"
                 }
             ],
@@ -522,7 +522,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 88,
+                    "line": 86,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -532,7 +532,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 70,
+                    "line": 68,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -542,7 +542,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 65,
+                    "line": 63,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -577,7 +577,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, signal, Output } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { HttpClient, HttpClientModule } from '@angular/common/http';\r\nimport { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { ViewEncapsulation } from '@angular/core';\r\nimport { EventEmitter } from 'stream';\r\n\r\nconst toolbarHiddenButtons = [\r\n  [\r\n    'subscript',\r\n    'superscript',\r\n  ],\r\n  [\r\n    'fontSize',\r\n    'textColor',\r\n    'backgroundColor',\r\n    'customClasses',\r\n    'link',\r\n    'unlink',\r\n    'insertImage',\r\n    'insertVideo',\r\n    'insertHorizontalRule',\r\n    'toggleEditorMode'\r\n  ]\r\n]\r\n\r\nconst editorConfig: AngularEditorConfig = {\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n};\r\n@Component({\r\n  selector: 'app-editor',\r\n  standalone: true,\r\n  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule],\r\n  templateUrl: './editor.component.html',\r\n  styleUrl: './editor.component.scss',\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class EditorComponent {\r\n  @Input() htmlContent = ''\r\n  @Input() editorConfig = editorConfig\r\n  @Output() htmlContentChange = new EventEmitter();\r\n\r\n  constructor(private http: HttpClient) { }\r\n\r\n  saveContent() {\r\n    // Emitting the current htmlContent\r\n    this.htmlContentChange.emit(this.htmlContent);\r\n  }\r\n\r\n  performRequest() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Always answer in rhymes.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n  giveDifferentWording() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Reword the specific message, do not say anything before or after the rewording.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n}",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { HttpClient, HttpClientModule } from '@angular/common/http';\r\nimport { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';\r\nimport { FormsModule } from '@angular/forms';\r\n\r\nconst toolbarHiddenButtons = [\r\n  [\r\n    'subscript',\r\n    'superscript',\r\n  ],\r\n  [\r\n    'fontSize',\r\n    'textColor',\r\n    'backgroundColor',\r\n    'customClasses',\r\n    'link',\r\n    'unlink',\r\n    'insertImage',\r\n    'insertVideo',\r\n    'insertHorizontalRule',\r\n    'toggleEditorMode'\r\n  ]\r\n]\r\n\r\nconst editorConfig: AngularEditorConfig = {\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n};\r\n@Component({\r\n  selector: 'app-editor',\r\n  standalone: true,\r\n  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule],\r\n  templateUrl: './editor.component.html',\r\n  styleUrl: './editor.component.scss',\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class EditorComponent {\r\n  @Input() htmlContent = ''\r\n  @Input() editorConfig = editorConfig\r\n  @Output() htmlContentChange = new EventEmitter();\r\n\r\n  constructor(private http: HttpClient) { }\r\n\r\n  saveContent() {\r\n    // Emitting the current htmlContent\r\n    this.htmlContentChange.emit(this.htmlContent);\r\n  }\r\n\r\n  performRequest() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Always answer in rhymes.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n  giveDifferentWording() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Reword the specific message, do not say anything before or after the rewording.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n}",
             "styleUrl": "./editor.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -595,7 +595,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 61,
+                "line": 59,
                 "jsdoctags": [
                     {
                         "name": "http",
@@ -773,7 +773,7 @@
         },
         {
             "name": "ProjectChapterComponent",
-            "id": "component-ProjectChapterComponent-d277b1e618e5345ec5cb890072e7d99d4b74ab32e96f6f35bfa5e327efdb177e5a7dd65908ba9972b964125c2d633517951fbefe9e89a11b01064be52472ee6c",
+            "id": "component-ProjectChapterComponent-4c2dd276a1eb98b9f61e18a38a4b0a9efead690f3fad81387c0f713945d0ec06b9b044c316134cc701d5996463c38ab1adb2c576360e5d9cc36a545be614c5b5",
             "file": "src/app/project/project-chapter/project-chapter.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -818,17 +818,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 23
-                },
-                {
-                    "name": "faEllipsisVertical",
-                    "defaultValue": "faEllipsisVertical",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 18
+                    "line": 21
                 },
                 {
                     "name": "faFileExport",
@@ -838,17 +828,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 22
-                },
-                {
-                    "name": "faFileImport",
-                    "defaultValue": "faFileImport",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 24
+                    "line": 20
                 },
                 {
                     "name": "faFileLines",
@@ -861,16 +841,6 @@
                     "line": 17
                 },
                 {
-                    "name": "faFolderOpen",
-                    "defaultValue": "faFolderOpen",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 20
-                },
-                {
                     "name": "faGripVertical",
                     "defaultValue": "faGripVertical",
                     "deprecated": false,
@@ -878,17 +848,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
-                },
-                {
-                    "name": "faPlus",
-                    "defaultValue": "faPlus",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 25
+                    "line": 18
                 },
                 {
                     "name": "faTrash",
@@ -898,7 +858,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 21
+                    "line": 19
                 }
             ],
             "methodsClass": [
@@ -915,7 +875,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27,
+                    "line": 23,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -943,7 +903,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 35,
+                    "line": 31,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -971,7 +931,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 31,
+                    "line": 27,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1009,7 +969,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFileLines, faEllipsisVertical, faGripVertical, faFolderOpen, faTrash, faFileExport, faClone, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { CommonModule } from '@angular/common';\n@Component({\n  selector: 'app-project-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule\n  ],\n  templateUrl: './project-chapter.component.html',\n})\nexport class ProjectChapterComponent {\n  @Input() file: string = '';\n  @Input() index: number = 0\n  faFileLines = faFileLines\n  faEllipsisVertical = faEllipsisVertical\n  faGripVertical = faGripVertical\n  faFolderOpen = faFolderOpen\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n  faFileImport = faFileImport;\n  faPlus = faPlus;\n\n  deleteFile(index: number): void {\n    // Implement file deletion logic\n  }\n\n  exportFile(file: string): void {\n    // Implement file export logic\n  }\n\n  duplicateFile(file: string): void {\n    // Implement file duplication logic\n  }\n}\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFileLines, faGripVertical, faTrash, faFileExport, faClone, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { DragDropModule } from '@angular/cdk/drag-drop';\nimport { CommonModule } from '@angular/common';\n@Component({\n  selector: 'app-project-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule\n  ],\n  templateUrl: './project-chapter.component.html',\n})\nexport class ProjectChapterComponent {\n  @Input() file: string = '';\n  @Input() index: number = 0\n  faFileLines = faFileLines\n  faGripVertical = faGripVertical\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n\n  deleteFile(index: number): void {\n    // Implement file deletion logic\n  }\n\n  exportFile(file: string): void {\n    // Implement file export logic\n  }\n\n  duplicateFile(file: string): void {\n    // Implement file duplication logic\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1831,7 +1791,7 @@
                 "linktype": "component",
                 "name": "ProjectChapterComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/15",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {
