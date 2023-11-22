@@ -12,5 +12,5 @@ export const Default = () => ({
 
 export const ManyBooks = () => ({
   component: BookExplorerComponent,
-  props: { books: [{ title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }, { title: 'Hello' }] }
+  props: { books: [{ title: 'Hello' }, { title: 'The beautiful Mermaid' }, { title: 'The Barbarian & The wild woman' }, { title: 'Batman & Not Robin' }, { title: '7 Heralds' }, { title: 'Samanthat & Melf' }, { title: 'Trouble In Hell' }, { title: 'Temporal Tempest' }] }
 });

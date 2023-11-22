@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
   standalone: true,
   imports: [CommonModule, RouterOutlet, EditorComponent, ProjectComponent, LoginComponent],
   templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'angular-pseudowrite';

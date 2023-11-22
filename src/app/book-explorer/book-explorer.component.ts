@@ -3,7 +3,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BookCardComponent } from './book-card/book-card.component';
 export interface Book {
   title: string,
-  imgUrl: string
+  imgUrl?: string,
+  imgTitle?: string
 }
 
 @Component({

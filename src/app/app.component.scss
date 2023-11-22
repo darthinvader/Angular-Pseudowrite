@@ -1,0 +1,28 @@
+.background {
+  background-color: #f5f1e6; // a base off-white color
+  position: fixed; // fixed position to stay in place on scroll
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+
+  background-image:
+    radial-gradient(at 20% 35%, rgba(215, 201, 169, 0.6) 0, transparent 60%),
+    radial-gradient(at 75% 60%, rgba(176, 163, 144, 0.6) 0, transparent 70%),
+    linear-gradient(45deg, transparent 25%, rgba(196, 183, 153, 0.1) 25%, rgba(196, 183, 153, 0.1) 50%, transparent 50%, transparent 75%, rgba(196, 183, 153, 0.2) 75%);
+
+  background-size: 800px 800px, 1200px 1200px, 60px 60px; // size for patterns
+  background-attachment: fixed; // ensures the background is fixed during scroll
+
+  @keyframes drift {
+    from {
+      background-position: 0 0, 0 0, 0 0;
+    }
+    to {
+      background-position: 100px 50px, -50px -100px, 0 0; // subtle movement
+    }
+  }
+
+  animation: drift 20s infinite linear; // applying the animation
+}
