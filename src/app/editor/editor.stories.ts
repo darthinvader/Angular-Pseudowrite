@@ -5,4 +5,4 @@ export default {
   component: EditorComponent,
 };
 
-export const Primary = () => ({});
+export const Default = () => ({});

@@ -1,6 +1,11 @@
+import { moduleMetadata } from '@storybook/angular';
+import { MockAngularFirestore, MockAuthService } from './firebaseSetup'; // Adjust path as necessary
 import type { Preview } from "@storybook/angular";
 import { setCompodocJson } from "@storybook/addon-docs/angular";
 import docJson from "../documentation.json";
+import { AuthService } from '../src/services/auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 setCompodocJson(docJson);
 
 const preview: Preview = {
@@ -13,6 +18,14 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    moduleMetadata({
+      providers: [
+        { provide: AuthService, useClass: MockAuthService },
+        { provide: AngularFirestore, useClass: MockAngularFirestore },
+      ],
+    }),
+  ],
 };
 
 export default preview;
