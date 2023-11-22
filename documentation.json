@@ -387,7 +387,7 @@
         },
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-cb67ff1fd2928b2303d235bbc409ba2c45842dc4824a594964a8808cfb5acd4acb9ea50023bce180bec1fd1d6c83a35521e5481abf994deebbab2bb86f640fe2",
+            "id": "component-AppComponent-9477d387dee3040bcf2159134e88ea5c90033888439ffa1081ba6d84806514e5cf713fbd02e15cf943adca9c49fa2bf4de6101155ecfb8b97c2e9892fa3b8b38",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -413,7 +413,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 16
                 }
             ],
             "methodsClass": [],
@@ -441,18 +441,22 @@
                 {
                     "name": "LoginComponent",
                     "type": "component"
+                },
+                {
+                    "name": "BackgroundComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { EditorComponent } from './editor/editor.component';\r\nimport { ProjectComponent } from './project/project.component';\r\nimport { LoginComponent } from './login/login.component';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, EditorComponent, ProjectComponent, LoginComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { EditorComponent } from './editor/editor.component';\r\nimport { ProjectComponent } from './project/project.component';\r\nimport { LoginComponent } from './login/login.component';\r\nimport { BackgroundComponent } from './background/background.component';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, EditorComponent, ProjectComponent, LoginComponent, BackgroundComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n}\r\n",
             "styleUrl": "./app.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"background\"></div>\r\n<div class=\"project-content\">\r\n  <app-project></app-project>\r\n</div>"
+            "templateData": "<app-background></app-background>\r\n<div class=\"project-content\">\r\n  <app-project></app-project>\r\n</div>"
         },
         {
             "name": "BackgroundComponent",
@@ -496,7 +500,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"stars\">\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n</div>"
+            "templateData": "<div class=\"container\">\n  <div class=\"stars\">\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n  <div class=\"star\"></div>\n</div>\n</div>"
         },
         {
             "name": "BookCardComponent",
@@ -1333,7 +1337,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"m-4 p-4 border-4 border-gray-300 rounded-lg  shadow\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"m-4 p-4 border-4 border-gray-300 rounded-lg shadow bg-white\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "ProjectTitleComponent",
@@ -1689,7 +1693,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n  decorators: [\n    moduleMetadata({\n      providers: [\n        { provide: AuthService, useClass: MockAuthService },\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\n      ],\n    }),\n  ],\n}"
+                "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        { provide: AuthService, useClass: MockAuthService },\r\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\r\n      ],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "serverConfig",
@@ -1957,7 +1961,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n  decorators: [\n    moduleMetadata({\n      providers: [\n        { provide: AuthService, useClass: MockAuthService },\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\n      ],\n    }),\n  ],\n}"
+                    "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        { provide: AuthService, useClass: MockAuthService },\r\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\r\n      ],\r\n    }),\r\n  ],\r\n}"
                 }
             ]
         },

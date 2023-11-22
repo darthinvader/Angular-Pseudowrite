@@ -1,4 +1,4 @@
-<div class="m-4 p-4 border-4 border-gray-300 rounded-lg  shadow">
+<div class="m-4 p-4 border-4 border-gray-300 rounded-lg shadow bg-white opacity-80">
   <app-project-title></app-project-title>
   <div class="m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md" cdkDropList (cdkDropListDropped)="onDrop($event)">
     @for (file of files; track $index) {

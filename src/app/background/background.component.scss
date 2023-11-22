@@ -1,43 +1,28 @@
-@mixin sp-layout($content) {
+@mixin sp-layout {
   @media screen and (max-width: 750px) {
     @content;
   }
 }
 
-@function random($min, $max) {
-  @return $min + random() * ($max - $min);
-}
-
-@mixin star-size($index, $star-count) {
-  &:nth-child(#{$index}) {
-    --star-tail-length: #{random(5em, 7.5em)};
-    --top-offset: #{random(0vh, 100vh)};
-    --fall-duration: #{random(6s, 12s)};
-    --fall-delay: #{random(0s, 10s)};
-  }
-}
-
-@mixin blink-animation {
-  @keyframes blink {
-    50% {
-      opacity: 0.6;
-    }
-  }
-  animation: blink 2s linear infinite;
-}
-
-body {
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
-  
-  @include sp-layout {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-  }
+  overflow: hidden;
+  min-width:100vw;
+  position:absolute;
+  top:0;
+  left:0;
+  z-index: -1;
 }
 
+@function random_range($min, $max) {
+  $rand: random();
+  $random_range: $min + floor($rand * (($max - $min) + 1));
+  @return $random_range;
+}
 
 .stars {
   position: fixed;
@@ -50,39 +35,50 @@ body {
 
 .star {
   $star-count: 50;
+  --star-color: var(--primary-color);
+  --star-tail-length: #{random_range(12em, 36em)};
+  --star-tail-height: #{random_range(0px, 4px)};
+  --star-width: calc(var(--star-tail-length) / 6);
+  --fall-duration: #{random_range(5s, 20s)};
+  --tail-fade-duration: var(--fall-duration);
+
   position: absolute;
   top: var(--top-offset);
-  left: 0;
-  width: var(--star-tail-length);
-  height: var(--star-tail-height, 2px);
+  left: var(--left-offset);
+  width: var(--star-width);
+  height: var(--star-tail-height);
+  color: var(--star-color);
   background: linear-gradient(45deg, currentColor, transparent);
   border-radius: 50%;
   filter: drop-shadow(0 0 6px currentColor);
   transform: translate3d(104em, 0, 0);
-  animation: fall var(--fall-duration) var(--fall-delay) linear infinite,
-             tail-fade var(--tail-fade-duration, var(--fall-duration)) var(--fall-delay) ease-out infinite;
-
-  @include sp-layout{
-    animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
-  }; // For mobile performance, tail-fade animation will be removed
+  animation: fall var(--fall-duration) var(--fall-delay) linear infinite, tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
   
-  @include blink-animation;
-
-  @for $i from 1 through $star-count {
-    @include star-size($i, $star-count);
+  @include sp-layout {
+    // For mobile performance, tail-fade animation will be removed QAQ
+    animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
   }
 
-  &::before,
-  &::after {
-    @include blink-animation;
+  @for $i from 1 through $star-count {
+    &:nth-child(#{$i}) {
+      --star-tail-length: #{random_range(5em, 7.5em)};
+      --top-offset: #{random_range(0vh, 100vh)};
+      --left-offset: #{random_range(0vw,100vw)};
+      --fall-duration: #{random_range(6, 12s)};
+      --fall-delay: #{random_range(0s, 2s)};
+    }
+  }
+
+  &::before, &::after {
     position: absolute;
     content: '';
     top: 0;
-    left: calc(var(--star-width, calc(var(--star-tail-length) / 6)) / -2);
+    left: calc(var(--star-width) / -2);
     width: var(--star-width);
     height: 100%;
     background: linear-gradient(45deg, transparent, currentColor, transparent);
     border-radius: inherit;
+    animation: blink 2s linear infinite;
   }
 
   &::before {
@@ -105,12 +101,20 @@ body {
     width: var(--star-tail-length);
     opacity: 1;
   }
+
   70%, 80% {
     width: 0;
     opacity: 0.4;
   }
+
   100% {
     width: 0;
     opacity: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.6;
   }
 }
