@@ -35,16 +35,16 @@ body{
   --color-button:#3a3f44;
 }
 
-[data-theme='focus']{
-  --color-primary:#f0f0f0;
-  --color-secondary:#dae0e6;
-  --color-accent:#ffa726;
-  --color-text-primary:#333333;
-  --color-text-secondary:#565656;
-  --color-border:#d1d5db;
-  --font-family-sans:['Inter', 'sans-serif']
-  --font-family-serif: ['Merriweather', 'serif']
-  --color-page:#fafafa;
-  --color-div:#ffffff;
-  --color-button:#dae0e6;
+[data-theme='focus'] {
+  --color-primary: #3d5a80; /* Deep, calming blue */
+  --color-secondary: #9b9b84; /* Modern grayish-beige */
+  --color-accent: #FFF200; /* Bright Yellow for energetic highlights */
+  --color-text-primary: #023047; /* Dark blue for readability */
+  --color-text-secondary: #fbeddb; /* Light sand for less important text */
+  --color-border: #e1d0bc; /* Soft beige for subtle borders */
+  --font-family-sans: ['Open Sans', 'sans-serif']; /* Clean, modern sans-serif font */
+  --font-family-serif: ['Lora', 'serif']; /* Elegant serif font for contrast */
+  --color-page: #e0fbfc; /* Very light blue for background */
+  --color-div: #fbeddb; /* Light sand for division colors */
+  --color-button: #98c1d9; /* Lighter blue for buttons */
 }
