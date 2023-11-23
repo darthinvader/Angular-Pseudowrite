@@ -56,6 +56,9 @@ angular-editor {
     padding: 0.5rem!important;
     display:flex;
     align-items: center;
+    border: 0!important;
+    box-shadow:#0003 0 2px 8px;
+    border-radius: 1em;
   }
   
   .angular-editor-toolbar-set {
@@ -93,6 +96,9 @@ angular-editor {
 
   .angular-editor-textarea{
     resize: none!important;
+    border: 0!important;
+    box-shadow:#0003 0 2px 8px;
+    border-radius: 1em;
   }
 
   ae-select {

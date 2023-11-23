@@ -3,4 +3,48 @@
 @tailwind utilities;
 body{
   min-height:100vh;
+
+}
+
+:root {
+  --color-primary:#f0f0f0;
+  --color-secondary:#dae0e6;
+  --color-accent:#ffa726;
+  --color-text-primary:#333333;
+  --color-text-secondary:#565656;
+  --color-border:#d1d5db;
+  --font-family-sans:['Inter', 'sans-serif']
+  --font-family-serif: ['Merriweather', 'serif']
+  --color-page:#fafafa;
+  --color-div:#ffffff;
+  --color-button:#dae0e6;
+}
+
+/* Dark theme overrides */
+[data-theme='dark'] {
+  --color-primary:#2d2d2d;
+  --color-secondary:#3a3f44;
+  --color-accent:#e57373;
+  --color-text-primary:#e0e0e0;
+  --color-text-secondary:#c2c2c2;
+  --color-border:#4a4e52;
+  --font-family-sans:['Roboto', 'sans-serif']
+  --font-family-serif:['Lora', 'serif']
+  --color-page:#232323;
+  --color-div:#1d1d1d;
+  --color-button:#3a3f44;
+}
+
+[data-theme='focus']{
+  --color-primary:#f0f0f0;
+  --color-secondary:#dae0e6;
+  --color-accent:#ffa726;
+  --color-text-primary:#333333;
+  --color-text-secondary:#565656;
+  --color-border:#d1d5db;
+  --font-family-sans:['Inter', 'sans-serif']
+  --font-family-serif: ['Merriweather', 'serif']
+  --color-page:#fafafa;
+  --color-div:#ffffff;
+  --color-button:#dae0e6;
 }
