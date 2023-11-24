@@ -464,7 +464,7 @@
         },
         {
             "name": "ThemeService",
-            "id": "injectable-ThemeService-a646cf4442877a715ce6e6d73153ff707a45c947c71ca8431e4aa6cc0d5c15abcf8188b0a30dfca272134ebea908437f601abc2d897c2a53b16f321f46baf666",
+            "id": "injectable-ThemeService-efc43ab3e1e9f83be3b209dacefcf6a1648d7929602711f8b0bab0d9b1e29f27c94bd6633fed3410be6efb85e316e39d3997dca1980933ac355dc543b53e42f7",
             "file": "src/services/ThemeService.service.ts",
             "properties": [
                 {
@@ -488,7 +488,7 @@
                     "optional": false,
                     "returnType": "Theme",
                     "typeParameters": [],
-                    "line": 30,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -518,7 +518,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 25,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -538,7 +538,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { isPlatformBrowser } from '@angular/common';\nimport { LocalStorageService } from './storage-service.service';\nimport { Injectable, Inject, PLATFORM_ID } from '@angular/core';\n\nexport const THEMES = ['light', 'dark', 'focus'];\nexport type Theme = 'light' | 'dark' | 'focus'\n\n\n@Injectable({ providedIn: 'root' })\nexport class ThemeService {\n  private theme: Theme = 'light';\n\n  constructor(private localStorage: LocalStorageService, @Inject(PLATFORM_ID) private platformId: Object) {\n    this.initializeTheme();\n  }\n\n  private initializeTheme(): void {\n    const savedTheme = this.localStorage.getItem('theme') || 'light';\n    this.setTheme(savedTheme as Theme);\n  }\n\n  setTheme(theme: Theme): void {\n    this.theme = theme;\n    this.localStorage.setItem('theme', theme);\n    if (isPlatformBrowser(this.platformId)) {\n      document.documentElement.setAttribute('data-theme', theme);\n    }\n  }\n\n  getCurrentTheme(): Theme {\n    return this.theme;\n  }\n}\n",
+            "sourceCode": "import { isPlatformBrowser } from '@angular/common';\nimport { LocalStorageService } from './storage-service.service';\nimport { Injectable, Inject, PLATFORM_ID } from '@angular/core';\n\nexport const THEMES = ['light', 'dark', 'focus'];\nexport type Theme = 'light' | 'dark' | 'focus'\n\n\n@Injectable({ providedIn: 'root' })\nexport class ThemeService {\n  private theme: Theme = 'light';\n\n  constructor(private localStorage: LocalStorageService, @Inject(PLATFORM_ID) private platformId: Object) {\n    this.initializeTheme();\n  }\n\n  private initializeTheme(): void {\n    if (isPlatformBrowser(this.platformId)) {\n      const savedTheme = this.localStorage.getItem('theme') || 'light';\n      this.setTheme(savedTheme as Theme);\n    }\n\n  }\n\n  setTheme(theme: Theme): void {\n    this.theme = theme;\n    if (isPlatformBrowser(this.platformId)) {\n      this.localStorage.setItem('theme', theme);\n      document.documentElement.setAttribute('data-theme', theme);\n    }\n  }\n\n  getCurrentTheme(): Theme {\n    return this.theme;\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -676,7 +676,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg shadow-xl animate-fadeIn\">\n  <h1 class=\"text-4xl font-bold mb-6 flex items-center animate-pulse\">\n    <fa-icon [icon]=\"faRobot\" class=\"text-3xl mr-3 animate-spin\"></fa-icon>\n    About PseudoWrite 📘✍️\n  </h1>\n  <div class=\"space-y-4\">\n    <p class=\"flex items-center animate-slideInLeft\">\n      <fa-icon [icon]=\"faBook\" class=\"text-xl mr-2 animate-bounce\"></fa-icon>\n      Welcome to PseudoWrite, where your writing journey is assisted by cutting-edge AI technology. Our platform offers unique tools to help authors at every stage of their writing process, from brainstorming ideas to polishing final drafts.\n    </p>\n    <p class=\"flex items-center animate-slideInRight\">\n      <fa-icon [icon]=\"faBrain\" class=\"text-xl mr-2 animate-wiggle\"></fa-icon>\n      Our AI-driven features provide personalized suggestions, plot development ideas, character insights, and much more, helping you overcome writer's block and enhance your storytelling.\n    </p>\n    <p class=\"flex items-center animate-slideInLeft\">\n      <fa-icon [icon]=\"faUsers\" class=\"text-xl mr-2\"></fa-icon>\n      Whether you're a seasoned author or just starting, PseudoWrite is here to support your creative journey. Embrace the future of writing with PseudoWrite, where every story finds its voice.\n    </p>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"bg-gradient-to-r text-primary px-6 py-12 rounded-lg shadow-xl animate-fadeIn\">\n  <h1 class=\"text-4xl font-bold mb-6 flex items-center animate-pulse\">\n    🤖 About PseudoWrite 📘✍️\n  </h1>\n  <div class=\"space-y-4 ml-6\">\n    <p class=\"flex items-center animate-slideInLeft\">\n      <span class=\"text-xl animate-bounce\">📘</span>\n      Welcome to PseudoWrite, where your writing journey is assisted by cutting-edge AI technology. Our platform offers unique tools to help authors at every stage of their writing process, from brainstorming ideas to polishing final drafts.\n    </p>\n    <p class=\"flex items-center animate-slideInRight\">\n      <span class=\"text-xl animate-wiggle\">🖲️</span>\n      Our AI-driven features provide personalized suggestions, plot development ideas, character insights, and much more, helping you overcome writer's block and enhance your storytelling.\n    </p>\n    <p class=\"flex items-center animate-slideInLeft\">\n      <span class=\"text-xl\">👥</span>\n      Whether you're a seasoned author or just starting, PseudoWrite is here to support your creative journey. Embrace the future of writing with PseudoWrite, where every story finds its voice.\n    </p>\n  </div>\n</div>\n"
         },
         {
             "name": "AppComponent",
@@ -798,7 +798,7 @@
                 ]
             },
             "extends": [],
-            "templateData": "<app-navbar></app-navbar>\r\n<app-background></app-background>\r\n<app-home></app-home>\r\n<button class=\"text-white\" (click)=\"onClick()\">CLick me</button>"
+            "templateData": "<div class=\"bg-page w-screen h-screen\">\r\n  <app-navbar></app-navbar>\r\n  <!-- <app-background></app-background> -->\r\n  <app-home></app-home>\r\n</div>"
         },
         {
             "name": "BackgroundComponent",
@@ -1045,7 +1045,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"flex flex-col bg-page m-8 p-8 rounded-lg\">\n  <div class=\"flex flex-col justify-between items-center align-middle\"> \n    <div class=\"text-3xl text-center flex-1\">Your Books</div>\n    <button class=\"absolute self-end text-md gap-2 px-6 py-2 bg-opacity-90 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:scale-95 transition ease-in-out duration-300\">\n      ➕ Create New Book\n    </button>\n  </div>\n  @if(books.length != 0){\n    <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 border-border-color border shadow rounded-lg\">\n      @for(book of books; track book.title){\n        <app-book-card [book]=\"book\"></app-book-card>\n      }\n    </div>\n  } @else{\n    <div *ngIf=\"books.length === 0\" class=\"text-gray-600 text-center p-6 m-4 border-border-color border shadow rounded-lg\">\n      <p>No books yet. Click \"Add New Book\" to start!📖</p>\n    </div>\n  }\n</div>\n"
+            "templateData": "<div class=\"flex flex-col bg-div p-8 rounded-lg text-primary\">\n  <div class=\"flex flex-col justify-between items-center align-middle\"> \n    <div class=\"text-3xl text-center flex-1\">Your Books📚</div>\n    <button class=\"absolute self-end text-md gap-2 px-6 py-2 bg-opacity-90 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:scale-95 transition ease-in-out duration-300\">\n      ➕ Create New Book\n    </button>\n  </div>\n  @if(books.length != 0){\n    <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 border-border-color border shadow rounded-lg\">\n      @for(book of books; track book.title){\n        <app-book-card [book]=\"book\"></app-book-card>\n      }\n    </div>\n  } @else{\n    <div *ngIf=\"books.length === 0\" class=\"text-primary text-center p-6 m-4 border-border-color border shadow rounded-lg\">\n      <p>No books yet. Click \"Add New Book\" to start!📖</p>\n    </div>\n  }\n</div>\n"
         },
         {
             "name": "EditorComponent",
@@ -1458,7 +1458,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-div text-primary px-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a href=\"/home\" class=\"hover:text-primary-hover\">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li >\r\n                    <a href=\"/explore\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover w-full h-full\">Explore</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"/about\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover w-full h-full\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <div class=\"flex flex-column align-middle justify-center gap-10\">\r\n      <app-theme-switch></app-theme-switch>\r\n      <app-login></app-login>\r\n    </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"bg-div text-primary px-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a href=\"/home\" class=\"hover:text-primary-hover\">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li >\r\n                    <a href=\"/explore\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover w-full h-full\">Explore</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"/about\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover w-full h-full\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <div class=\"flex flex-column align-middle justify-center items-center gap-10\">\r\n      <app-theme-switch></app-theme-switch>\r\n      <app-login></app-login>\r\n    </div>\r\n</div>\r\n"
         },
         {
             "name": "ProjectChapterComponent",
@@ -1663,7 +1663,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-slate-200 text-gray-600 hover:text-black rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\" >\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    {{ file }}\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"deleteFile(index)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(file)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(file)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
+            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\" >\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    {{ file }}\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"deleteFile(index)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(file)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(file)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
         },
         {
             "name": "ProjectComponent",
@@ -1771,7 +1771,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"p-4 border-4 border-gray-300 rounded-lg shadow bg-white opacity-80\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-gray-200 rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-gray-600 m-5\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"p-4 border-2 border-border-color rounded-lg shadow-lg bg-default opacity-80\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-border-color rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-primary my-8\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "ProjectTitleComponent",
@@ -1933,7 +1933,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"flex flex-col items-center mb-6\">\n  <div class=\"flex mb-2 justify-center align-middle\">\n    <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n      <p class=\"text-2xl font-semibold\">📙{{ bookName }}</p>\n    </div>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"bookName\" (blur)=\"onTitleBlur()\" \n            (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-gray-300 rounded py-1 px-2 text-xl\">\n  </div>\n  <div class=\"flex gap-1\">\n    <button (click)=\"importFiles()\" class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n      <fa-icon [icon]=\"faFileImport\" class=\"text-base\"></fa-icon>\n      Import\n    </button>\n    <button (click)=\"addNewFile()\" class=\"bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n      <fa-icon [icon]=\"faPlus\" class=\"text-base\"></fa-icon>\n      Add New\n    </button>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"flex flex-col items-center mb-6\">\n  <div class=\"flex mb-2 justify-center align-middle\">\n    <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n      <p class=\"text-2xl font-semibold\">📙{{ bookName }}</p>\n    </div>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"bookName\" (blur)=\"onTitleBlur()\" \n            (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-border-color rounded py-1 px-2 text-xl\">\n  </div>\n  <div class=\"flex gap-1\">\n    <button (click)=\"importFiles()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\n      <fa-icon [icon]=\"faFileImport\"></fa-icon>\n      Import\n    </button>\n    <button (click)=\"addNewFile()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\n      <fa-icon [icon]=\"faPlus\"></fa-icon>\n      Add New\n    </button>\n  </div>\n</div>\n"
         },
         {
             "name": "ThemeSwitchComponent",
@@ -2058,7 +2058,7 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div class=\"bg-div p-2 mx-4 text-primary flex align-middle items-center justify-center\">\n  <label for=\"theme-selector\" class=\"block text-sm font-medium text-accent\">Select Theme:</label>\n  <select class=\"px-4 py-2 text-primary focus:outline-none rounded-md\"\n          id=\"theme-selector\" [ngModel]=\"themeService.getCurrentTheme()\" (ngModelChange)=\"onThemeChange($event)\">\n    <option class=\"bg-div\" *ngFor=\"let theme of themes\" [value]=\"theme\">{{ theme }}</option>\n  </select>\n</div>\n"
+            "templateData": "<div class=\"dropdown-container bg-opacity-0 p-2 flex align-middle items-center justify-center\">\n  <select id=\"theme-selector\" class=\"dropdown bg-button px-4 py-2 capitalize text-primary focus:outline-none rounded-md hover:bg-button-hover\"\n          [ngModel]=\"themeService.getCurrentTheme()\" (ngModelChange)=\"onThemeChange($event)\">\n    <option class=\"dropdown-option bg-button-hover border-0\" *ngFor=\"let theme of themes\" [value]=\"theme\">{{ theme }}</option>\n  </select>\n</div>\n"
         }
     ],
     "modules": [],
