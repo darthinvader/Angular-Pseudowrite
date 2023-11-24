@@ -17,8 +17,8 @@ module.exports = {
         serif: 'var(--font-family-serif)',
       },
       backgroundImage: {
-        'gradient-to-r': 'linear-gradient(to right, var(--color-primary), var(--color-accent))',
-        'gradient-to-b': 'linear-gradient(to bottom, var(--color-primary), var(--color-accent))',
+        'gradient-to-r': 'linear-gradient(to right, var(--color-button), var(--color-button-active))',
+        'gradient-to-b': 'linear-gradient(to bottom, var(--color-button), var(--color-button-active))',
       },
       backgroundColor: {
         'page': 'var(--color-page)',
