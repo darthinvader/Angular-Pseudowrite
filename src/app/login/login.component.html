@@ -1,10 +1,10 @@
 @if(authService.isLoggedIn){
-  <button class="text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none transition ease-in-out duration-300" (click)="onGoogleLogout()">
+  <button class="text-sm px-6 py-2 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active focus:outline-none transition ease-in-out duration-300" (click)="onGoogleLogout()">
     <fa-icon [icon]='faGoogle'></fa-icon>
     <span class="ml-2">Logout</span>
   </button>
 } @else {
-  <button class="text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none transition ease-in-out duration-300" (click)="onGoogleLogin()">
+  <button class="text-sm px-6 py-2 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active focus:outline-none transition ease-in-out duration-300" (click)="onGoogleLogin()">
     <fa-icon [icon]='faGoogle'></fa-icon>
     <span class="ml-2">Login with Google</span>
   </button>

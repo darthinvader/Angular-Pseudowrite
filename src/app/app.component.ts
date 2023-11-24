@@ -20,6 +20,6 @@ export class AppComponent {
   onClick() {
     this.textGenerationService.getChatCompletions('Write a 20 word poem').subscribe((response) => {
       console.log(response)
-    }
+    })
   }
 }

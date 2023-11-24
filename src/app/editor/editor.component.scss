@@ -21,14 +21,12 @@ $heading-sizes: (
   }
 }
 
-// Style for paragraphs
 p {
   font-size: $base-font-size;
   line-height: $base-line-height;
   margin-bottom: 1em; // Space after paragraphs
 }
 
-// Style for preformatted text
 pre {
   font-size: $pre-font-size;
   line-height: $base-line-height;
@@ -45,95 +43,57 @@ ul{
   margin-left:1rem;
 }
 
-
-
-
 // Styling editor
 // !important must be used at some places
 angular-editor {
   
   .angular-editor-toolbar{
-    padding: 0.5rem!important;
-    display:flex;
-    align-items: center;
-    border: 0!important;
-    box-shadow:#0003 0 2px 8px;
-    border-radius: 1em;
-  }
-  
-  .angular-editor-toolbar-set {
-    display:flex;
-    margin: 2px!important;
-    &:empty{
-      display:none!important;
-    }
+    @apply p-1 flex align-middle rounded-lg border-0 shadow-sm border-border-color text-primary bg-default #{!important};
+    .angular-editor-toolbar-set {
+      @apply flex m-1 #{!important};
+      &:empty{
+        display:none!important;
+      }
     .angular-editor-button:not([hidden]) {
-      border-radius: 100%;
-      color:black;
-      background-color: transparent!important;
-      border: 0px !important;
-      display:flex;
-      align-items: center;
-      justify-content: center;
-      aspect-ratio: 1;
-      i {
-        font-size:0.7rem;
+        @apply text-primary border-0 flex justify-center items-center rounded-full aspect-square bg-transparent #{!important}; 
+        i {
+          font-size:0.7rem;
+        }
+      }
+      .angular-editor-button:not([hidden]):hover {
+        @apply bg-button #{!important};
       }
     }
-    .angular-editor-button:not([hidden]):hover {
-      background-color: rgba(0,0,0,0.1)!important;
-    }
-    ae-select .ae-picker-label{
-      color:black!important;
-    }
-  }
-
-  angular-editor-toolbar .angular-editor-toolbar {
-    display:flex;
-    align-items: center;
-    background-color: white!important;
-  }
-
-  .angular-editor-textarea{
-    resize: none!important;
-    border: 0!important;
-    box-shadow:#0003 0 2px 8px;
-    border-radius: 1em;
-  }
-
-  ae-select {
-    .ae-picker-options {
-      border-bottom-left-radius: 0.7rem;
-      border-bottom-right-radius: 0.7rem;
-      overflow:hidden;
-      border: 0!important; /* Border styling */
-      .ae-picker-item{
+    ae-select {
+      .ae-picker-options {
+        @apply overflow-hidden border-0 rounded-b-xl #{!important};
+        .ae-picker-item{
+          &:hover{
+            @apply bg-div text-primary #{!important};
+          }
+          &.selected{
+            @apply bg-div text-accent font-bold #{!important};
+          }
+        }
+      }
+      button.ae-picker-label {
+        @apply bg-default text-primary z-0 cursor-pointer border-0 #{!important};
+        &:focus{
+          @apply outline-none shadow-md #{!important};
+        }
         &:hover{
-          background-color: lightblue!important;
-          color: white!important;
-        }
-        &.selected{
-          font-weight:700;
-          background-color: lightblue!important;
-          color: white!important;
+          @apply outline-none shadow-md #{!important};
         }
       }
     }
-    button.ae-picker-label {
-      background-color: white!important; 
-      border: 0!important; 
-      border-top : 15px; 
-      z-index: 0;
-      cursor: pointer; 
-      &:focus{
-        outline: none; /* Removes default focus outline */
-        box-shadow:#0003 0 2px 8px;
-      }
-      &:hover{
-        outline: none; /* Removes default focus outline */
-        box-shadow:#0003 0 2px 8px;
-      }
-      
+  }
+  .angular-editor-textarea{
+    @apply border-border-color shadow-sm rounded-lg border-0 resize-none #{!important};
+    &:focus {
+      @apply outline-none #{!important};
+    }
+    &:active {
+      @apply outline-none #{!important};
     }
   }
 }

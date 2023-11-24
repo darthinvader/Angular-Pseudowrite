@@ -5,46 +5,52 @@ body{
   min-height:100vh;
 
 }
-
+// Light Theme 
 :root {
-  --color-primary:#f0f0f0;
-  --color-secondary:#dae0e6;
+  --color-primary:#333333; //This is for text
+  --color-primary-hover: #555555
+  --color-primary-active: #777777
   --color-accent:#ffa726;
-  --color-text-primary:#333333;
-  --color-text-secondary:#565656;
   --color-border:#d1d5db;
-  --font-family-sans:['Inter', 'sans-serif']
-  --font-family-serif: ['Merriweather', 'serif']
   --color-page:#fafafa;
-  --color-div:#ffffff;
+  --color-div:#f0f0f0;
   --color-button:#dae0e6;
+  --color-button-hover: #d0d4da;
+  --color-button-active: #c2c6cc;
+  --color-default: #ffffff;
+  --font-family-sans:['Inter', 'sans-serif'];
+  --font-family-serif: ['Merriweather', 'serif'];
 }
 
 /* Dark theme overrides */
 [data-theme='dark'] {
-  --color-primary:#2d2d2d;
-  --color-secondary:#3a3f44;
+  --color-primary:#d0d0d0;
+  --color-primary-hover: #e0e0e0;
+  --color-primary-active: #f0f0f0;
   --color-accent:#e57373;
-  --color-text-primary:#e0e0e0;
-  --color-text-secondary:#c2c2c2;
   --color-border:#4a4e52;
-  --font-family-sans:['Roboto', 'sans-serif']
-  --font-family-serif:['Lora', 'serif']
   --color-page:#232323;
   --color-div:#1d1d1d;
   --color-button:#3a3f44;
+  --color-button-hover: #cc4747; 
+  --color-button-active: #b04040;
+  --color-default: #202020;
+  --font-family-sans:['Roboto', 'sans-serif'];
+  --font-family-serif:['Lora', 'serif'];
 }
-
+/* Focus theme overrides */
 [data-theme='focus'] {
-  --color-primary: #3d5a80; /* Deep, calming blue */
-  --color-secondary: #9b9b84; /* Modern grayish-beige */
-  --color-accent: #FFF200; /* Bright Yellow for energetic highlights */
-  --color-text-primary: #023047; /* Dark blue for readability */
-  --color-text-secondary: #fbeddb; /* Light sand for less important text */
-  --color-border: #e1d0bc; /* Soft beige for subtle borders */
-  --font-family-sans: ['Open Sans', 'sans-serif']; /* Clean, modern sans-serif font */
-  --font-family-serif: ['Lora', 'serif']; /* Elegant serif font for contrast */
-  --color-page: #e0fbfc; /* Very light blue for background */
-  --color-div: #fbeddb; /* Light sand for division colors */
-  --color-button: #98c1d9; /* Lighter blue for buttons */
+  --color-primary: #1b4b68;
+  --color-primary-hover: #2A6A8A; 
+  --color-primary-active: #3A89AC;
+  --color-accent: #4CAF50;
+  --color-border: #e1d0bc;
+  --color-page: #e0fbfc;
+  --color-div: #fbeddb;
+  --color-button: #FF9800;
+  --color-button-hover: #e68a00;
+  --color-button-active: #cc7b00;
+  --color-default: #e0fbfc;
+  --font-family-sans: ['Open Sans', 'sans-serif']; 
+  --font-family-serif: ['Lora', 'serif']; 
 }

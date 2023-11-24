@@ -289,6 +289,299 @@
             },
             "extends": [],
             "type": "injectable"
+        },
+        {
+            "name": "TextGenerationService",
+            "id": "injectable-TextGenerationService-ba68bf12b488a57572a3c7c64d11144ba7727a35ff4e8cf51845c68ee43f17234f4496c32716104423a3de7960305abb000c400b68214cf082fde9170e84dc84",
+            "file": "src/services/text-generation.service.ts",
+            "properties": [
+                {
+                    "name": "apiUrl",
+                    "defaultValue": "'http://127.0.0.1:1234'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 9,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "eventSource",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "EventSource | null",
+                    "optional": false,
+                    "description": "",
+                    "line": 10,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "messageSubject",
+                    "defaultValue": "new Subject<any>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "getChatCompletions",
+                    "args": [
+                        {
+                            "name": "message",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 43,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "message",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getCompletions",
+                    "args": [
+                        {
+                            "name": "prompt",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 15,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "prompt",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getMessages",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Observable | null",
+                    "typeParameters": [],
+                    "line": 52,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "setupSseConnection",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Observable<any>",
+                    "typeParameters": [],
+                    "line": 25,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable, Inject, PLATFORM_ID } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Observable, Subject } from 'rxjs';\nimport { isPlatformBrowser } from '@angular/common';\n@Injectable({\n  providedIn: 'root'\n})\nexport class TextGenerationService {\n  private apiUrl = 'http://127.0.0.1:1234';\n  private eventSource: EventSource | null = null;\n  private messageSubject = new Subject<any>();\n\n  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) { }\n\n  getCompletions(prompt: string) {\n    return this.http.post(`${this.apiUrl}/v1/completions`, {\n      prompt: prompt,\n      max_tokens: 200,\n      temperature: 1,\n      top_p: 0.9,\n      seed: 10,\n    });\n  }\n\n  setupSseConnection(): Observable<any> {\n    return new Observable(observer => {\n      this.eventSource = new EventSource(`${this.apiUrl}/v1/chat/completions`);\n\n      this.eventSource.onmessage = event => {\n        observer.next(event.data);\n      };\n\n      this.eventSource.onerror = error => {\n        observer.error(error);\n      };\n\n      return () => {\n        this?.eventSource?.close();\n      };\n    });\n  }\n\n  getChatCompletions(message: string) {\n    return this.http.post(`${this.apiUrl}/v1/chat/completions`, {\n      messages: [{ role: 'user', content: message }],\n      mode: 'instruct',\n      instruction_template: 'Alpaca',\n      stream: false,\n    });\n  }\n\n  getMessages(): Observable<any> | null {\n    if (isPlatformBrowser(this.platformId)) {\n      return this.messageSubject.asObservable();\n    } else {\n      return null;\n    }\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "platformId",
+                        "type": "Object",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 11,
+                "jsdoctags": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "platformId",
+                        "type": "Object",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
+        },
+        {
+            "name": "ThemeService",
+            "id": "injectable-ThemeService-a646cf4442877a715ce6e6d73153ff707a45c947c71ca8431e4aa6cc0d5c15abcf8188b0a30dfca272134ebea908437f601abc2d897c2a53b16f321f46baf666",
+            "file": "src/services/ThemeService.service.ts",
+            "properties": [
+                {
+                    "name": "theme",
+                    "defaultValue": "'light'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Theme",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "getCurrentTheme",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Theme",
+                    "typeParameters": [],
+                    "line": 30,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "initializeTheme",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "setTheme",
+                    "args": [
+                        {
+                            "name": "theme",
+                            "type": "Theme",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 22,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "theme",
+                            "type": "Theme",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { isPlatformBrowser } from '@angular/common';\nimport { LocalStorageService } from './storage-service.service';\nimport { Injectable, Inject, PLATFORM_ID } from '@angular/core';\n\nexport const THEMES = ['light', 'dark', 'focus'];\nexport type Theme = 'light' | 'dark' | 'focus'\n\n\n@Injectable({ providedIn: 'root' })\nexport class ThemeService {\n  private theme: Theme = 'light';\n\n  constructor(private localStorage: LocalStorageService, @Inject(PLATFORM_ID) private platformId: Object) {\n    this.initializeTheme();\n  }\n\n  private initializeTheme(): void {\n    const savedTheme = this.localStorage.getItem('theme') || 'light';\n    this.setTheme(savedTheme as Theme);\n  }\n\n  setTheme(theme: Theme): void {\n    this.theme = theme;\n    this.localStorage.setItem('theme', theme);\n    if (isPlatformBrowser(this.platformId)) {\n      document.documentElement.setAttribute('data-theme', theme);\n    }\n  }\n\n  getCurrentTheme(): Theme {\n    return this.theme;\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "localStorage",
+                        "type": "LocalStorageService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "platformId",
+                        "type": "Object",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 11,
+                "jsdoctags": [
+                    {
+                        "name": "localStorage",
+                        "type": "LocalStorageService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "platformId",
+                        "type": "Object",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
         }
     ],
     "guards": [],
@@ -387,7 +680,7 @@
         },
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-135bad75b91c90e25c806680b04e00013b925a3cbe41712a3efd89babc45ebf0601c1f32b183aad2859d29505b29b2a5b9ca84b69e18761f4bf1ec252bba088b",
+            "id": "component-AppComponent-d90fbcc93f771418007dbc9e9373e54b02b9c6c3b11aea68a9d4c917257e5386f5fe1b122872445d6cbde4400e1aa4c1ca885e7ae49fdfc525f5b0b159ce12a4",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -406,6 +699,18 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
+                    "name": "textGenerationService",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TextGenerationService",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
                     "name": "title",
                     "defaultValue": "'angular-pseudowrite'",
                     "deprecated": false,
@@ -416,7 +721,18 @@
                     "line": 17
                 }
             ],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "onClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 20,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -431,36 +747,58 @@
                     "name": "RouterOutlet"
                 },
                 {
-                    "name": "EditorComponent",
-                    "type": "component"
-                },
-                {
-                    "name": "ProjectComponent",
-                    "type": "component"
-                },
-                {
-                    "name": "LoginComponent",
-                    "type": "component"
-                },
-                {
                     "name": "BackgroundComponent",
                     "type": "component"
                 },
                 {
                     "name": "HomeComponent",
                     "type": "component"
+                },
+                {
+                    "name": "NavbarComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "HttpClientModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { EditorComponent } from './editor/editor.component';\r\nimport { ProjectComponent } from './project/project.component';\r\nimport { LoginComponent } from './login/login.component';\r\nimport { BackgroundComponent } from './background/background.component';\r\nimport { HomeComponent } from './home/Home.component';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, EditorComponent, ProjectComponent, LoginComponent, BackgroundComponent, HomeComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n}\r\n",
+            "sourceCode": "import { TextGenerationService } from './../services/text-generation.service';\r\nimport { NavbarComponent } from './navbar/navbar.component';\r\nimport { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { BackgroundComponent } from './background/background.component';\r\nimport { HomeComponent } from './home/Home.component';\r\nimport { HttpClientModule } from '@angular/common/http';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, BackgroundComponent, HomeComponent, NavbarComponent, HttpClientModule],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n  constructor(public textGenerationService: TextGenerationService) { }\r\n\r\n  onClick() {\r\n    this.textGenerationService.getChatCompletions('Write a 20 word poem').subscribe((response) => {\r\n      console.log(response)\r\n    })\r\n  }\r\n}\r\n",
             "styleUrl": "./app.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "textGenerationService",
+                        "type": "TextGenerationService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 17,
+                "jsdoctags": [
+                    {
+                        "name": "textGenerationService",
+                        "type": "TextGenerationService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<app-background></app-background>\r\n<app-home></app-home>\r\n"
+            "templateData": "<app-navbar></app-navbar>\r\n<app-background></app-background>\r\n<app-home></app-home>\r\n<button class=\"text-white\" (click)=\"onClick()\">CLick me</button>"
         },
         {
             "name": "BackgroundComponent",
@@ -583,7 +921,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"max-w rounded overflow-hidden shadow-lg cursor-pointer transform hover:scale-105 transition duration-200 ease-in-out\">\n  <div class=\"flex flex-col justify-between h-full\">\n    <div class=\"p-5 flex justify-center align-middle text-center\">\n      <div class=\"font-bold text-3xl mb-2\">{{ book?.title }}</div>\n    </div>\n    <button class=\"...\" (click)=\"onDelete()\"> <!-- Add your Tailwind CSS classes here -->\n      <fa-icon [icon]=\"faTrashAlt\"></fa-icon> Delete\n    </button>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"max-w bg-div rounded overflow-hidden shadow-lg cursor-pointer hover:scale-105 transform duration-300 ease-in-out\">\n  <div class=\"h-full\">\n    <div class=\"p-6 flex justify-center align-middle\">\n      <div class=\"font-bold text-2xl mb-2\">{{ book?.title }}</div>\n    </div>\n  </div>\n</div>\n"
         },
         {
             "name": "BookEditorComponent",
@@ -635,7 +973,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"grid-container h-full gap-6 m-4\">\n  <div>\n    <app-project></app-project>\n  </div>\n  <div>\n    <app-editor></app-editor>\n  </div>\n  <div class=\"flex flex-col gap-2  \">\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Chapter</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Character</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Beat</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Building</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Generate Item</button>\n    <button class=\"w-full text-sm px-6 py-2 bg-opacity-90 bg-gray-800 text-gray-200 rounded shadow hover:bg-gray-200 hover:text-gray-800 hover:shadow-lg focus:outline-none transition ease-in-out duration-300\">Rewrite</button>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"grid-container h-full gap-6 m-4\">\n  <div>\n    <app-project></app-project>\n  </div>\n  <div>\n    <app-editor></app-editor>\n  </div>\n  <div class=\"flex flex-col gap-2\">\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Chapter</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Beat</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Building</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Item</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Character</button>\n  </div>\n</div>\n"
         },
         {
             "name": "BookExplorerComponent",
@@ -707,7 +1045,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-white p-8 rounded-lg\">\n  <div class=\"flex justify-evenly\"> \n    <div class=\"text-3xl text-center\">Your Books</div>\n    <button class=\"flex gap-2 justify-center align-middletext-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none transition ease-in-out duration-300\">\n      <fa-icon [icon]=\"faPlus\"></fa-icon>Create New Book</button>\n  </div>\n  <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 bg-transparent rounded-lg\">\n    @for(book of books; track book.title){\n      <app-book-card [book]=\"book\"></app-book-card>\n    }\n    @empty {\n    <div>No books available.</div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"flex flex-col bg-page m-8 p-8 rounded-lg\">\n  <div class=\"flex flex-col justify-between items-center align-middle\"> \n    <div class=\"text-3xl text-center flex-1\">Your Books</div>\n    <button class=\"absolute self-end text-md gap-2 px-6 py-2 bg-opacity-90 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:scale-95 transition ease-in-out duration-300\">\n      ➕ Create New Book\n    </button>\n  </div>\n  @if(books.length != 0){\n    <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 border-border-color border shadow rounded-lg\">\n      @for(book of books; track book.title){\n        <app-book-card [book]=\"book\"></app-book-card>\n      }\n    </div>\n  } @else{\n    <div *ngIf=\"books.length === 0\" class=\"text-gray-600 text-center p-6 m-4 border-border-color border shadow rounded-lg\">\n      <p>No books yet. Click \"Add New Book\" to start!📖</p>\n    </div>\n  }\n</div>\n"
         },
         {
             "name": "EditorComponent",
@@ -857,7 +1195,7 @@
         },
         {
             "name": "HomeComponent",
-            "id": "component-HomeComponent-740b1e8f0f1088a75811f39749edf14e1705e8938f92d97bcbb7e693e40caeb3ed1f3c8c7f3933e0d1e648e7228a7a6526d757b562f0f396c717435175575f46",
+            "id": "component-HomeComponent-4842c602e5df1e30698903fa8dc13ed646d1f3bb1ee399935473b4949614b6c16365639122b9e070e3430bcef7fc8475010bc1527fae41b1c25d93f711c2f0c0",
             "file": "src/app/home/Home.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -879,7 +1217,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 16,
+                    "line": 15,
                     "type": "any",
                     "decorators": []
                 }
@@ -898,10 +1236,6 @@
                     "type": "module"
                 },
                 {
-                    "name": "NavbarComponent",
-                    "type": "component"
-                },
-                {
                     "name": "BookExplorerComponent",
                     "type": "component"
                 }
@@ -909,12 +1243,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { NavbarComponent } from '../navbar/navbar.component';\nimport { BookExplorerComponent } from '../book-explorer/book-explorer.component';\n\n@Component({\n  selector: 'app-home',\n  standalone: true,\n  imports: [\n    CommonModule, NavbarComponent, BookExplorerComponent,\n  ],\n  templateUrl: './Home.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HomeComponent {\n  @Input() books: any = []\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookExplorerComponent } from '../book-explorer/book-explorer.component';\n\n@Component({\n  selector: 'app-home',\n  standalone: true,\n  imports: [\n    CommonModule, BookExplorerComponent,\n  ],\n  templateUrl: './Home.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HomeComponent {\n  @Input() books: any = []\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<app-navbar></app-navbar>\n<div class=\"grid grid-cols-10 gap-4 py-10 my-8 mx-10\">\n  <div class=\"col-span-7 col-start-1\">\n    <app-book-explorer></app-book-explorer> \n  </div>\n  <div class=\"col-span-3 bg-white rounded-lg p-6 text-center\">\n    <h2 class=\"text-2xl font-bold mb-4\">AI Writing Assistant</h2>\n    <p class=\"text-lg text-gray-700\">Enhance your writing with AI-driven insights and suggestions.</p>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"grid grid-cols-10 gap-4 py-10 my-8 mx-10\">\n  <div class=\"col-span-7 col-start-1\">\n    <app-book-explorer></app-book-explorer> \n  </div>\n  <div class=\"col-span-3 bg-div text-primary rounded-lg p-6 text-center\">\n    <h2 class=\"text-2xl font-bold mb-4\">AI Writing Assistant</h2>\n    <p class=\"text-lg\">Enhance your writing with AI-driven insights and suggestions.</p>\n  </div>\n</div>\n"
         },
         {
             "name": "LoginComponent",
@@ -1073,11 +1407,11 @@
                 ]
             },
             "extends": [],
-            "templateData": "@if(authService.isLoggedIn){\n  <button class=\"text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none transition ease-in-out duration-300\" (click)=\"onGoogleLogout()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Logout</span>\n  </button>\n} @else {\n  <button class=\"text-sm px-6 py-2 bg-opacity-90 bg-gray-50 text-gray-800 rounded-lg shadow hover:bg-gray-200 focus:outline-none transition ease-in-out duration-300\" (click)=\"onGoogleLogin()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Login with Google</span>\n  </button>\n}"
+            "templateData": "@if(authService.isLoggedIn){\n  <button class=\"text-sm px-6 py-2 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active focus:outline-none transition ease-in-out duration-300\" (click)=\"onGoogleLogout()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Logout</span>\n  </button>\n} @else {\n  <button class=\"text-sm px-6 py-2 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active focus:outline-none transition ease-in-out duration-300\" (click)=\"onGoogleLogin()\">\n    <fa-icon [icon]='faGoogle'></fa-icon>\n    <span class=\"ml-2\">Login with Google</span>\n  </button>\n}"
         },
         {
             "name": "NavbarComponent",
-            "id": "component-NavbarComponent-7b993c36f3958859f7d82bdcb31a56e94dcc6e847752e8b0d926c8900f10a24ce5166a3501160adfedde5811ba01e7af0d5a19a3c234ad68b24fc8e1cf46379f",
+            "id": "component-NavbarComponent-5ff0a9e10431e234ec8eb2cc03c4035bea9c0d3b99932e3cf8035d1a4f7c6b0a6247231d4434add02236b5731d084aa5905994489ff1cd8857b1cd6352aed68e",
             "file": "src/app/navbar/navbar.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -1110,17 +1444,21 @@
                 {
                     "name": "LoginComponent",
                     "type": "component"
+                },
+                {
+                    "name": "ThemeSwitchComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { LoginComponent } from '../login/login.component';\n@Component({\n  selector: 'app-navbar',\n  standalone: true,\n  imports: [\n    CommonModule, LoginComponent\n  ],\n  templateUrl: './navbar.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NavbarComponent { }\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { LoginComponent } from '../login/login.component';\nimport { ThemeSwitchComponent } from '../theme-switch/theme-switch.component';\n@Component({\n  selector: 'app-navbar',\n  standalone: true,\n  imports: [\n    CommonModule, LoginComponent, ThemeSwitchComponent\n  ],\n  templateUrl: './navbar.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NavbarComponent { }\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-white text-gray-600 p-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a href=\"/home\" class=\"hover:text-gray-900 \">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li >\r\n                    <a href=\"/explore\" class=\"flex hover:text-gray-900 px-6 py-4 hover:bg-slate-200 w-full h-full\">Explore</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"/about\" class=\"flex hover:text-gray-900px-6 px-6 py-4 hover:bg-slate-200 w-full h-full\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <app-login></app-login>\r\n</div>\r\n"
+            "templateData": "<div class=\"bg-div text-primary px-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a href=\"/home\" class=\"hover:text-primary-hover\">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li >\r\n                    <a href=\"/explore\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover w-full h-full\">Explore</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"/about\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover w-full h-full\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <div class=\"flex flex-column align-middle justify-center gap-10\">\r\n      <app-theme-switch></app-theme-switch>\r\n      <app-login></app-login>\r\n    </div>\r\n</div>\r\n"
         },
         {
             "name": "ProjectChapterComponent",
@@ -1596,6 +1934,131 @@
             "stylesData": "",
             "extends": [],
             "templateData": "<div class=\"flex flex-col items-center mb-6\">\n  <div class=\"flex mb-2 justify-center align-middle\">\n    <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n      <p class=\"text-2xl font-semibold\">📙{{ bookName }}</p>\n    </div>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"bookName\" (blur)=\"onTitleBlur()\" \n            (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-gray-300 rounded py-1 px-2 text-xl\">\n  </div>\n  <div class=\"flex gap-1\">\n    <button (click)=\"importFiles()\" class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n      <fa-icon [icon]=\"faFileImport\" class=\"text-base\"></fa-icon>\n      Import\n    </button>\n    <button (click)=\"addNewFile()\" class=\"bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded flex items-center gap-1\">\n      <fa-icon [icon]=\"faPlus\" class=\"text-base\"></fa-icon>\n      Add New\n    </button>\n  </div>\n</div>\n"
+        },
+        {
+            "name": "ThemeSwitchComponent",
+            "id": "component-ThemeSwitchComponent-67017ade7bcbc4b5d81d776e752df0583fb21ac1a4aede0cab9368cd411d4efefbb060c6ca45c42642a05240ecbd4e3ed430a77f040dac4a77cdadcb766c495e",
+            "file": "src/app/theme-switch/theme-switch.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-theme-switch",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./theme-switch.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "themes",
+                    "defaultValue": "THEMES",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "themeService",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ThemeService",
+                    "optional": false,
+                    "description": "",
+                    "line": 17,
+                    "modifierKind": [
+                        125
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onThemeChange",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "Theme | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 19,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "Theme | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "FormsModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { ThemeService, Theme, THEMES } from '../../services/ThemeService.service';\nimport { FormsModule } from '@angular/forms';\n\n@Component({\n  selector: 'app-theme-switch',\n  standalone: true,\n  imports: [\n    CommonModule, FormsModule\n  ],\n  templateUrl: './theme-switch.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ThemeSwitchComponent {\n  themes = THEMES;\n  constructor(public themeService: ThemeService) { }\n\n  onThemeChange(value: Theme | null) {\n    if (value) this.themeService.setTheme(value);\n  }\n}\n\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "themeService",
+                        "type": "ThemeService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 16,
+                "jsdoctags": [
+                    {
+                        "name": "themeService",
+                        "type": "ThemeService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "templateData": "<div class=\"bg-div p-2 mx-4 text-primary flex align-middle items-center justify-center\">\n  <label for=\"theme-selector\" class=\"block text-sm font-medium text-accent\">Select Theme:</label>\n  <select class=\"px-4 py-2 text-primary focus:outline-none rounded-md\"\n          id=\"theme-selector\" [ngModel]=\"themeService.getCurrentTheme()\" (ngModelChange)=\"onThemeChange($event)\">\n    <option class=\"bg-div\" *ngFor=\"let theme of themes\" [value]=\"theme\">{{ theme }}</option>\n  </select>\n</div>\n"
         }
     ],
     "modules": [],
@@ -1609,7 +2072,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "ApplicationConfig",
-                "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }\r\n\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },\r\n    importProvidersFrom(HttpClientModule),\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
             },
             {
                 "name": "bootstrap",
@@ -1695,6 +2158,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/navbar/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/project/project.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1705,7 +2178,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/navbar/navbar.stories.ts",
+                "file": "src/app/theme-switch/theme-switch.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -1812,6 +2285,16 @@
                 "defaultValue": "{\r\n  providers: [\r\n    provideServerRendering(),\r\n  ]\r\n}"
             },
             {
+                "name": "THEMES",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/services/ThemeService.service.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "['light', 'dark', 'focus']"
+            },
+            {
                 "name": "toolbarHiddenButtons",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1833,7 +2316,19 @@
             }
         ],
         "functions": [],
-        "typealiases": [],
+        "typealiases": [
+            {
+                "name": "Theme",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"light\" | \"dark\" | \"focus\"",
+                "file": "src/services/ThemeService.service.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 192
+            }
+        ],
         "enumerations": [],
         "groupedVariables": {
             "src/app/app.config.ts": [
@@ -1845,7 +2340,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApplicationConfig",
-                    "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }\r\n\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },\r\n    importProvidersFrom(HttpClientModule),\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
                 }
             ],
             "src/main.server.ts": [
@@ -1964,6 +2459,18 @@
                     "defaultValue": "() => ({})"
                 }
             ],
+            "src/app/navbar/navbar.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/navbar/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({})"
+                }
+            ],
             "src/app/project/project.stories.ts": [
                 {
                     "name": "Default",
@@ -1986,12 +2493,12 @@
                     "defaultValue": "() => ({\r\n  component: ProjectComponent,\r\n  props: {\r\n    files: [],\r\n  },\r\n})"
                 }
             ],
-            "src/app/navbar/navbar.stories.ts": [
+            "src/app/theme-switch/theme-switch.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/navbar/navbar.stories.ts",
+                    "file": "src/app/theme-switch/theme-switch.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -2101,11 +2608,37 @@
                     "type": "Preview",
                     "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        { provide: AuthService, useClass: MockAuthService },\r\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\r\n      ],\r\n    }),\r\n  ],\r\n}"
                 }
+            ],
+            "src/services/ThemeService.service.ts": [
+                {
+                    "name": "THEMES",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/services/ThemeService.service.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "['light', 'dark', 'focus']"
+                }
             ]
         },
         "groupedFunctions": {},
         "groupedEnumerations": {},
-        "groupedTypeAliases": {}
+        "groupedTypeAliases": {
+            "src/services/ThemeService.service.ts": [
+                {
+                    "name": "Theme",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"light\" | \"dark\" | \"focus\"",
+                    "file": "src/services/ThemeService.service.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 192
+                }
+            ]
+        }
     },
     "routes": [],
     "coverage": {
@@ -2147,7 +2680,7 @@
                 "linktype": "component",
                 "name": "AppComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
@@ -2419,6 +2952,25 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/theme-switch/theme-switch.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ThemeSwitchComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/theme-switch/theme-switch.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/environments/environment.prod.template.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -2469,6 +3021,25 @@
                 "status": "low"
             },
             {
+                "filePath": "src/services/ThemeService.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "ThemeService",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/services/ThemeService.service.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "THEMES",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/services/auth.service.ts",
                 "type": "injectable",
                 "linktype": "injectable",
@@ -2484,6 +3055,15 @@
                 "name": "LocalStorageService",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/services/text-generation.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "TextGenerationService",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
                 "status": "low"
             }
         ]

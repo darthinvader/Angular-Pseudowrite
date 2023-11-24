@@ -1,6 +1,7 @@
-<div class="bg-primary">
-  <label for="theme-selector" class="bg-page">Select Theme:</label>
-  <select id="theme-selector" [ngModel]="themeService.getCurrentTheme()" (ngModelChange)="onThemeChange($event)">
-    <option *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
+<div class="bg-opacity-0 p-2 text-primary flex align-middle items-center justify-center">
+  <label for="theme-selector" class="block text-md font-medium text-accent">Select Theme:</label>
+  <select class="bg-button pl-1 pr-4 py-2 capitalize text-primary focus:outline-none rounded-md hover:bg-button-active"
+          id="theme-selector" [ngModel]="themeService.getCurrentTheme()" (ngModelChange)="onThemeChange($event)">
+    <option class="bg-button-hover border-0" *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
   </select>
 </div>
