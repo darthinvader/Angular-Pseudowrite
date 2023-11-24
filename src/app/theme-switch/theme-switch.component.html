@@ -1,4 +1,4 @@
-<div>
+<div class="bg-primary">
   <label for="theme-selector" class="bg-page">Select Theme:</label>
   <select id="theme-selector" [ngModel]="themeService.getCurrentTheme()" (ngModelChange)="onThemeChange($event)">
     <option *ngFor="let theme of themes" [value]="theme">{{ theme }}</option>
