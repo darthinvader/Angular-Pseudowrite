@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ThemeService, Theme, THEMES } from '../../services/ThemeService.service';
+import { ThemeService, Theme, THEMES } from '../../services/theme-service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
