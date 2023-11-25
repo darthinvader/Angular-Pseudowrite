@@ -16,26 +16,9 @@ export class LoginComponent {
   constructor(public authService: AuthService, private firestore: AngularFirestore) { }
   faGoogle = faGoogle
 
-  createUserProfile(user: firebase.User | null) {
-    if (user === null) {
-      console.error('User was noone :/');
-      return
-    }
-    const userProfile = {
-      id: user.uid,
-      name: user.displayName,
-      email: user.email,
-      books: {} // Initialize empty books object
-    };
-    return this.firestore.collection('Users').doc(user.uid).set(userProfile);
-  }
 
   onGoogleLogin() {
-    this.authService.signInWithGoogle().then((result) => {
-      if (result?.additionalUserInfo?.isNewUser) {
-        this?.createUserProfile(result.user);
-      }
-    });
+    this.authService.signInWithGoogle()
   }
 
   onGoogleLogout() {
