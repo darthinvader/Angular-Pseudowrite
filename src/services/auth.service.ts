@@ -1,3 +1,4 @@
+import { Observable, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
@@ -18,5 +19,11 @@ export class AuthService {
 
   isSignedIn() {
     return this.afAuth.authState;
+  }
+
+  getCurrentUserId(): Observable<string | null> {
+    return this.afAuth.authState.pipe(
+      map(user => user ? user.uid : null)
+    );
   }
 }
