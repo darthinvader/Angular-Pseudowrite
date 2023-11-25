@@ -8,7 +8,7 @@ import { BookExplorerComponent } from '../book-explorer/book-explorer.component'
   imports: [
     CommonModule, BookExplorerComponent,
   ],
-  templateUrl: './Home.component.html',
+  templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {

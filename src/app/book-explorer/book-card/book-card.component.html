@@ -1,7 +1,9 @@
 <div class="max-w bg-div rounded overflow-hidden shadow-lg cursor-pointer hover:scale-105 transform duration-300 ease-in-out">
-  <div class="h-full">
-    <div class="p-6 flex justify-center align-middle">
-      <div class="font-bold text-2xl mb-2">{{ book?.title }}</div>
+  <a [routerLink]="['/book/${Book?.id}']" routerLinkActive="active">
+    <div class="h-full">
+      <div class="p-6 flex justify-center align-middle">
+        <div class="font-bold text-2xl mb-2">{{ book?.title }}</div>
+      </div>
     </div>
-  </div>
+  </a>
 </div>

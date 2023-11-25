@@ -48,7 +48,7 @@ ul{
 angular-editor {
   
   .angular-editor-toolbar{
-    @apply p-1 flex align-middle rounded-lg border-0 shadow-sm border-border-color text-primary bg-default #{!important};
+    @apply p-1 flex align-middle rounded-lg border-0 shadow-md border-border-color text-primary bg-default #{!important};
     .angular-editor-toolbar-set {
       @apply flex m-1 #{!important};
       &:empty{
@@ -88,7 +88,7 @@ angular-editor {
     }
   }
   .angular-editor-textarea{
-    @apply border-border-color shadow-sm rounded-lg border-0 resize-none #{!important};
+    @apply border-border-color shadow-md rounded-lg border-0 resize-none #{!important};
     &:focus {
       @apply outline-none #{!important};
     }

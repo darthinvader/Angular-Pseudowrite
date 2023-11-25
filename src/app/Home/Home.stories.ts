@@ -1,4 +1,4 @@
-import { HomeComponent } from './Home.component';
+import { HomeComponent } from './home.component';
 import { Meta } from '@storybook/angular';
 
 export default {

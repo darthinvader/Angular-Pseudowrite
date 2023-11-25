@@ -14,12 +14,12 @@ import { ProjectChapterComponent } from './project-chapter/project-chapter.compo
   templateUrl: './project.component.html',
 })
 export class ProjectComponent {
-  @Input() files: string[] = [];
+  @Input() chapters: string[] = [];
   faFolderOpen = faFolderOpen
 
   onDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.files, event.previousIndex, event.currentIndex);
-    console.log(this.files, event)
+    moveItemInArray(this.chapters, event.previousIndex, event.currentIndex);
+    console.log(this.chapters, event)
   }
 }
 

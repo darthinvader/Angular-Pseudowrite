@@ -3,13 +3,22 @@
     "interfaces": [
         {
             "name": "Book",
-            "id": "interface-Book-8523e17faceff1bddaa9aa12d2f23cb12dc8cbccd27083b03711e1c4b37c1a0292fe11e1ca3e470b2176ddacaf04868093ca8e016d697d8deea8a8814d67ae93",
+            "id": "interface-Book-caa042470bae73ae1a3d5ee6f1f60856fbbaf2b55dfbc93751b3d8674675d1f1ec16e7912881e43d5293cc38c992f71e43d918e5cff8c39cb75acdd32f5bf6e6",
             "file": "src/app/book-explorer/book-explorer.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nexport interface Book {\n  title: string,\n  imgUrl?: string,\n  imgTitle?: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent, FontAwesomeModule\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n  faPlus = faPlus\n}\n",
+            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nexport interface Book {\n  title: string,\n  imgUrl?: string,\n  imgTitle?: string\n  id?: string,\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent, FontAwesomeModule\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n  faPlus = faPlus\n}\n",
             "properties": [
+                {
+                    "name": "id",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 10
+                },
                 {
                     "name": "imgTitle",
                     "deprecated": false,
@@ -464,7 +473,7 @@
         },
         {
             "name": "ThemeService",
-            "id": "injectable-ThemeService-efc43ab3e1e9f83be3b209dacefcf6a1648d7929602711f8b0bab0d9b1e29f27c94bd6633fed3410be6efb85e316e39d3997dca1980933ac355dc543b53e42f7",
+            "id": "injectable-ThemeService-92e01d16bf1c2908f377538b0443ed34405efb996f0e9ee49a45e2f6a8dcf0661f6047d5a184382f9df767c401d7348ed9c8049b782a08d70187f9004ba40b95",
             "file": "src/services/ThemeService.service.ts",
             "properties": [
                 {
@@ -475,7 +484,7 @@
                     "type": "Theme",
                     "optional": false,
                     "description": "",
-                    "line": 11,
+                    "line": 10,
                     "modifierKind": [
                         123
                     ]
@@ -488,7 +497,7 @@
                     "optional": false,
                     "returnType": "Theme",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 43,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -498,7 +507,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 17,
+                    "line": 19,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -518,7 +527,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 25,
+                    "line": 35,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -538,7 +547,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { isPlatformBrowser } from '@angular/common';\nimport { LocalStorageService } from './storage-service.service';\nimport { Injectable, Inject, PLATFORM_ID } from '@angular/core';\n\nexport const THEMES = ['light', 'dark', 'focus'];\nexport type Theme = 'light' | 'dark' | 'focus'\n\n\n@Injectable({ providedIn: 'root' })\nexport class ThemeService {\n  private theme: Theme = 'light';\n\n  constructor(private localStorage: LocalStorageService, @Inject(PLATFORM_ID) private platformId: Object) {\n    this.initializeTheme();\n  }\n\n  private initializeTheme(): void {\n    if (isPlatformBrowser(this.platformId)) {\n      const savedTheme = this.localStorage.getItem('theme') || 'light';\n      this.setTheme(savedTheme as Theme);\n    }\n\n  }\n\n  setTheme(theme: Theme): void {\n    this.theme = theme;\n    if (isPlatformBrowser(this.platformId)) {\n      this.localStorage.setItem('theme', theme);\n      document.documentElement.setAttribute('data-theme', theme);\n    }\n  }\n\n  getCurrentTheme(): Theme {\n    return this.theme;\n  }\n}\n",
+            "sourceCode": "import { Injectable, Inject, PLATFORM_ID } from '@angular/core';\nimport { isPlatformBrowser } from '@angular/common';\nimport { LocalStorageService } from './storage-service.service';\n\nexport const THEMES = ['light', 'dark', 'focus'];\nexport type Theme = 'light' | 'dark' | 'focus';\n\n@Injectable({ providedIn: 'root' })\nexport class ThemeService {\n  private theme: Theme = 'light';\n\n  constructor(\n    private localStorage: LocalStorageService,\n    @Inject(PLATFORM_ID) private platformId: Object\n  ) {\n    this.initializeTheme();\n  }\n\n  private initializeTheme(): void {\n    // Safely retrieve the theme from local storage\n    let savedTheme: string | null;\n    try {\n      savedTheme = this.localStorage.getItem('theme');\n      if (savedTheme && THEMES.includes(savedTheme)) {\n        this.setTheme(savedTheme as Theme);\n      } else {\n        this.setTheme('light');\n      }\n    } catch (error) {\n      console.error('Error reading theme from local storage:', error);\n      this.setTheme('light'); // Fallback to default theme in case of error\n    }\n  }\n\n  setTheme(theme: Theme): void {\n    this.theme = theme;\n    this.localStorage.setItem('theme', theme);\n    if (isPlatformBrowser(this.platformId)) {\n      document.documentElement.setAttribute('data-theme', theme);\n    }\n  }\n\n  getCurrentTheme(): Theme {\n    return this.theme;\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -558,7 +567,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 11,
+                "line": 10,
                 "jsdoctags": [
                     {
                         "name": "localStorage",
@@ -676,11 +685,11 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-gradient-to-r text-primary px-6 py-12 rounded-lg shadow-xl animate-fadeIn\">\n  <h1 class=\"text-4xl font-bold mb-6 flex items-center animate-pulse\">\n    🤖 About PseudoWrite 📘✍️\n  </h1>\n  <div class=\"space-y-4 ml-6\">\n    <p class=\"flex items-center animate-slideInLeft\">\n      <span class=\"text-xl animate-bounce\">📘</span>\n      Welcome to PseudoWrite, where your writing journey is assisted by cutting-edge AI technology. Our platform offers unique tools to help authors at every stage of their writing process, from brainstorming ideas to polishing final drafts.\n    </p>\n    <p class=\"flex items-center animate-slideInRight\">\n      <span class=\"text-xl animate-wiggle\">🖲️</span>\n      Our AI-driven features provide personalized suggestions, plot development ideas, character insights, and much more, helping you overcome writer's block and enhance your storytelling.\n    </p>\n    <p class=\"flex items-center animate-slideInLeft\">\n      <span class=\"text-xl\">👥</span>\n      Whether you're a seasoned author or just starting, PseudoWrite is here to support your creative journey. Embrace the future of writing with PseudoWrite, where every story finds its voice.\n    </p>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"bg-gradient-to-r text-primary px-6 py-12 rounded-lg shadow-xl animate-fadeIn m-8\">\n  <h1 class=\"text-4xl font-bold mb-6 flex items-center\">\n    🤖 About PseudoWrite ✍️\n  </h1>\n  <div class=\"space-y-4 ml-6\">\n    <p class=\"flex items-center animate-slideInLeft\">\n      <span class=\"text-xl animate-bounce\">📘</span>\n      Welcome to PseudoWrite, where your writing journey is assisted by cutting-edge AI technology. Our platform offers unique tools to help authors at every stage of their writing process, from brainstorming ideas to polishing final drafts.\n    </p>\n    <p class=\"flex items-center animate-slideInRight\">\n      <span class=\"text-xl animate-wiggle\">🖲️</span>\n      Our AI-driven features provide personalized suggestions, plot development ideas, character insights, and much more, helping you overcome writer's block and enhance your storytelling.\n    </p>\n    <p class=\"flex items-center animate-slideInLeft\">\n      <span class=\"text-xl\">👥</span>\n      Whether you're a seasoned author or just starting, PseudoWrite is here to support your creative journey. Embrace the future of writing with PseudoWrite, where every story finds its voice.\n    </p>\n  </div>\n</div>\n"
         },
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-d90fbcc93f771418007dbc9e9373e54b02b9c6c3b11aea68a9d4c917257e5386f5fe1b122872445d6cbde4400e1aa4c1ca885e7ae49fdfc525f5b0b159ce12a4",
+            "id": "component-AppComponent-f020e922bd2ccd8efff3d3df8a10dbba068552e613b5105a0b4df3baa80b4f3e473d600f2839d3bce05b46b58513ed8f59ebd95acef36bb10643c0331af59d46",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -766,7 +775,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { TextGenerationService } from './../services/text-generation.service';\r\nimport { NavbarComponent } from './navbar/navbar.component';\r\nimport { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { BackgroundComponent } from './background/background.component';\r\nimport { HomeComponent } from './home/Home.component';\r\nimport { HttpClientModule } from '@angular/common/http';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, BackgroundComponent, HomeComponent, NavbarComponent, HttpClientModule],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n  constructor(public textGenerationService: TextGenerationService) { }\r\n\r\n  onClick() {\r\n    this.textGenerationService.getChatCompletions('Write a 20 word poem').subscribe((response) => {\r\n      console.log(response)\r\n    })\r\n  }\r\n}\r\n",
+            "sourceCode": "import { TextGenerationService } from './../services/text-generation.service';\r\nimport { NavbarComponent } from './navbar/navbar.component';\r\nimport { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { BackgroundComponent } from './background/background.component';\r\nimport { HomeComponent } from './home/home.component';\r\nimport { HttpClientModule } from '@angular/common/http';\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [CommonModule, RouterOutlet, BackgroundComponent, HomeComponent, NavbarComponent, HttpClientModule],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.scss'\r\n})\r\nexport class AppComponent {\r\n  title = 'angular-pseudowrite';\r\n  constructor(public textGenerationService: TextGenerationService) { }\r\n\r\n  onClick() {\r\n    this.textGenerationService.getChatCompletions('Write a 20 word poem').subscribe((response) => {\r\n      console.log(response)\r\n    })\r\n  }\r\n}\r\n",
             "styleUrl": "./app.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -798,7 +807,7 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div class=\"bg-page w-screen h-screen\">\r\n  <app-navbar></app-navbar>\r\n  <!-- <app-background></app-background> -->\r\n  <app-home></app-home>\r\n</div>"
+            "templateData": "<div class=\"bg-page w-screen h-screen\">\r\n  <app-navbar></app-navbar>\r\n  <router-outlet></router-outlet>\r\n</div>"
         },
         {
             "name": "BackgroundComponent",
@@ -846,7 +855,7 @@
         },
         {
             "name": "BookCardComponent",
-            "id": "component-BookCardComponent-77a62f2c8c12d3be8fc281ec020a752b157d2c65627a1e53135b2706a427dc095ade78374b538f411ee64534f937e79f49271aca863e107bb9373301157a8e21",
+            "id": "component-BookCardComponent-8d857771861119ededdbb1a178814ef85f3e289226f8e67049a87e80b63837517ed061dbf0f52face0b3f4a3b4ab67e11709abb08da8aa3896cf35a45ffea38d",
             "file": "src/app/book-explorer/book-card/book-card.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -868,7 +877,7 @@
                     "defaultValue": "null",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 18,
+                    "line": 20,
                     "type": "Book | null",
                     "decorators": []
                 }
@@ -883,21 +892,10 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 21
                 }
             ],
-            "methodsClass": [
-                {
-                    "name": "onDelete",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 21,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
+            "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -911,21 +909,25 @@
                 {
                     "name": "FontAwesomeModule",
                     "type": "module"
+                },
+                {
+                    "name": "RouterModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { Book } from '../book-explorer.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faTrashAlt } from '@fortawesome/free-solid-svg-icons';\n\n@Component({\n  selector: 'app-book-card',\n  standalone: true,\n  imports: [\n    CommonModule,\n    FontAwesomeModule, // Import FontAwesomeModule\n  ],\n  templateUrl: './book-card.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCardComponent {\n  @Input() book: Book | null = null;\n  faTrashAlt = faTrashAlt; // Icon property\n\n  onDelete() { }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { Book } from '../book-explorer.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faTrashAlt } from '@fortawesome/free-solid-svg-icons';\nimport { RouterModule } from '@angular/router';\n\n@Component({\n  selector: 'app-book-card',\n  standalone: true,\n  imports: [\n    CommonModule,\n    FontAwesomeModule,\n    RouterModule,\n  ],\n  templateUrl: './book-card.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCardComponent {\n  @Input() book: Book | null = null;\n  faTrashAlt = faTrashAlt;\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"max-w bg-div rounded overflow-hidden shadow-lg cursor-pointer hover:scale-105 transform duration-300 ease-in-out\">\n  <div class=\"h-full\">\n    <div class=\"p-6 flex justify-center align-middle\">\n      <div class=\"font-bold text-2xl mb-2\">{{ book?.title }}</div>\n    </div>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"max-w bg-div rounded overflow-hidden shadow-lg cursor-pointer hover:scale-105 transform duration-300 ease-in-out\">\n  <a [routerLink]=\"['/book/${Book?.id}']\" routerLinkActive=\"active\">\n    <div class=\"h-full\">\n      <div class=\"p-6 flex justify-center align-middle\">\n        <div class=\"font-bold text-2xl mb-2\">{{ book?.title }}</div>\n      </div>\n    </div>\n  </a>\n</div>\n"
         },
         {
             "name": "BookEditorComponent",
-            "id": "component-BookEditorComponent-403cba37fb267c575981e3908e48df151c3ded2d337a6c777386ea12ec0c7432c754b54331366d2d54b2fb3cb6e617096e504e2c34ee29b94360d0588ac8dfd8",
+            "id": "component-BookEditorComponent-f3f71103f5bd15b859ab459c9b68ff2913e5ead17cb53e159f923eaab13e249e38905729cc0191a8f807b54249f7a779dfa5bc1e522a2cc76a8063129d200774",
             "file": "src/app/book-editor/book-editor.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -943,8 +945,40 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "bookId",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string | null",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "chapterId",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string | null",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -967,17 +1001,42 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { ProjectComponent } from '../project/project.component';\nimport { EditorComponent } from '../editor/editor.component';\n@Component({\n  selector: 'app-book-editor',\n  standalone: true,\n  imports: [\n    CommonModule, ProjectComponent, EditorComponent\n  ],\n  styleUrl: './book-editor.component.scss',\n  templateUrl: './book-editor.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookEditorComponent { }\n",
-            "styleUrl": "./book-editor.component.scss",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { ProjectComponent } from '../project/project.component';\nimport { EditorComponent } from '../editor/editor.component';\nimport { ActivatedRoute } from '@angular/router';\n@Component({\n  selector: 'app-book-editor',\n  standalone: true,\n  imports: [\n    CommonModule, ProjectComponent, EditorComponent\n  ],\n  templateUrl: './book-editor.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookEditorComponent {\n  bookId: string | null = null;\n  chapterId: string | null = null;\n\n  constructor(private route: ActivatedRoute) { }\n\n  ngOnInit(): void {\n    this.bookId = this.route.snapshot.paramMap.get('bookId');\n    this.chapterId = this.route.snapshot.paramMap.get('chapterId');\n  }\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "route",
+                        "type": "ActivatedRoute",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 17,
+                "jsdoctags": [
+                    {
+                        "name": "route",
+                        "type": "ActivatedRoute",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<div class=\"grid-container h-full gap-6 m-4\">\n  <div>\n    <app-project></app-project>\n  </div>\n  <div>\n    <app-editor></app-editor>\n  </div>\n  <div class=\"flex flex-col gap-2\">\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Chapter</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Beat</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Building</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Item</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Character</button>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"grid-container grid grid-cols-10 h-full gap-6 m-4 h-screen\">\n  <div class=\"col-span-2\">\n    <app-project></app-project>\n  </div>\n  <div class=\"col-start-3 col-span-6\">\n    <app-editor></app-editor>\n  </div>\n  <div class=\"col-start-9 flex flex-col gap-2 col-span-2\">\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Chapter</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Beat</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Building</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Item</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n    <button class=\"w-full text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Character</button>\n  </div>\n</div>\n"
         },
         {
             "name": "BookExplorerComponent",
-            "id": "component-BookExplorerComponent-8523e17faceff1bddaa9aa12d2f23cb12dc8cbccd27083b03711e1c4b37c1a0292fe11e1ca3e470b2176ddacaf04868093ca8e016d697d8deea8a8814d67ae93",
+            "id": "component-BookExplorerComponent-caa042470bae73ae1a3d5ee6f1f60856fbbaf2b55dfbc93751b3d8674675d1f1ec16e7912881e43d5293cc38c992f71e43d918e5cff8c39cb75acdd32f5bf6e6",
             "file": "src/app/book-explorer/book-explorer.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -999,7 +1058,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 22,
+                    "line": 23,
                     "type": "Book[]",
                     "decorators": []
                 }
@@ -1014,7 +1073,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 23
+                    "line": 24
                 }
             ],
             "methodsClass": [],
@@ -1040,7 +1099,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nexport interface Book {\n  title: string,\n  imgUrl?: string,\n  imgTitle?: string\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent, FontAwesomeModule\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n  faPlus = faPlus\n}\n",
+            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nexport interface Book {\n  title: string,\n  imgUrl?: string,\n  imgTitle?: string\n  id?: string,\n}\n\n@Component({\n  selector: 'app-book-explorer',\n  standalone: true,\n  imports: [\n    CommonModule, BookCardComponent, FontAwesomeModule\n  ],\n  templateUrl: './book-explorer.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookExplorerComponent {\n  @Input() books: Book[] = []\n  faPlus = faPlus\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1195,8 +1254,8 @@
         },
         {
             "name": "HomeComponent",
-            "id": "component-HomeComponent-4842c602e5df1e30698903fa8dc13ed646d1f3bb1ee399935473b4949614b6c16365639122b9e070e3430bcef7fc8475010bc1527fae41b1c25d93f711c2f0c0",
-            "file": "src/app/home/Home.component.ts",
+            "id": "component-HomeComponent-63220d1e1a3d1921428154525b3811bfac3c8ec26bef04893fbd5fa65f20fd369262fa42a3bac5754fad075486fd5b158cdd1df49b6fc8ddac1fb10e553cc276",
+            "file": "src/app/home/home.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
@@ -1207,7 +1266,7 @@
             "styleUrls": [],
             "styles": [],
             "templateUrl": [
-                "./Home.component.html"
+                "./home.component.html"
             ],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1243,7 +1302,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookExplorerComponent } from '../book-explorer/book-explorer.component';\n\n@Component({\n  selector: 'app-home',\n  standalone: true,\n  imports: [\n    CommonModule, BookExplorerComponent,\n  ],\n  templateUrl: './Home.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HomeComponent {\n  @Input() books: any = []\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookExplorerComponent } from '../book-explorer/book-explorer.component';\n\n@Component({\n  selector: 'app-home',\n  standalone: true,\n  imports: [\n    CommonModule, BookExplorerComponent,\n  ],\n  templateUrl: './home.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HomeComponent {\n  @Input() books: any = []\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1411,7 +1470,7 @@
         },
         {
             "name": "NavbarComponent",
-            "id": "component-NavbarComponent-5ff0a9e10431e234ec8eb2cc03c4035bea9c0d3b99932e3cf8035d1a4f7c6b0a6247231d4434add02236b5731d084aa5905994489ff1cd8857b1cd6352aed68e",
+            "id": "component-NavbarComponent-0985ab37ce0757a5c60deb87016ce1fb64db138d5004a26f6346377e559a7241693399bfdbbb5458b126224127692a799af71415349564bca81d7605ddc949f5",
             "file": "src/app/navbar/navbar.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -1448,21 +1507,25 @@
                 {
                     "name": "ThemeSwitchComponent",
                     "type": "component"
+                },
+                {
+                    "name": "RouterModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { LoginComponent } from '../login/login.component';\nimport { ThemeSwitchComponent } from '../theme-switch/theme-switch.component';\n@Component({\n  selector: 'app-navbar',\n  standalone: true,\n  imports: [\n    CommonModule, LoginComponent, ThemeSwitchComponent\n  ],\n  templateUrl: './navbar.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NavbarComponent { }\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { LoginComponent } from '../login/login.component';\nimport { ThemeSwitchComponent } from '../theme-switch/theme-switch.component';\nimport { RouterModule } from '@angular/router';\n@Component({\n  selector: 'app-navbar',\n  standalone: true,\n  imports: [\n    CommonModule, LoginComponent, ThemeSwitchComponent, RouterModule\n  ],\n  templateUrl: './navbar.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NavbarComponent { }\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-div text-primary px-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a href=\"/home\" class=\"hover:text-primary-hover\">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li >\r\n                    <a href=\"/explore\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover w-full h-full\">Explore</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"/about\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover w-full h-full\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <div class=\"flex flex-column align-middle justify-center items-center gap-10\">\r\n      <app-theme-switch></app-theme-switch>\r\n      <app-login></app-login>\r\n    </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"bg-div text-primary px-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a  [routerLink]=\"['/']\" routerLinkActive=\"active\" class=\"hover:text-primary-hover\">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li>\r\n                  <a [routerLink]=\"['/about']\" routerLinkActive=\"active\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover active:bg-button-active w-full h-full\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <div class=\"flex flex-column align-middle justify-center items-center gap-10\">\r\n      <app-theme-switch></app-theme-switch>\r\n      <app-login></app-login>\r\n    </div>\r\n</div>\r\n"
         },
         {
             "name": "ProjectChapterComponent",
-            "id": "component-ProjectChapterComponent-804e0721650f43dcce1821cc37708e3c793338305eed717d92e0179c3051d99224440704cf04376f4392092da5715dd9eda15707f9d3c71190c45c0c172899c5",
+            "id": "component-ProjectChapterComponent-fc5203f0b748a692e3fc862d91572ed7bc5432e00e4d8ef14d055f912eec0e4a433a178ce1d2991442c25de51b7c50da6ffcbbae8db25180dffddeda4a370198",
             "file": "src/app/project/project-chapter/project-chapter.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1479,11 +1542,11 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
-                    "name": "file",
-                    "defaultValue": "''",
+                    "name": "chapterId",
+                    "defaultValue": "'-1'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 15,
+                    "line": 17,
                     "type": "string",
                     "decorators": []
                 },
@@ -1494,6 +1557,15 @@
                     "deprecationMessage": "",
                     "line": 16,
                     "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "title",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15,
+                    "type": "string",
                     "decorators": []
                 }
             ],
@@ -1507,7 +1579,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 21
+                    "line": 22
                 },
                 {
                     "name": "faFileExport",
@@ -1517,7 +1589,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 21
                 },
                 {
                     "name": "faFileLines",
@@ -1527,7 +1599,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 18
                 },
                 {
                     "name": "faGripVertical",
@@ -1537,7 +1609,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
                 },
                 {
                     "name": "faTrash",
@@ -1547,7 +1619,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
                 }
             ],
             "methodsClass": [
@@ -1564,7 +1636,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23,
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1592,7 +1664,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 31,
+                    "line": 32,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1620,7 +1692,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27,
+                    "line": 28,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1658,12 +1730,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFileLines, faGripVertical, faTrash, faFileExport, faClone, } from '@fortawesome/free-solid-svg-icons';\nimport { DragDropModule } from '@angular/cdk/drag-drop';\nimport { CommonModule } from '@angular/common';\n@Component({\n  selector: 'app-project-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule\n  ],\n  templateUrl: './project-chapter.component.html',\n})\nexport class ProjectChapterComponent {\n  @Input() file: string = '';\n  @Input() index: number = 0\n  faFileLines = faFileLines\n  faGripVertical = faGripVertical\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n\n  deleteFile(index: number): void {\n    // Implement file deletion logic\n  }\n\n  exportFile(file: string): void {\n    // Implement file export logic\n  }\n\n  duplicateFile(file: string): void {\n    // Implement file duplication logic\n  }\n}\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFileLines, faGripVertical, faTrash, faFileExport, faClone, } from '@fortawesome/free-solid-svg-icons';\nimport { DragDropModule } from '@angular/cdk/drag-drop';\nimport { CommonModule } from '@angular/common';\n@Component({\n  selector: 'app-project-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule\n  ],\n  templateUrl: './project-chapter.component.html',\n})\nexport class ProjectChapterComponent {\n  @Input() title = '';\n  @Input() index: number = 0;\n  @Input() chapterId: string = '-1';\n  faFileLines = faFileLines\n  faGripVertical = faGripVertical\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n\n  deleteFile(index: number): void {\n    // Implement file deletion logic\n  }\n\n  exportFile(file: string): void {\n    // Implement file export logic\n  }\n\n  duplicateFile(file: string): void {\n    // Implement file duplication logic\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\" >\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    {{ file }}\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"deleteFile(index)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(file)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(file)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
+            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\" >\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    {{ title }}\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"deleteFile(id)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(file)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(file)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
         },
         {
             "name": "ProjectComponent",
@@ -1771,7 +1843,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"p-4 border-2 border-border-color rounded-lg shadow-lg bg-default opacity-80\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-border-color rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter [file]=\"file\" [index]=\"$index\"></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-primary my-8\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"p-4 border-2 border-border-color rounded-lg shadow-lg bg-default opacity-80\">\n  <app-project-title></app-project-title>\n  <div class=\"m-2 flex flex-col border-2 border-border-color rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (file of files; track $index) {\n        <app-project-chapter ></app-project-chapter>\n    } @empty {\n      <div class=\"text-center text-primary my-8\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "ProjectTitleComponent",
@@ -2138,7 +2210,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/editor/editor.stories.ts",
+                "file": "src/app/home/home.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -2148,7 +2220,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/home/Home.stories.ts",
+                "file": "src/app/editor/editor.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -2272,7 +2344,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        { provide: AuthService, useClass: MockAuthService },\r\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\r\n      ],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        { provide: AuthService, useClass: MockAuthService },\r\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\r\n        { provide: ActivatedRoute, useValue: mockActivatedRoute },\r\n      ],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "serverConfig",
@@ -2435,24 +2507,24 @@
                     "defaultValue": "() => ({\r\n  component: BookExplorerComponent,\r\n  props: { books: [{ title: 'Hello' }, { title: 'The beautiful Mermaid' }, { title: 'The Barbarian & The wild woman' }, { title: 'Batman & Not Robin' }, { title: '7 Heralds' }, { title: 'Samanthat & Melf' }, { title: 'Trouble In Hell' }, { title: 'Temporal Tempest' }] }\r\n})"
                 }
             ],
-            "src/app/editor/editor.stories.ts": [
+            "src/app/home/home.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/editor/editor.stories.ts",
+                    "file": "src/app/home/home.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "() => ({})"
                 }
             ],
-            "src/app/home/Home.stories.ts": [
+            "src/app/editor/editor.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/home/Home.stories.ts",
+                    "file": "src/app/editor/editor.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -2606,7 +2678,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        { provide: AuthService, useClass: MockAuthService },\r\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\r\n      ],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        { provide: AuthService, useClass: MockAuthService },\r\n        { provide: AngularFirestore, useClass: MockAngularFirestore },\r\n        { provide: ActivatedRoute, useValue: mockActivatedRoute },\r\n      ],\r\n    }),\r\n  ],\r\n}"
                 }
             ],
             "src/services/ThemeService.service.ts": [
@@ -2738,7 +2810,7 @@
                 "linktype": "component",
                 "name": "BookEditorComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
@@ -2757,7 +2829,7 @@
                 "linktype": "component",
                 "name": "BookCardComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -2795,7 +2867,7 @@
                 "linktype": "interface",
                 "name": "Book",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
@@ -2858,7 +2930,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/home/Home.component.ts",
+                "filePath": "src/app/home/home.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "HomeComponent",
@@ -2867,7 +2939,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/home/Home.stories.ts",
+                "filePath": "src/app/home/home.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -2910,7 +2982,7 @@
                 "linktype": "component",
                 "name": "ProjectChapterComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/11",
+                "coverageCount": "0/12",
                 "status": "low"
             },
             {

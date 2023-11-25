@@ -45,3 +45,6 @@ export class MockAngularFirestore {
     };
   }
 }
+
+export class mockActivatedRoute {
+}

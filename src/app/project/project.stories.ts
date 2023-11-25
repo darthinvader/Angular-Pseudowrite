@@ -8,14 +8,13 @@ export default {
 export const Default = () => ({
   component: ProjectComponent,
   props: {
-    files: ['File 1', 'File 2', 'File 3'],
-
+    chapters: ['File 1', 'File 2', 'File 3'],
   },
 });
 
 export const Empty = () => ({
   component: ProjectComponent,
   props: {
-    files: [],
+    chapters: [],
   },
 });

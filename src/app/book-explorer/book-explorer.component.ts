@@ -7,6 +7,7 @@ export interface Book {
   title: string,
   imgUrl?: string,
   imgTitle?: string
+  id?: string,
 }
 
 @Component({

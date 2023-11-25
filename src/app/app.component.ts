@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { BackgroundComponent } from './background/background.component';
-import { HomeComponent } from './home/Home.component';
+import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-root',

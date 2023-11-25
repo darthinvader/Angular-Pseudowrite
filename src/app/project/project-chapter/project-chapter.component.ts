@@ -12,15 +12,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './project-chapter.component.html',
 })
 export class ProjectChapterComponent {
-  @Input() file: string = '';
-  @Input() index: number = 0
+  @Input() title = '';
+  @Input() index: number = 0;
+  @Input() chapterId: string = '-1';
+
   faFileLines = faFileLines
   faGripVertical = faGripVertical
   faTrash = faTrash;
   faFileExport = faFileExport;
   faClone = faClone;
 
-  deleteFile(index: number): void {
+  deleteFile(chapterid: string): void {
     // Implement file deletion logic
   }
 
