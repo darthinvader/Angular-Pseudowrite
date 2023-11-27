@@ -1,7 +1,7 @@
 import { TextEditorComponent } from './text-editor.component';
 
 export default {
-  title: 'EditorComponent',
+  title: 'Components/Text Editor',
   component: TextEditorComponent,
 };
 

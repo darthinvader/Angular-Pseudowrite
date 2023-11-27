@@ -1,19 +1,19 @@
-import { ChapterOrganizingComponent } from './chapter-organiser.component';
+import { ChapterOrganizerComponent } from './chapter-organiser.component';
 
 export default {
-  title: 'Project Component',
-  component: ChapterOrganizingComponent,
+  title: 'Components/Chapter Organizing',
+  component: ChapterOrganizerComponent,
 };
 
 export const Default = () => ({
-  component: ChapterOrganizingComponent,
+  component: ChapterOrganizerComponent,
   props: {
     chapters: ['File 1', 'File 2', 'File 3'],
   },
 });
 
 export const Empty = () => ({
-  component: ChapterOrganizingComponent,
+  component: ChapterOrganizerComponent,
   props: {
     chapters: [],
   },

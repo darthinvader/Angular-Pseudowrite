@@ -15,7 +15,7 @@ import { Chapter } from '../../models/Chapter';
   ],
   templateUrl: './chapter-organiser.component.html',
 })
-export class ChapterOrganizingComponent {
+export class ChapterOrganizerComponent {
   @Input() chapters: Chapter[] = [];
   @Input() book?: Book;
   faFolderOpen = faFolderOpen

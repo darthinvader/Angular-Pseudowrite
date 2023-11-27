@@ -1,7 +1,7 @@
 import { BookCollectionComponent } from './book-collection.component';
 
 export default {
-  title: 'Book Explorer Component',
+  title: 'Components/Book Collection',
   component: BookCollectionComponent,
 };
 

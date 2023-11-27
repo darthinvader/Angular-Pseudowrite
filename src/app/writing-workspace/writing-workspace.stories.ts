@@ -1,7 +1,7 @@
 import { WritingWorkspaceComponent } from './writing-workspace.component';
 
 export default {
-  title: 'Book Editor Component',
+  title: 'Page/Writing Workspace',
   component: WritingWorkspaceComponent,
 };
 

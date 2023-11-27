@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/angular';
 import { BackgroundComponent } from './background.component';
 export default {
-  title: 'Components/Background',
+  title: 'Page/Background',
   component: BackgroundComponent,
 } as Meta;
 

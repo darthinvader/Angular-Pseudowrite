@@ -1,7 +1,7 @@
 import { BookCardComponent } from './book-card.component';
 
 export default {
-  title: 'Book Card Component',
+  title: 'Components/Book Card',
   component: BookCardComponent,
 };
 

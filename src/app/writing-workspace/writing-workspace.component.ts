@@ -1,4 +1,4 @@
-import { ChapterOrganizingComponent } from './../chapter-organiser/chapter-organiser.component';
+import { ChapterOrganizerComponent } from './../chapter-organiser/chapter-organiser.component';
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
@@ -12,7 +12,7 @@ import { TextEditorComponent } from '../text-editor/text-editor.component';
   selector: 'app-writing-workspace',
   standalone: true,
   imports: [
-    CommonModule, ChapterOrganizingComponent, TextEditorComponent
+    CommonModule, ChapterOrganizerComponent, TextEditorComponent
   ],
   templateUrl: './writing-workspace.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
