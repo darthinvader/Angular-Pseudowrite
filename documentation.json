@@ -1530,7 +1530,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"max-w bg-div rounded overflow-hidden shadow-lg cursor-pointer hover:scale-105 transform duration-300 ease-in-out\">\n  <a [routerLink]=\"['/book', book?.id, 'chapter']\" routerLinkActive=\"active\" (click)=\"click(book)\">\n        <div class=\"h-full\">\n      <div class=\"p-6 flex justify-center align-middle\">\n        <div class=\"font-bold text-2xl mb-2\">{{ book?.title }}</div>\n      </div>\n    </div>\n  </a>\n</div>\n"
+            "templateData": "  <div class=\"max-w bg-div rounded overflow-hidden shadow-lg cursor-pointer hover:scale-105 transform duration-300 ease-in-out\">\n    <a [routerLink]=\"['/book', book?.id, 'chapter']\" routerLinkActive=\"active\" (click)=\"click(book)\">\n          <div class=\"h-full\">\n        <div class=\"p-6 flex justify-center align-middle\">\n          <div class=\"font-bold text-2xl mb-2\">{{ book?.title }}</div>\n        </div>\n      </div>\n    </a>\n  </div>\n"
         },
         {
             "name": "BookCollectionComponent",
@@ -2101,8 +2101,8 @@
             "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\" >\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    {{ title }}\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"deleteFile(chapterId)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(chapterId)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(chapterId)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
         },
         {
-            "name": "ChapterOrganizingComponent",
-            "id": "component-ChapterOrganizingComponent-090f4c6c5fd58226f655c1e59e9af91f0cf909413edd1836b0c7731ac187171434396efd6cf431f9dcc9c68124d70a194ec181841d17c82c08b78a8724a19ca4",
+            "name": "ChapterOrganizerComponent",
+            "id": "component-ChapterOrganizerComponent-bbe7df3c1026e5733e92812e296e3c270041448cf0ad092409e5f6a8d2c507144836cbd7d3af07b7a5249e116ab732d94d7ae015b5a21263d075e56a35c7d455",
             "file": "src/app/chapter-organiser/chapter-organiser.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2209,7 +2209,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChapterComponent } from './chapter/chapter.component';\nimport { BookTitleComponent } from './book-title/book-title.component';\nimport { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFolderOpen } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { Book } from '../../models/Book';\nimport { Chapter } from '../../models/Chapter';\n@Component({\n  selector: 'app-chapter-organiser',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, BookTitleComponent, ChapterComponent\n  ],\n  templateUrl: './chapter-organiser.component.html',\n})\nexport class ChapterOrganizingComponent {\n  @Input() chapters: Chapter[] = [];\n  @Input() book?: Book;\n  faFolderOpen = faFolderOpen\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    moveItemInArray(this.chapters, event.previousIndex, event.currentIndex);\n    console.log(this.chapters, event)\n  }\n}\n\n\n",
+            "sourceCode": "import { ChapterComponent } from './chapter/chapter.component';\nimport { BookTitleComponent } from './book-title/book-title.component';\nimport { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFolderOpen } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { Book } from '../../models/Book';\nimport { Chapter } from '../../models/Chapter';\n@Component({\n  selector: 'app-chapter-organiser',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, BookTitleComponent, ChapterComponent\n  ],\n  templateUrl: './chapter-organiser.component.html',\n})\nexport class ChapterOrganizerComponent {\n  @Input() chapters?: Chapter[] = [];\n  @Input() book?: Book;\n  faFolderOpen = faFolderOpen\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    if (this.chapters)\n      moveItemInArray(this?.chapters, event.previousIndex, event.currentIndex);\n    console.log(this.chapters, event)\n  }\n}\n\n\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2732,7 +2732,7 @@
         },
         {
             "name": "WritingWorkspaceComponent",
-            "id": "component-WritingWorkspaceComponent-6359de4d6bdcf1c554e5c2809535958adc6a578c480f11106cc158bb80d20eb79656ce75e387e8c962b9f16ed7dba86e3b36daf2d6f25bfa4cab7b4ce7c02c2a",
+            "id": "component-WritingWorkspaceComponent-f9057012eb966093c85bf10643fe3da52a9194b0078c9d0aca67e899d170108f3b3754b3adc9bec06f925e8447e6f7dfb118b2724d16a56d3879e931fe2f5baa",
             "file": "src/app/writing-workspace/writing-workspace.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -2839,7 +2839,7 @@
                     "type": "module"
                 },
                 {
-                    "name": "ChapterOrganizingComponent",
+                    "name": "ChapterOrganizerComponent",
                     "type": "component"
                 },
                 {
@@ -2850,7 +2850,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChapterOrganizingComponent } from './../chapter-organiser/chapter-organiser.component';\nimport { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\nimport { ActivatedRoute } from '@angular/router';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { AuthService } from '../../services/auth.service';\nimport { FirebaseBook } from '../../models/Book';\nimport { Chapter } from '../../models/Chapter';\nimport { CommonModule } from '@angular/common';\nimport { TextEditorComponent } from '../text-editor/text-editor.component';\n\n@Component({\n  selector: 'app-writing-workspace',\n  standalone: true,\n  imports: [\n    CommonModule, ChapterOrganizingComponent, TextEditorComponent\n  ],\n  templateUrl: './writing-workspace.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class WritingWorkspaceComponent implements OnInit {\n  bookId: string | null = null;\n  chapterId: string | null = null;\n  book: FirebaseBook | undefined;\n  chapter: Chapter | undefined;\n\n  constructor(\n    private route: ActivatedRoute,\n    private firestoreService: FirestoreService,\n    private authService: AuthService,\n    private changeDetector: ChangeDetectorRef\n  ) { }\n\n  ngOnInit(): void {\n    this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n        this.retrieveData();\n      } else {\n        console.error('User not authenticated');\n        // Handle unauthenticated user scenario\n      }\n    });\n  }\n\n  private retrieveData(): void {\n    this.bookId = this.route.snapshot.paramMap.get('bookId');\n    this.chapterId = this.route.snapshot.paramMap.get('chapterId');\n\n    if (this.bookId) {\n\n    }\n  }\n\n  private retrieveChapter(): void {\n    if (this.bookId && this.chapterId) {\n\n    }\n  }\n}\n",
+            "sourceCode": "import { ChapterOrganizerComponent } from './../chapter-organiser/chapter-organiser.component';\nimport { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\nimport { ActivatedRoute } from '@angular/router';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { AuthService } from '../../services/auth.service';\nimport { FirebaseBook } from '../../models/Book';\nimport { Chapter } from '../../models/Chapter';\nimport { CommonModule } from '@angular/common';\nimport { TextEditorComponent } from '../text-editor/text-editor.component';\n\n@Component({\n  selector: 'app-writing-workspace',\n  standalone: true,\n  imports: [\n    CommonModule, ChapterOrganizerComponent, TextEditorComponent\n  ],\n  templateUrl: './writing-workspace.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class WritingWorkspaceComponent implements OnInit {\n  bookId: string | null = null;\n  chapterId: string | null = null;\n  book: FirebaseBook | undefined;\n  chapter: Chapter | undefined;\n\n  constructor(\n    private route: ActivatedRoute,\n    private firestoreService: FirestoreService,\n    private authService: AuthService,\n    private changeDetector: ChangeDetectorRef\n  ) { }\n\n  ngOnInit(): void {\n    this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n        this.retrieveData();\n      } else {\n        console.error('User not authenticated');\n        // Handle unauthenticated user scenario\n      }\n    });\n  }\n\n  private retrieveData(): void {\n    this.bookId = this.route.snapshot.paramMap.get('bookId');\n    this.chapterId = this.route.snapshot.paramMap.get('chapterId');\n\n    if (this.bookId) {\n\n    }\n  }\n\n  private retrieveChapter(): void {\n    if (this.bookId && this.chapterId) {\n\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2929,7 +2929,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"grid-container grid grid-cols-11 gap-6 m-4 h-screen\">\n  <div class=\"col-span-3\">\n    <app-chapter-organiser [chapters]=\"book?.chaptersInfo\"></app-chapter-organiser>\n  </div>\n  <div class=\"col-start-4 col-span-7\">\n    <app-text-editor></app-text-editor>\n  </div>\n  <div class=\"col-start-11 flex flex-col gap-1 col-span-1\">\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Chapter</button>\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Beat</button>\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Building</button>\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Item</button>\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Generate Character</button>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"grid-container grid grid-cols-11 gap-6 m-4 h-screen\">\n  <div class=\"col-span-3\">\n    <app-chapter-organiser [chapters]=\"book?.chaptersInfo\"></app-chapter-organiser>\n  </div>\n  <div class=\"col-start-4 col-span-7\">\n    <app-text-editor></app-text-editor>\n  </div>\n  <div class=\"col-start-11 flex flex-col gap-1 col-span-1\">\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n  </div>\n</div>\n"
         }
     ],
     "modules": [],
@@ -2943,7 +2943,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "ApplicationConfig",
-                "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },\r\n    importProvidersFrom(HttpClientModule),\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },\r\n    importProvidersFrom(HttpClientModule),\r\n    provideHttpClient(withFetch()),\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
             },
             {
                 "name": "bootstrap",
@@ -3003,7 +3003,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: ChapterOrganizingComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
+                "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
             },
             {
                 "name": "Default",
@@ -3029,21 +3029,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/text-editor/text-editor.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "() => ({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/writing-workspace/writing-workspace.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "() => ({\r\n  component: WritingWorkspaceComponent,\r\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/text-editor/text-editor.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({})"
             },
             {
                 "name": "Default",
@@ -3083,7 +3083,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: ChapterOrganizingComponent,\r\n  props: {\r\n    chapters: [],\r\n  },\r\n})"
+                "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: [],\r\n  },\r\n})"
             },
             {
                 "name": "environment",
@@ -3211,7 +3211,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApplicationConfig",
-                    "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },\r\n    importProvidersFrom(HttpClientModule),\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  providers: [\r\n    // Provide router for application routes\r\n    provideRouter(routes),\r\n\r\n    // Provide client hydration for Angular Universal (Server-Side Rendering)\r\n    provideClientHydration(),\r\n\r\n    // Import Firebase application initialized with environment-specific configuration\r\n    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),\r\n\r\n    // Import providers for various Firebase services\r\n    importProvidersFrom(provideAuth(() => getAuth())),\r\n    importProvidersFrom(provideFirestore(() => getFirestore())),\r\n    importProvidersFrom(provideDatabase(() => getDatabase())),\r\n    importProvidersFrom(provideFunctions(() => getFunctions())),\r\n    importProvidersFrom(provideStorage(() => getStorage())),\r\n    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },\r\n    importProvidersFrom(HttpClientModule),\r\n    provideHttpClient(withFetch()),\r\n    // ... include other providers as needed for your application\r\n  ]\r\n}"
                 }
             ],
             "src/main.server.ts": [
@@ -3303,7 +3303,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "() => ({\r\n  component: ChapterOrganizingComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
+                    "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
                 },
                 {
                     "name": "Empty",
@@ -3313,7 +3313,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "() => ({\r\n  component: ChapterOrganizingComponent,\r\n  props: {\r\n    chapters: [],\r\n  },\r\n})"
+                    "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: [],\r\n  },\r\n})"
                 }
             ],
             "src/app/home/home.stories.ts": [
@@ -3340,18 +3340,6 @@
                     "defaultValue": "() => ({})"
                 }
             ],
-            "src/app/text-editor/text-editor.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/text-editor/text-editor.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "() => ({})"
-                }
-            ],
             "src/app/writing-workspace/writing-workspace.stories.ts": [
                 {
                     "name": "Default",
@@ -3362,6 +3350,18 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "() => ({\r\n  component: WritingWorkspaceComponent,\r\n})"
+                }
+            ],
+            "src/app/text-editor/text-editor.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/text-editor/text-editor.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({})"
                 }
             ],
             "src/app/theme-switch/theme-switch.stories.ts": [
@@ -3674,7 +3674,7 @@
                 "filePath": "src/app/chapter-organiser/chapter-organiser.component.ts",
                 "type": "component",
                 "linktype": "component",
-                "name": "ChapterOrganizingComponent",
+                "name": "ChapterOrganizerComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
                 "status": "low"

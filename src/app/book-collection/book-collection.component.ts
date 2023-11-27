@@ -28,25 +28,26 @@ export class BookCollectionComponent {
   ngOnInit() {
     this.authSubscription = this.authService.isSignedIn().subscribe(authenticated => {
       if (authenticated) {
+        this.firestore.fetchUserData().subscribe(userData => {
+          this.books = userData?.booksInfo || [];
+          this.cd.markForCheck();
+        });
       } else {
         this.books = [];
       }
     });
   }
 
-  ngOnDestroy() {
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
-    }
-  }
-
-
   addNewBook() {
     console.log('Adding new book:');
     this.firestore.createBook('New Book').subscribe({
-      next: () => console.log('New book added successfully'),
+      next: () => {
+        console.log('New book added successfully');
+        this.cd.markForCheck();
+      },
       error: (err) => console.error('Error adding new book:', err),
       complete: () => console.log('Completed adding new book'),
     });
   }
+
 }
