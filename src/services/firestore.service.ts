@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, throwError, switchMap, catchError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { FirebaseBook } from '../models/Book';
-import { FirebaseChapter } from '../models/Chapter';
+import { Chapter, FirebaseChapter } from '../models/Chapter';
 import { FirebaseUser } from '../models/User';
 
 @Injectable({
@@ -72,7 +72,7 @@ export class FirestoreService {
     );
   }
 
-  writeBook(bookId: string, title: string, imageUrl: string): Observable<void> {
+  writeBook(bookId: string, title: string, imageUrl?: string): Observable<void> {
     return this.getCurrentUserId().pipe(
       switchMap(userId => {
         if (!userId) throw new Error("User not authenticated");
@@ -107,6 +107,26 @@ export class FirestoreService {
       switchMap(userId => {
         if (!userId) throw new Error("User not authenticated");
         return this.firestore.doc(`users/${userId}/books/${bookId}/chapters/${chapterId}`).delete();
+      }),
+      catchError(error => throwError(() => error))
+    );
+  }
+  updateChapterOrder(bookId: string, chapters: Chapter[]): Observable<void> {
+    return this.getCurrentUserId().pipe(
+      switchMap(userId => {
+        if (!userId) throw new Error("User not authenticated");
+        const bookRef = this.firestore.doc<FirebaseBook>(`users/${userId}/books/${bookId}`);
+        return bookRef.update({ chaptersInfo: chapters });
+      }),
+      catchError(error => throwError(() => error))
+    );
+  }
+  updateChapterTitle(bookId: string, chapterId: string, newTitle: string): Observable<void> {
+    return this.getCurrentUserId().pipe(
+      switchMap(userId => {
+        if (!userId) throw new Error("User not authenticated");
+        const chapterRef = this.firestore.doc(`users/${userId}/books/${bookId}/chapters/${chapterId}`);
+        return chapterRef.update({ title: newTitle });
       }),
       catchError(error => throwError(() => error))
     );

@@ -18,10 +18,10 @@ import { TextEditorComponent } from '../text-editor/text-editor.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WritingWorkspaceComponent implements OnInit {
-  bookId: string | null = null;
-  chapterId: string | null = null;
-  book: FirebaseBook | undefined;
-  chapter: Chapter | undefined;
+  bookId?: string | null;
+  chapterId?: string | null;
+  book?: FirebaseBook;
+  chapter?: Chapter;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,7 +44,6 @@ export class WritingWorkspaceComponent implements OnInit {
   private retrieveData(): void {
     this.bookId = this.route.snapshot.paramMap.get('bookId');
     this.chapterId = this.route.snapshot.paramMap.get('chapterId');
-
     if (this.bookId) {
 
     }

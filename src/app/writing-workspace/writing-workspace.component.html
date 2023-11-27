@@ -1,6 +1,6 @@
 <div class="grid-container grid grid-cols-11 gap-6 m-4 h-screen">
   <div class="col-span-3">
-    <app-chapter-organiser [chapters]="book?.chaptersInfo"></app-chapter-organiser>
+    <app-chapter-organiser [chapters]="book?.chaptersInfo" [book]="book" [bookId] ="bookId || undefined"></app-chapter-organiser>
   </div>
   <div class="col-start-4 col-span-7">
     <app-text-editor></app-text-editor>

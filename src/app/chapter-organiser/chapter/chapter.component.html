@@ -1,20 +1,27 @@
 <div cdkDrag class="py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm">
-  <div class="flex items-center gap-1" >
+  <div class="flex items-center gap-1">
     <button class="focus:outline-none" title="Drag File">
       <fa-icon [icon]="faGripVertical"></fa-icon>
     </button>
     <fa-icon [icon]="faFileLines"></fa-icon>
-    {{ title }}
+    <span *ngIf="!editingTitle">{{ chapter?.title }}</span>
+    <input *ngIf="editingTitle" [(ngModel)]="editableTitle" 
+           (blur)="finishEditing()" 
+           (keyup.enter)="finishEditing()" 
+           class="form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary">
   </div>
   <div class="flex items-center gap-2">
-    <button (click)="deleteFile(chapterId)" title="Delete File" class="focus:outline-none">
+    <button (click)="deleteFile(chapter?.id)" title="Delete File" class="focus:outline-none">
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
-    <button (click)="exportFile(chapterId)" title="Export File" class="focus:outline-none">
+    <button (click)="exportFile(chapter?.id)" title="Export File" class="focus:outline-none">
       <fa-icon [icon]="faFileExport"></fa-icon>
     </button>
-    <button (click)="duplicateFile(chapterId)" title="Duplicate File" class="focus:outline-none">
+    <button (click)="duplicateFile(chapter?.id)" title="Duplicate File" class="focus:outline-none">
       <fa-icon [icon]="faClone"></fa-icon>
+    </button>
+    <button *ngIf="!editingTitle" (click)="startEditing()" title="Rename File" class="focus:outline-none">
+      <fa-icon [icon]="faPencilAlt"></fa-icon>
     </button>
   </div>
 </div>

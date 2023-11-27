@@ -1,10 +1,10 @@
 <div class="flex flex-col items-center mb-6">
   <div class="flex mb-2 justify-center align-middle">
     <div *ngIf="!editingTitle" (click)="onTitleClick()" class="cursor-pointer">
-      <p class="text-2xl font-semibold">📙{{ bookName }}</p>
+      <p class="text-2xl font-semibold text-primary">📙{{ book.title }}</p>
     </div>
-    <input *ngIf="editingTitle" [(ngModel)]="bookName" (blur)="onTitleBlur()" 
-            (keyup.enter)="onTitleEnter()" class="form-input border border-border-color rounded py-1 px-2 text-xl">
+    <input *ngIf="editingTitle" [(ngModel)]="book.title" (blur)="onTitleBlur()" 
+            (keyup.enter)="onTitleEnter()" class="form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary">
   </div>
   <div class="flex gap-1">
     <button (click)="importFiles()" class="flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center">
