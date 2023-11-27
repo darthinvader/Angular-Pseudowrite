@@ -1,0 +1,16 @@
+<div class="grid-container grid grid-cols-11 gap-6 m-4 h-screen">
+  <div class="col-span-3">
+    <app-chapter-organiser [chapters]="book?.chaptersInfo"></app-chapter-organiser>
+  </div>
+  <div class="col-start-4 col-span-7">
+    <app-text-editor></app-text-editor>
+  </div>
+  <div class="col-start-11 flex flex-col gap-1 col-span-1">
+    <button class="text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300">Generate Chapter</button>
+    <button class="text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300">Generate Beat</button>
+    <button class="text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300">Generate Building</button>
+    <button class="text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300">Generate Item</button>
+    <button class="text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300">Rewrite</button>
+    <button class="text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300">Generate Character</button>
+  </div>
+</div>

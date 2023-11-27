@@ -17,6 +17,8 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookCardComponent {
-  @Input() book: Book | null = null;
+  @Input() book?: Book;
   faTrashAlt = faTrashAlt;
+
+  click(book?: Book) { console.log(book) }
 }

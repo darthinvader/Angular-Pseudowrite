@@ -1,20 +1,23 @@
+import { ChapterComponent } from './chapter/chapter.component';
+import { BookTitleComponent } from './book-title/book-title.component';
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
-import { ProjectTitleComponent } from './project-title/project-title.component';
-import { ProjectChapterComponent } from './project-chapter/project-chapter.component';
+import { Book } from '../../models/Book';
+import { Chapter } from '../../models/Chapter';
 @Component({
-  selector: 'app-project',
+  selector: 'app-chapter-organiser',
   standalone: true,
   imports: [
-    CommonModule, FontAwesomeModule, DragDropModule, ProjectTitleComponent, ProjectChapterComponent
+    CommonModule, FontAwesomeModule, DragDropModule, BookTitleComponent, ChapterComponent
   ],
-  templateUrl: './project.component.html',
+  templateUrl: './chapter-organiser.component.html',
 })
-export class ProjectComponent {
-  @Input() chapters: string[] = [];
+export class ChapterOrganizingComponent {
+  @Input() chapters: Chapter[] = [];
+  @Input() book?: Book;
   faFolderOpen = faFolderOpen
 
   onDrop(event: CdkDragDrop<string[]>) {

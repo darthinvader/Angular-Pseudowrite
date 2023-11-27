@@ -1,16 +1,16 @@
-import { BookExplorerComponent } from './book-explorer.component';
+import { BookCollectionComponent } from './book-collection.component';
 
 export default {
   title: 'Book Explorer Component',
-  component: BookExplorerComponent,
+  component: BookCollectionComponent,
 };
 
 export const Default = () => ({
-  component: BookExplorerComponent,
+  component: BookCollectionComponent,
 });
 
 
 export const ManyBooks = () => ({
-  component: BookExplorerComponent,
+  component: BookCollectionComponent,
   props: { books: [{ title: 'Hello' }, { title: 'The beautiful Mermaid' }, { title: 'The Barbarian & The wild woman' }, { title: 'Batman & Not Robin' }, { title: '7 Heralds' }, { title: 'Samanthat & Melf' }, { title: 'Trouble In Hell' }, { title: 'Temporal Tempest' }] }
 });

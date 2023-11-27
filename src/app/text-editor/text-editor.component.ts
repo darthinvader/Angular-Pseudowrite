@@ -1,59 +1,19 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 import { FormsModule } from '@angular/forms';
+import { editorConfig } from './editorDefaults';
 
-const toolbarHiddenButtons = [
-  [
-    'subscript',
-    'superscript',
-  ],
-  [
-    'fontSize',
-    'textColor',
-    'backgroundColor',
-    'customClasses',
-    'link',
-    'unlink',
-    'insertImage',
-    'insertVideo',
-    'insertHorizontalRule',
-    'toggleEditorMode'
-  ]
-]
-
-const editorConfig: AngularEditorConfig = {
-  editable: true,
-  spellcheck: true,
-  height: 'calc(100vh - 100px)',
-  minHeight: '0',
-  maxHeight: 'auto',
-  width: 'auto',
-  minWidth: '0',
-  translate: 'yes',
-  enableToolbar: true,
-  showToolbar: true,
-  placeholder: 'Write Chapter Here...',
-  defaultFontName: 'roboto',
-  fonts: [
-    { class: 'roboto', name: 'Roboto' },
-    { class: 'arial', name: 'Arial' },
-    { class: 'times-new-roman', name: 'Times New Roman' },
-  ],
-  sanitize: true,
-  toolbarPosition: 'top',
-  toolbarHiddenButtons: toolbarHiddenButtons,
-};
 @Component({
-  selector: 'app-editor',
+  selector: 'app-text-editor',
   standalone: true,
   imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule],
-  templateUrl: './editor.component.html',
-  styleUrl: './editor.component.scss',
+  templateUrl: './text-editor.component.html',
+  styleUrl: './text-editor.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class EditorComponent {
+export class TextEditorComponent {
   @Input() htmlContent = ''
   @Input() editorConfig = editorConfig
   @Output() htmlContentChange = new EventEmitter();

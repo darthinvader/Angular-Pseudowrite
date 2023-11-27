@@ -1,19 +1,19 @@
-import { ProjectComponent } from './project.component';
+import { ChapterOrganizingComponent } from './chapter-organiser.component';
 
 export default {
   title: 'Project Component',
-  component: ProjectComponent,
+  component: ChapterOrganizingComponent,
 };
 
 export const Default = () => ({
-  component: ProjectComponent,
+  component: ChapterOrganizingComponent,
   props: {
     chapters: ['File 1', 'File 2', 'File 3'],
   },
 });
 
 export const Empty = () => ({
-  component: ProjectComponent,
+  component: ChapterOrganizingComponent,
   props: {
     chapters: [],
   },

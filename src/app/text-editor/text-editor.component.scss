@@ -88,7 +88,7 @@ angular-editor {
     }
   }
   .angular-editor-textarea{
-    @apply border-border-color shadow-md rounded-lg border-0 resize-none #{!important};
+    @apply p-1 bg-default text-primary shadow-md rounded-lg border-0 resize-none #{!important};
     &:focus {
       @apply outline-none #{!important};
     }

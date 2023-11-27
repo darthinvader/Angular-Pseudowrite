@@ -4,16 +4,15 @@ import { faFileLines, faGripVertical, faTrash, faFileExport, faClone, } from '@f
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 @Component({
-  selector: 'app-project-chapter',
+  selector: 'app-chapter',
   standalone: true,
   imports: [
     CommonModule, FontAwesomeModule, DragDropModule
   ],
-  templateUrl: './project-chapter.component.html',
+  templateUrl: './chapter.component.html',
 })
-export class ProjectChapterComponent {
+export class ChapterComponent {
   @Input() title = '';
-  @Input() index: number = 0;
   @Input() chapterId: string = '-1';
 
   faFileLines = faFileLines

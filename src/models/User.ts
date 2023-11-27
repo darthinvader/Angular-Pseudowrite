@@ -1,4 +1,4 @@
+import { Book } from './Book';
 export interface FirebaseUser {
-  bookIds: string[]
-  bookTitles: string[]
+  booksInfo: Book[]
 }
