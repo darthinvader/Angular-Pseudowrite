@@ -1,4 +1,4 @@
-import { Input, Component, ChangeDetectorRef } from '@angular/core';
+import { Input, Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { faBookOpen, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -19,11 +19,11 @@ export class BookTitleComponent {
   editingTitle: boolean = false;
   editableTitle: string = '';
   originalBookName: string = '';
-
+  isCreatingChapter: boolean = false;
   faFileImport = faFileImport;
   faPlus = faPlus;
   faBookOpen = faBookOpen;
-
+  @Output() newChapterCreating = new EventEmitter<boolean>();
   constructor(
     private firestoreService: FirestoreService,
     private cd: ChangeDetectorRef
@@ -70,9 +70,25 @@ export class BookTitleComponent {
       console.error('Book ID is not provided');
       return;
     }
+
+    this.isCreatingChapter = true;
+    this.newChapterCreating.emit(true); // Emit event
+
     this.firestoreService.createChapter(this.book.id, 'New Chapter', '').subscribe({
-      next: () => console.log('New chapter added successfully'),
-      error: (err: any) => console.error('Error adding new chapter:', err)
+      next: (chapterId) => {
+        console.log('New chapter added successfully, ID:', chapterId);
+
+        // Navigate to the new chapter's route or update the UI as needed
+      },
+      error: (err: any) => {
+        console.error('Error adding new chapter:', err);
+        this.isCreatingChapter = false; // Hide skeleton loader on error
+        this.newChapterCreating.emit(false); // Emit event
+      },
+      complete: () => {
+        this.isCreatingChapter = false; // Hide skeleton loader
+        this.newChapterCreating.emit(false); // Emit event
+      }
     });
   }
 }

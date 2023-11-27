@@ -1,9 +1,13 @@
 <div class="p-4 border-2 border-border-color rounded-lg shadow-lg bg-default opacity-80">
-  <app-book-title [book]="{id:bookId || '', title:book?.title || ''}"></app-book-title>
+<app-book-title [book]="{id:bookId || '', title:book?.title || ''}" (newChapterCreating)="handleNewChapterCreating($event)"></app-book-title>
   <div class="m-2 flex flex-col border-2 border-border-color rounded-lg shadow-md" cdkDropList (cdkDropListDropped)="onDrop($event)">
     @for (chapter of chapters; track $index) {
+      @if(chapter.id === 'skeleton'){        
+        <app-skeleton></app-skeleton>
+      } @else {
         <app-chapter [chapter]="chapter" [bookId]="bookId"></app-chapter>
-    } @empty {
+      }
+      } @empty {
       <div class="text-center text-primary my-8">
         <fa-icon [icon]="faFolderOpen" class="text-3xl"></fa-icon>
         <p>No files yet. Click "Add New" to start!</p>

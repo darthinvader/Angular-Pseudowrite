@@ -1,3 +1,4 @@
+import { SkeletonComponent } from './skeleton-chapter/skeleton-chapter.component';
 import { ChapterComponent } from './chapter/chapter.component';
 import { BookTitleComponent } from './book-title/book-title.component';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-chapter-organiser',
   standalone: true,
   imports: [
-    CommonModule, FontAwesomeModule, DragDropModule, BookTitleComponent, ChapterComponent
+    CommonModule, FontAwesomeModule, DragDropModule, BookTitleComponent, ChapterComponent, SkeletonComponent
   ],
   templateUrl: './chapter-organiser.component.html',
 })
@@ -26,7 +27,7 @@ export class ChapterOrganizerComponent implements OnDestroy {
   @Input() bookId?: string;
   faFolderOpen = faFolderOpen;
   private routeSubscription: Subscription = new Subscription();
-
+  showSkeletonChapter: boolean = false;
   constructor(
     private firestoreService: FirestoreService,
     private authService: AuthService,
@@ -56,6 +57,19 @@ export class ChapterOrganizerComponent implements OnDestroy {
         });
       }
     });
+  }
+
+  handleNewChapterCreating(isCreating: boolean): void {
+    this.showSkeletonChapter = isCreating;
+    if (isCreating) {
+      // Add a temporary chapter to the chapters array
+      const skeletonChapter: Chapter = { id: 'skeleton', title: 'Loading...' };
+      this.chapters = [...(this.chapters || []), skeletonChapter];
+    } else {
+      // Remove the skeleton chapter from the chapters array
+      this.chapters = this.chapters?.filter(chapter => chapter.id !== 'skeleton');
+    }
+    this.cd.markForCheck();
   }
 
   onDrop(event: CdkDragDrop<string[]>) {
