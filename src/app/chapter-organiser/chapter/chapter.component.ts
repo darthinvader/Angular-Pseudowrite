@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FirestoreService } from '../../../services/firestore.service';
 import { Chapter } from '../../../models/Chapter';
 import { faFileLines, faGripVertical, faTrash, faFileExport, faClone, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
@@ -29,7 +29,10 @@ export class ChapterComponent {
   faClone = faClone;
   faPencilAlt = faPencilAlt;
 
-  constructor(private firestoreService: FirestoreService) { }
+  constructor(
+    private firestoreService: FirestoreService,
+    private cd: ChangeDetectorRef // Add ChangeDetectorRef
+  ) { }
 
   startEditing(): void {
     this.editingTitle = true;
@@ -37,22 +40,33 @@ export class ChapterComponent {
   }
 
   finishEditing(): void {
-    console.log(this.editableTitle, this.chapter)
-    if (this.editableTitle.trim() && this.editableTitle !== this.chapter?.title) {
-      this.renameChapter(this.chapter?.id ?? '', this.editableTitle);
+    if (this.editableTitle.trim() && this.chapter && this.editableTitle !== this.chapter.title) {
+      const originalTitle = this.chapter.title;
+      this.chapter.title = this.editableTitle; // Optimistic update
+
+      this.renameChapter(this.chapter.id, this.editableTitle, originalTitle);
     }
     this.editingTitle = false;
   }
 
-  renameChapter(chapterId: string, newTitle: string): void {
-    console.log(this.chapter, this.bookId, newTitle)
-    if (this.bookId && chapterId) {
+  renameChapter(chapterId: string, newTitle: string, originalTitle: string): void {
+    if (this.bookId) {
       this.firestoreService.updateChapterTitle(this.bookId, chapterId, newTitle).subscribe({
-        next: () => console.log('Chapter title updated successfully'),
-        error: (err) => console.error('Error updating chapter title:', err)
+        next: () => {
+          console.log('Chapter title updated successfully');
+          this.cd.markForCheck();
+        },
+        error: (err) => {
+          console.error('Error updating chapter title:', err);
+          if (this.chapter) {
+            this.chapter.title = originalTitle; // Revert title on error
+            this.cd.markForCheck();
+          }
+        }
       });
     }
   }
+
 
   deleteFile(chapterId?: string): void {
     if (this.bookId && chapterId) {

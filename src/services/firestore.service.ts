@@ -76,7 +76,7 @@ export class FirestoreService {
     return this.getCurrentUserId().pipe(
       switchMap(userId => {
         if (!userId) throw new Error("User not authenticated");
-        return this.firestore.doc(`users/${userId}/books/${bookId}`).set({ title, imageUrl }, { merge: true });
+        return this.firestore.doc(`users/${userId}/books/${bookId}`).set({ title, imageUrl: imageUrl || null }, { merge: true });
       }),
       catchError(error => throwError(() => error))
     );
