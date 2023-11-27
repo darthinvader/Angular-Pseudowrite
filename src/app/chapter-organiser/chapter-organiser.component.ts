@@ -16,12 +16,13 @@ import { Chapter } from '../../models/Chapter';
   templateUrl: './chapter-organiser.component.html',
 })
 export class ChapterOrganizerComponent {
-  @Input() chapters: Chapter[] = [];
+  @Input() chapters?: Chapter[] = [];
   @Input() book?: Book;
   faFolderOpen = faFolderOpen
 
   onDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.chapters, event.previousIndex, event.currentIndex);
+    if (this.chapters)
+      moveItemInArray(this?.chapters, event.previousIndex, event.currentIndex);
     console.log(this.chapters, event)
   }
 }

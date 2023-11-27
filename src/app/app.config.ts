@@ -8,7 +8,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 // Import routes and environment configuration
 import { routes } from './app.routes';
 import { environment } from '../environments/environment'; // Adjust this path as necessary based on your project structure
@@ -33,6 +33,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(provideStorage(() => getStorage())),
     { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
     importProvidersFrom(HttpClientModule),
+    provideHttpClient(withFetch()),
     // ... include other providers as needed for your application
   ]
 };

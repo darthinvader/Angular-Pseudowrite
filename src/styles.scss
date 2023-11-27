@@ -1,10 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body{
-  min-height:100vh;
-
-}
 // Light Theme 
 :root {
   --color-primary:#333333; //This is for text
@@ -18,8 +14,8 @@ body{
   --color-button-hover: #d0d4da;
   --color-button-active: #c2c6cc;
   --color-default: #ffffff;
-  --font-family-sans:['Inter', 'sans-serif'];
-  --font-family-serif: ['Merriweather', 'serif'];
+  --font-family-sans: 'Inter', 'sans-serif';
+  --font-family-serif: 'Merriweather', 'serif';
 }
 
 /* Dark theme overrides */
@@ -35,8 +31,8 @@ body{
   --color-button-hover: #cc4747; 
   --color-button-active: #b04040;
   --color-default: #202020;
-  --font-family-sans:['Roboto', 'sans-serif'];
-  --font-family-serif:['Lora', 'serif'];
+  --font-family-sans: 'Roboto', 'sans-serif';
+  --font-family-serif: 'Lora', 'serif';
 }
 /* Focus theme overrides */
 [data-theme='focus'] {
@@ -51,6 +47,9 @@ body{
   --color-button-hover: #e68a00;
   --color-button-active: #cc7b00;
   --color-default: #e0fbfc;
-  --font-family-sans: ['Open Sans', 'sans-serif']; 
-  --font-family-serif: ['Lora', 'serif']; 
+  --font-family-sans: 'Open Sans', 'sans-serif'; 
+  --font-family-serif: 'Lora', 'serif'; 
+}
+body {
+  font-family: var(--font-family-sans);
 }
