@@ -50,6 +50,8 @@ export class WritingWorkspaceComponent implements OnInit {
   }
 
   private retrieveChapter(): void {
+    this.bookId = this.route.snapshot.paramMap.get('bookId');
+    this.chapterId = this.route.snapshot.paramMap.get('chapterId');
     if (this.bookId && this.chapterId) {
 
     }

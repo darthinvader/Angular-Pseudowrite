@@ -12,6 +12,71 @@ $heading-sizes: (
   h6: 0.875em
 );
 
+
+// Styling editor
+// !important must be used at some places
+angular-editor {
+  
+  .angular-editor-toolbar{
+    @apply p-1 flex align-middle rounded-lg border-0 shadow-md border-border-color text-primary bg-default #{!important};
+    .angular-editor-toolbar-set {
+      @apply flex m-1 #{!important};
+      &:empty{
+        display:none!important;
+      }
+    .angular-editor-button:not([hidden]) {
+        @apply text-primary border-0 flex justify-center items-center rounded-full aspect-square bg-transparent #{!important}; 
+        i {
+          font-size:0.7rem;
+        }
+      }
+      .angular-editor-button:not([hidden]):hover {
+        @apply bg-button #{!important};
+      }
+    }
+    ae-select {
+      @apply bg-transparent #{!important};
+      .ae-picker-options {
+        @apply rounded-b-xl shadow-lg border-0 #{!important};
+        .ae-picker-item{
+          @apply bg-div text-primary #{!important};
+          &:hover{
+            @apply bg-div text-primary #{!important};
+          }
+          &.selected{
+            @apply bg-div text-accent font-bold #{!important};
+          }
+        }
+      }
+      button.ae-picker-label {
+        @apply bg-default text-primary z-0 cursor-pointer border-0 #{!important};
+        &:focus{
+          @apply outline-none shadow-md #{!important};
+        }
+        &:hover{
+          @apply outline-none shadow-md #{!important};
+        }
+        &::before {
+          display:none;
+        }
+      }
+    }
+  }
+  .angular-editor-textarea{
+    @apply p-6 bg-default text-primary shadow-md rounded-lg border-0 resize-none #{!important};
+    &:focus {
+      @apply outline-none #{!important};
+    }
+    &:active {
+      @apply outline-none #{!important};
+    }
+    
+  }
+  .angular-editor-wrapper span {
+    @apply left-3 top-4 absolute #{!important};
+  }
+
+
 // Iterate over each heading and apply styles
 @each $tag, $size in $heading-sizes {
   #{$tag} {
@@ -43,57 +108,6 @@ ul{
   margin-left:1rem;
 }
 
-// Styling editor
-// !important must be used at some places
-angular-editor {
-  
-  .angular-editor-toolbar{
-    @apply p-1 flex align-middle rounded-lg border-0 shadow-md border-border-color text-primary bg-default #{!important};
-    .angular-editor-toolbar-set {
-      @apply flex m-1 #{!important};
-      &:empty{
-        display:none!important;
-      }
-    .angular-editor-button:not([hidden]) {
-        @apply text-primary border-0 flex justify-center items-center rounded-full aspect-square bg-transparent #{!important}; 
-        i {
-          font-size:0.7rem;
-        }
-      }
-      .angular-editor-button:not([hidden]):hover {
-        @apply bg-button #{!important};
-      }
-    }
-    ae-select {
-      .ae-picker-options {
-        @apply overflow-hidden border-0 rounded-b-xl #{!important};
-        .ae-picker-item{
-          &:hover{
-            @apply bg-div text-primary #{!important};
-          }
-          &.selected{
-            @apply bg-div text-accent font-bold #{!important};
-          }
-        }
-      }
-      button.ae-picker-label {
-        @apply bg-default text-primary z-0 cursor-pointer border-0 #{!important};
-        &:focus{
-          @apply outline-none shadow-md #{!important};
-        }
-        &:hover{
-          @apply outline-none shadow-md #{!important};
-        }
-      }
-    }
-  }
-  .angular-editor-textarea{
-    @apply p-1 bg-default text-primary shadow-md rounded-lg border-0 resize-none #{!important};
-    &:focus {
-      @apply outline-none #{!important};
-    }
-    &:active {
-      @apply outline-none #{!important};
-    }
-  }
+
+
 }

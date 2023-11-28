@@ -1,8 +1,9 @@
 <angular-editor id="editor" [(ngModel)]="htmlContent" [config]="editorConfig">
 <ng-template #customButtons let-executeCommandFn="executeCommandFn">
     <ae-toolbar-set>
-      <ae-button iconClass="fa fa-html5" title="Angular editor logo">
-      </ae-button>
+      <app-button  title="Angular editor logo" (click)="saveContent()">
+        Save
+      </app-button>
     </ae-toolbar-set>
   </ng-template>
 </angular-editor>
