@@ -23,7 +23,8 @@ export class BookTitleComponent {
   faFileImport = faFileImport;
   faPlus = faPlus;
   faBookOpen = faBookOpen;
-  @ViewChild('titleInput') titleInput?: ElementRef; @Output() newChapterCreating = new EventEmitter<boolean>();
+  @ViewChild('titleInput') titleInput?: ElementRef;
+  @Output() newChapterCreating = new EventEmitter<boolean>();
   constructor(
     private firestoreService: FirestoreService,
     private cd: ChangeDetectorRef

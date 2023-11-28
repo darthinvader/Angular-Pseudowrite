@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { FirestoreService } from '../../../services/firestore.service';
 import { Chapter } from '../../../models/Chapter';
 import { faFileLines, faGripVertical, faTrash, faFileExport, faClone, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +21,7 @@ export class ChapterComponent {
   @Input() bookId?: string;
   @Output() chapterDeleted = new EventEmitter<string>(); // New event
   @Output() chapterDuplicated = new EventEmitter<Chapter>(); // New event
+  @ViewChild('titleInput') titleInput?: ElementRef;
 
 
   editingTitle: boolean = false;
@@ -41,7 +42,13 @@ export class ChapterComponent {
   startEditing(): void {
     this.editingTitle = true;
     this.editableTitle = this.chapter?.title ?? '';
+    setTimeout(() => {
+      if (this.titleInput) {
+        this.titleInput.nativeElement.focus();
+      }
+    }, 0);
   }
+
 
   finishEditing(): void {
     if (this.editableTitle.trim() && this.chapter && this.editableTitle !== this.chapter.title) {
@@ -50,6 +57,11 @@ export class ChapterComponent {
 
       this.renameChapter(this.chapter.id, this.editableTitle, originalTitle);
     }
+    this.editingTitle = false;
+  }
+
+  onEscapePress(): void {
+    this.editableTitle = this.chapter?.title ?? '';
     this.editingTitle = false;
   }
 

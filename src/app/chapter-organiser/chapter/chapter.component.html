@@ -5,10 +5,11 @@
     </button>
     
     <a class="w-full flex-1 flex gap-2 cursor-pointer" [routerLink]="['/book', bookId, 'chapter', chapter?.id]" routerLinkActive="active" *ngIf="!editingTitle"><fa-icon [icon]="faFileLines"></fa-icon>{{ chapter?.title }}</a>
-    <input *ngIf="editingTitle" [(ngModel)]="editableTitle" 
-           (blur)="finishEditing()" 
-           (keyup.enter)="finishEditing()" 
-           class="form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary">
+    <input #titleInput *ngIf="editingTitle" [(ngModel)]="editableTitle" 
+       (blur)="onEscapePress()" 
+       (keyup.enter)="finishEditing()" 
+       (keyup.escape)="onEscapePress()" 
+       class="form-input border border-border-color rounded py-1 px-2 text-md bg-button text-primary">
   </div>
   <div class="flex items-center gap-2">
     <button (click)="confirmAndDeleteChapter(chapter?.id)" title="Delete File" class="focus:outline-none">
