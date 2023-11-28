@@ -6,12 +6,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-chapter',
   standalone: true,
   imports: [
-    CommonModule, FontAwesomeModule, DragDropModule, FormsModule
+    CommonModule, FontAwesomeModule, DragDropModule, FormsModule, RouterModule
   ],
   templateUrl: './chapter.component.html',
 })

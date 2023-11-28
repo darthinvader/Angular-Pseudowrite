@@ -3,7 +3,7 @@
     <app-chapter-organiser [chapters]="book?.chaptersInfo" [book]="book" [bookId] ="bookId || undefined"></app-chapter-organiser>
   </div>
   <div class="col-start-4 col-span-7">
-    <app-text-editor [chapterInfo]="chapter || {id:'',title:''}" [bookId]="bookId || ''"></app-text-editor>
+    <app-text-editor [htmlContent]="chapter?.content || ''" [chapterInfo]="{id:chapterId || '',title:chapter?.title || ''}" [bookId]="bookId || ''"></app-text-editor>
   </div>
   <div class="col-start-11 flex flex-col gap-1 col-span-1">
     <button class="text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300">Rewrite</button>

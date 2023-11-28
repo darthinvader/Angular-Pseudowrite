@@ -1,10 +1,10 @@
 <div cdkDrag class="py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm">
-  <div class="flex items-center gap-1">
+  <div class="flex items-center gap-1 flex-1">
     <button class="focus:outline-none" title="Drag File">
       <fa-icon [icon]="faGripVertical"></fa-icon>
     </button>
-    <fa-icon [icon]="faFileLines"></fa-icon>
-    <span *ngIf="!editingTitle">{{ chapter?.title }}</span>
+    
+    <a class="w-full flex-1 flex gap-2 cursor-pointer" [routerLink]="['/book', bookId, 'chapter', chapter?.id]" routerLinkActive="active" *ngIf="!editingTitle"><fa-icon [icon]="faFileLines"></fa-icon>{{ chapter?.title }}</a>
     <input *ngIf="editingTitle" [(ngModel)]="editableTitle" 
            (blur)="finishEditing()" 
            (keyup.enter)="finishEditing()" 

@@ -19,6 +19,4 @@ import { RouterModule } from '@angular/router';
 export class BookCardComponent {
   @Input() book?: Book;
   faTrashAlt = faTrashAlt;
-
-  click(book?: Book) { console.log(book) }
 }

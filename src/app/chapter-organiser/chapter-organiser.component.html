@@ -6,6 +6,7 @@
         <app-skeleton></app-skeleton>
       } @else {
           <app-chapter
+            [textContent]=""
             [chapter]="chapter"
             [bookId]="bookId"
             (chapterDeleted)="handleChapterDeletion($event)"

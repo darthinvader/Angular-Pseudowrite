@@ -21,14 +21,13 @@ export class TextEditorComponent {
   @Input() bookId = ''
   @Input() chapterInfo: Chapter = { id: '', title: '' }
   @Input() editorConfig = editorConfig
-
   constructor(private firestoreService: FirestoreService,
     private cd: ChangeDetectorRef) { }
 
   saveContent() {
     const bookId = this.bookId; // You should get this from your application context
     const chapterId = this.chapterInfo.id; // As above
-    this.firestoreService.writeChapter(bookId, chapterId, this.htmlContent, this.chapterInfo.title).subscribe({
+    this.firestoreService.writeChapter(bookId, chapterId, this.chapterInfo.title, this.htmlContent).subscribe({
       next: () => {
         console.log('Content saved successfully');
         this.cd.markForCheck();
