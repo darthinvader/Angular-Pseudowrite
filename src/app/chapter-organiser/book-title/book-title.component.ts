@@ -1,4 +1,4 @@
-import { Input, Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Input, Component, ChangeDetectorRef, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { faBookOpen, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -23,7 +23,7 @@ export class BookTitleComponent {
   faFileImport = faFileImport;
   faPlus = faPlus;
   faBookOpen = faBookOpen;
-  @Output() newChapterCreating = new EventEmitter<boolean>();
+  @ViewChild('titleInput') titleInput?: ElementRef; @Output() newChapterCreating = new EventEmitter<boolean>();
   constructor(
     private firestoreService: FirestoreService,
     private cd: ChangeDetectorRef
@@ -33,13 +33,19 @@ export class BookTitleComponent {
     this.editingTitle = true;
     this.editableTitle = this.book.title;
     this.originalBookName = this.book.title;
+    setTimeout(() => {
+      if (this.titleInput) {
+        this.titleInput.nativeElement.focus();
+      }
+    }, 0);
+  }
+
+  onEscapePress(): void {
+    this.editableTitle = this.originalBookName;
+    this.editingTitle = false;
   }
 
   onTitleEnter(): void {
-    this.updateTitle();
-  }
-
-  onTitleBlur(): void {
     this.updateTitle();
   }
 
