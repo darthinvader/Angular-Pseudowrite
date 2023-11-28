@@ -5,7 +5,12 @@
       @if(chapter.id === 'skeleton'){        
         <app-skeleton></app-skeleton>
       } @else {
-        <app-chapter [chapter]="chapter" [bookId]="bookId"></app-chapter>
+          <app-chapter
+            [chapter]="chapter"
+            [bookId]="bookId"
+            (chapterDeleted)="handleChapterDeletion($event)"
+            (chapterDuplicated)="handleChapterDuplication($event)">
+          </app-chapter>
       }
       } @empty {
       <div class="text-center text-primary my-8">

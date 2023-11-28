@@ -77,8 +77,6 @@ export class BookTitleComponent {
     this.firestoreService.createChapter(this.book.id, 'New Chapter', '').subscribe({
       next: (chapterId) => {
         console.log('New chapter added successfully, ID:', chapterId);
-
-        // Navigate to the new chapter's route or update the UI as needed
       },
       error: (err: any) => {
         console.error('Error adding new chapter:', err);

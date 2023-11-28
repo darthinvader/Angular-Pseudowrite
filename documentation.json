@@ -283,7 +283,7 @@
         },
         {
             "name": "FirestoreService",
-            "id": "injectable-FirestoreService-0a24d33a27f28014634e382def969e22354295372bfe0beac756b3916c435388f08062854b6262ff63184326973be4076b85a25bca62f948d6122890da5a379f",
+            "id": "injectable-FirestoreService-4b025cd5fa9b2f4950f76dc0469ceef93dda8fb30540932c6c54c6c89dca0eb0d2bcf87cb0ae8587d36158585b467348307d54ad54892785976831e4d6005675",
             "file": "src/services/firestore.service.ts",
             "properties": [],
             "methods": [
@@ -556,6 +556,107 @@
                     ]
                 },
                 {
+                    "name": "updateChapterOrder",
+                    "args": [
+                        {
+                            "name": "bookId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "chapters",
+                            "type": "Chapter[]",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Observable<void>",
+                    "typeParameters": [],
+                    "line": 114,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "bookId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "chapters",
+                            "type": "Chapter[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateChapterTitle",
+                    "args": [
+                        {
+                            "name": "bookId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "newTitle",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Observable<void>",
+                    "typeParameters": [],
+                    "line": 124,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "bookId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "newTitle",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "writeBook",
                     "args": [
                         {
@@ -574,7 +675,8 @@
                             "name": "imageUrl",
                             "type": "string",
                             "deprecated": false,
-                            "deprecationMessage": ""
+                            "deprecationMessage": "",
+                            "optional": true
                         }
                     ],
                     "optional": false,
@@ -607,6 +709,7 @@
                             "type": "string",
                             "deprecated": false,
                             "deprecationMessage": "",
+                            "optional": true,
                             "tagName": {
                                 "text": "param"
                             }
@@ -691,7 +794,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport { AngularFirestore } from '@angular/fire/compat/firestore';\nimport { Observable, throwError, switchMap, catchError } from 'rxjs';\nimport { AuthService } from './auth.service';\nimport { FirebaseBook } from '../models/Book';\nimport { FirebaseChapter } from '../models/Chapter';\nimport { FirebaseUser } from '../models/User';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class FirestoreService {\n\n  constructor(\n    private firestore: AngularFirestore,\n    private authService: AuthService\n  ) { }\n\n  private getCurrentUserId(): Observable<string | null> {\n    return this.authService.getCurrentUserId();\n  }\n\n  createBook(title: string, imageUrl?: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        const bookRef = this.firestore.collection<FirebaseBook>(`users/${userId}/books`).doc();\n        return bookRef.set({ title, chaptersInfo: [] });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  createChapter(bookId: string, title: string, content: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        const chapterRef = this.firestore.collection<FirebaseChapter>(`users/${userId}/books/${bookId}/chapters`).doc();\n        return chapterRef.set({ title, content });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  fetchBook(bookId: string): Observable<FirebaseBook | undefined> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc<FirebaseBook>(`users/${userId}/books/${bookId}`).valueChanges();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  fetchChapter(bookId: string, chapterId: string): Observable<FirebaseChapter | undefined> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc<FirebaseChapter>(`users/${userId}/books/${bookId}/chapters/${chapterId}`).valueChanges();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  fetchUserData(): Observable<FirebaseUser | undefined> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc<FirebaseUser>(`users/${userId}`).valueChanges();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  writeBook(bookId: string, title: string, imageUrl: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc(`users/${userId}/books/${bookId}`).set({ title, imageUrl }, { merge: true });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  writeChapter(bookId: string, chapterId: string, title: string, content: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc(`users/${userId}/books/${bookId}/chapters/${chapterId}`).set({ title, content }, { merge: true });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  deleteBook(bookId: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc(`users/${userId}/books/${bookId}`).delete();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  deleteChapter(bookId: string, chapterId: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc(`users/${userId}/books/${bookId}/chapters/${chapterId}`).delete();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { AngularFirestore } from '@angular/fire/compat/firestore';\nimport { Observable, throwError, switchMap, catchError } from 'rxjs';\nimport { AuthService } from './auth.service';\nimport { FirebaseBook } from '../models/Book';\nimport { Chapter, FirebaseChapter } from '../models/Chapter';\nimport { FirebaseUser } from '../models/User';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class FirestoreService {\n\n  constructor(\n    private firestore: AngularFirestore,\n    private authService: AuthService\n  ) { }\n\n  private getCurrentUserId(): Observable<string | null> {\n    return this.authService.getCurrentUserId();\n  }\n\n  createBook(title: string, imageUrl?: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        const bookRef = this.firestore.collection<FirebaseBook>(`users/${userId}/books`).doc();\n        return bookRef.set({ title, chaptersInfo: [] });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  createChapter(bookId: string, title: string, content: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        const chapterRef = this.firestore.collection<FirebaseChapter>(`users/${userId}/books/${bookId}/chapters`).doc();\n        return chapterRef.set({ title, content });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  fetchBook(bookId: string): Observable<FirebaseBook | undefined> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc<FirebaseBook>(`users/${userId}/books/${bookId}`).valueChanges();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  fetchChapter(bookId: string, chapterId: string): Observable<FirebaseChapter | undefined> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc<FirebaseChapter>(`users/${userId}/books/${bookId}/chapters/${chapterId}`).valueChanges();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  fetchUserData(): Observable<FirebaseUser | undefined> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc<FirebaseUser>(`users/${userId}`).valueChanges();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  writeBook(bookId: string, title: string, imageUrl?: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc(`users/${userId}/books/${bookId}`).set({ title, imageUrl: imageUrl || null }, { merge: true });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  writeChapter(bookId: string, chapterId: string, title: string, content: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc(`users/${userId}/books/${bookId}/chapters/${chapterId}`).set({ title, content }, { merge: true });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  deleteBook(bookId: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc(`users/${userId}/books/${bookId}`).delete();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n\n  deleteChapter(bookId: string, chapterId: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        return this.firestore.doc(`users/${userId}/books/${bookId}/chapters/${chapterId}`).delete();\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n  updateChapterOrder(bookId: string, chapters: Chapter[]): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        const bookRef = this.firestore.doc<FirebaseBook>(`users/${userId}/books/${bookId}`);\n        return bookRef.update({ chaptersInfo: chapters });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n  updateChapterTitle(bookId: string, chapterId: string, newTitle: string): Observable<void> {\n    return this.getCurrentUserId().pipe(\n      switchMap(userId => {\n        if (!userId) throw new Error(\"User not authenticated\");\n        const chapterRef = this.firestore.doc(`users/${userId}/books/${bookId}/chapters/${chapterId}`);\n        return chapterRef.update({ title: newTitle });\n      }),\n      catchError(error => throwError(() => error))\n    );\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -1534,7 +1637,7 @@
         },
         {
             "name": "BookCollectionComponent",
-            "id": "component-BookCollectionComponent-1584c99a7be89a903c055b30e53cf039650022cb2305e46526c8925cb433d5125e649540e3bee6330cc26d30f65d349d5742e791de0c663ad661f78ff30fdb23",
+            "id": "component-BookCollectionComponent-d9ff56513b592958e01c22acd224aa93cfe9ac681b822cddd8f2c062d7ec82461d5845bb7ceca3dc3df4967090542acc87a782648804825ea0357f390ad18405",
             "file": "src/app/book-collection/book-collection.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -1593,17 +1696,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 44,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "ngOnDestroy",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 37,
+                    "line": 41,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1636,7 +1729,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { ChangeDetectorRef } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { Book } from '../../models/Book';\nimport { Subscription } from 'rxjs';\nimport { AuthService } from '../../services/auth.service';\n@Component({\n  selector: 'app-book-collection',\n  standalone: true,\n  imports: [CommonModule, BookCardComponent],\n  templateUrl: './book-collection.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCollectionComponent {\n  @Input() books: Book[] = [];\n  faPlus = faPlus;\n  private authSubscription: Subscription | undefined;\n\n  constructor(\n    private firestore: FirestoreService,\n    private authService: AuthService,\n    private cd: ChangeDetectorRef\n  ) { }\n\n  ngOnInit() {\n    this.authSubscription = this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n      } else {\n        this.books = [];\n      }\n    });\n  }\n\n  ngOnDestroy() {\n    if (this.authSubscription) {\n      this.authSubscription.unsubscribe();\n    }\n  }\n\n\n  addNewBook() {\n    console.log('Adding new book:');\n    this.firestore.createBook('New Book').subscribe({\n      next: () => console.log('New book added successfully'),\n      error: (err) => console.error('Error adding new book:', err),\n      complete: () => console.log('Completed adding new book'),\n    });\n  }\n}\n",
+            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { ChangeDetectorRef } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { Book } from '../../models/Book';\nimport { Subscription } from 'rxjs';\nimport { AuthService } from '../../services/auth.service';\n@Component({\n  selector: 'app-book-collection',\n  standalone: true,\n  imports: [CommonModule, BookCardComponent],\n  templateUrl: './book-collection.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCollectionComponent {\n  @Input() books: Book[] = [];\n  faPlus = faPlus;\n  private authSubscription: Subscription | undefined;\n\n  constructor(\n    private firestore: FirestoreService,\n    private authService: AuthService,\n    private cd: ChangeDetectorRef\n  ) { }\n\n  ngOnInit() {\n    this.authSubscription = this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n        this.firestore.fetchUserData().subscribe(userData => {\n          this.books = userData?.booksInfo || [];\n          this.cd.markForCheck();\n        });\n      } else {\n        this.books = [];\n      }\n    });\n  }\n\n  addNewBook() {\n    console.log('Adding new book:');\n    this.firestore.createBook('New Book').subscribe({\n      next: () => {\n        console.log('New book added successfully');\n        this.cd.markForCheck();\n      },\n      error: (err) => console.error('Error adding new book:', err),\n      complete: () => console.log('Completed adding new book'),\n    });\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1701,7 +1794,7 @@
         },
         {
             "name": "BookTitleComponent",
-            "id": "component-BookTitleComponent-605c3d279313a9c65dd6ee7d55ba0d82d7fbba3c953c1d58d725e4b5bcbda10ca11358240b63700dda7a1cf3d65e0cf446df1eb08c8f9c60c192922cfe8c520e",
+            "id": "component-BookTitleComponent-f6f6891cfd88f37aade1232dc9d1e0f7b5005e03229b3373491fab10ccae12d51bfbac2379b61e7dc0716f75ccd4e999e91d46d3e3b873679f36fd184c49877f",
             "file": "src/app/chapter-organiser/book-title/book-title.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1718,25 +1811,36 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
-                    "name": "bookId",
+                    "name": "book",
+                    "defaultValue": "{ id: '', title: '' }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 18,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "bookName",
-                    "defaultValue": "'Book'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 17,
-                    "type": "string",
+                    "type": "Book",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "newChapterCreating",
+                    "defaultValue": "new EventEmitter<boolean>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 26,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [
+                {
+                    "name": "editableTitle",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
                 {
                     "name": "editingTitle",
                     "defaultValue": "false",
@@ -1755,7 +1859,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 23
+                    "line": 25
                 },
                 {
                     "name": "faFileImport",
@@ -1765,7 +1869,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 21
+                    "line": 23
                 },
                 {
                     "name": "faPlus",
@@ -1773,6 +1877,16 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                },
+                {
+                    "name": "isCreatingChapter",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
                     "optional": false,
                     "description": "",
                     "line": 22
@@ -1785,7 +1899,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 21
                 }
             ],
             "methodsClass": [
@@ -1795,7 +1909,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 50,
+                    "line": 68,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1805,7 +1919,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 46,
+                    "line": 64,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1815,7 +1929,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1825,7 +1939,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26,
+                    "line": 32,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1835,9 +1949,22 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 31,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "updateTitle",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 46,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
                 }
             ],
             "deprecated": false,
@@ -1862,7 +1989,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { faBookOpen, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { FirestoreService } from '../../../services/firestore.service';\n\n@Component({\n  selector: 'app-book-title',\n  standalone: true,\n  imports: [\n    CommonModule, FormsModule, FontAwesomeModule\n  ],\n  templateUrl: './book-title.component.html',\n})\nexport class BookTitleComponent {\n  @Input() bookName: string = 'Book'\n  @Input() bookId?: string;\n  editingTitle: boolean = false;\n  originalBookName: string = ''\n  faFileImport = faFileImport;\n  faPlus = faPlus;\n  faBookOpen = faBookOpen\n  constructor(private firestoreService: FirestoreService) { }\n\n  onTitleClick(): void {\n    this.editingTitle = true;\n    this.originalBookName = this.bookName; // Store the original book name\n  }\n\n  onTitleEnter(): void {\n    if (!this.bookName.trim()) {\n      this.bookName = this.originalBookName; // Revert to original name if empty\n    }\n    this.editingTitle = false;\n  }\n\n  onTitleBlur(): void {\n    if (!this.bookName.trim()) {\n      this.bookName = this.originalBookName; // Revert to original name if empty\n    }\n    this.editingTitle = false;\n  }\n\n\n  importFiles(): void {\n    // Implement file import logic here\n  }\n\n  addNewFile(): void {\n    if (!this.bookId) {\n      console.error('Book ID is not provided');\n      return;\n    }\n\n    this.firestoreService.createChapter(this.bookId, 'New Chapter', '').subscribe({\n      next: () => console.log('New chapter added successfully'),\n      error: (err: any) => console.error('Error adding new chapter:', err),\n      complete: () => console.log('Completed adding new chapter'),\n    });\n  }\n}\n",
+            "sourceCode": "import { Input, Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { faBookOpen, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\r\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\r\nimport { FirestoreService } from '../../../services/firestore.service';\r\nimport { Book } from '../../../models/Book';\r\n\r\n@Component({\r\n  selector: 'app-book-title',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule, FormsModule, FontAwesomeModule\r\n  ],\r\n  templateUrl: './book-title.component.html',\r\n})\r\nexport class BookTitleComponent {\r\n  @Input() book: Book = { id: '', title: '' };\r\n  editingTitle: boolean = false;\r\n  editableTitle: string = '';\r\n  originalBookName: string = '';\r\n  isCreatingChapter: boolean = false;\r\n  faFileImport = faFileImport;\r\n  faPlus = faPlus;\r\n  faBookOpen = faBookOpen;\r\n  @Output() newChapterCreating = new EventEmitter<boolean>();\r\n  constructor(\r\n    private firestoreService: FirestoreService,\r\n    private cd: ChangeDetectorRef\r\n  ) { }\r\n\r\n  onTitleClick(): void {\r\n    this.editingTitle = true;\r\n    this.editableTitle = this.book.title;\r\n    this.originalBookName = this.book.title;\r\n  }\r\n\r\n  onTitleEnter(): void {\r\n    this.updateTitle();\r\n  }\r\n\r\n  onTitleBlur(): void {\r\n    this.updateTitle();\r\n  }\r\n\r\n  private updateTitle(): void {\r\n    if (this.editableTitle.trim() && this.editableTitle !== this.originalBookName) {\r\n      this.firestoreService.writeBook(this.book.id, this.editableTitle).subscribe({\r\n        next: () => {\r\n          console.log('Book title updated successfully');\r\n          this.book.title = this.editableTitle;\r\n          this.cd.markForCheck();\r\n        },\r\n        error: (err: any) => {\r\n          console.error('Error updating book title:', err);\r\n          this.book.title = this.originalBookName;\r\n          this.cd.markForCheck();\r\n        }\r\n      });\r\n    }\r\n    this.editingTitle = false;\r\n  }\r\n\r\n  importFiles(): void {\r\n    // Implement file import logic here\r\n  }\r\n\r\n  addNewFile(): void {\r\n    if (!this.book.id) {\r\n      console.error('Book ID is not provided');\r\n      return;\r\n    }\r\n\r\n    this.isCreatingChapter = true;\r\n    this.newChapterCreating.emit(true); // Emit event\r\n\r\n    this.firestoreService.createChapter(this.book.id, 'New Chapter', '').subscribe({\r\n      next: (chapterId) => {\r\n        console.log('New chapter added successfully, ID:', chapterId);\r\n\r\n        // Navigate to the new chapter's route or update the UI as needed\r\n      },\r\n      error: (err: any) => {\r\n        console.error('Error adding new chapter:', err);\r\n        this.isCreatingChapter = false; // Hide skeleton loader on error\r\n        this.newChapterCreating.emit(false); // Emit event\r\n      },\r\n      complete: () => {\r\n        this.isCreatingChapter = false; // Hide skeleton loader\r\n        this.newChapterCreating.emit(false); // Emit event\r\n      }\r\n    });\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1877,9 +2004,15 @@
                         "type": "FirestoreService",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 23,
+                "line": 26,
                 "jsdoctags": [
                     {
                         "name": "firestoreService",
@@ -1889,15 +2022,24 @@
                         "tagName": {
                             "text": "param"
                         }
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
                     }
                 ]
             },
             "extends": [],
-            "templateData": "<div class=\"flex flex-col items-center mb-6\">\n  <div class=\"flex mb-2 justify-center align-middle\">\n    <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n      <p class=\"text-2xl font-semibold\">📙{{ bookName }}</p>\n    </div>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"bookName\" (blur)=\"onTitleBlur()\" \n            (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-border-color rounded py-1 px-2 text-xl\">\n  </div>\n  <div class=\"flex gap-1\">\n    <button (click)=\"importFiles()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\n      <fa-icon [icon]=\"faFileImport\"></fa-icon>\n      Import\n    </button>\n    <button (click)=\"addNewFile()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\n      <fa-icon [icon]=\"faPlus\"></fa-icon>\n      Add New\n    </button>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"flex flex-col items-center mb-6\">\n  <div class=\"flex mb-2 justify-center align-middle\">\n    <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n      <p class=\"text-2xl font-semibold text-primary\">📙{{ book.title }}</p>\n    </div>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"editableTitle\" (blur)=\"onTitleBlur()\" \n           (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary\">\n  </div>\n  <div class=\"flex gap-1\">\n    <button (click)=\"importFiles()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\n      <fa-icon [icon]=\"faFileImport\"></fa-icon>\n      Import\n    </button>\n    <button (click)=\"addNewFile()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\n      <fa-icon [icon]=\"faPlus\"></fa-icon>\n      Add New\n    </button>\n  </div>\n  \n</div>\n"
         },
         {
             "name": "ChapterComponent",
-            "id": "component-ChapterComponent-1ddd3c83628a9d465401d92e5c605b0f3888890f48b68ef125308cc96c0109fbb61335eea69769ab8ebf2d62e37c2c4126c60941bbe8b8e95449c2de72730afd",
+            "id": "component-ChapterComponent-dd01cbf6c164dc8d560d070a72b03a26fc6037856f593e077da91f3b4e6eb51789f47833967237552ac8c2a3a1892ee5548758ab30cac5f2e499bf3087422fdd",
             "file": "src/app/chapter-organiser/chapter/chapter.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1914,26 +2056,61 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
-                    "name": "chapterId",
-                    "defaultValue": "'-1'",
+                    "name": "bookId",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 16,
+                    "line": 20,
                     "type": "string",
                     "decorators": []
                 },
                 {
-                    "name": "title",
-                    "defaultValue": "''",
+                    "name": "chapter",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 15,
-                    "type": "string",
+                    "line": 19,
+                    "type": "Chapter",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "chapterDeleted",
+                    "defaultValue": "new EventEmitter<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "chapterDuplicated",
+                    "defaultValue": "new EventEmitter<Chapter>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 22,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [
+                {
+                    "name": "editableTitle",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                },
+                {
+                    "name": "editingTitle",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 25
+                },
                 {
                     "name": "faClone",
                     "defaultValue": "faClone",
@@ -1942,7 +2119,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 22
+                    "line": 32
                 },
                 {
                     "name": "faFileExport",
@@ -1952,7 +2129,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 21
+                    "line": 31
                 },
                 {
                     "name": "faFileLines",
@@ -1962,7 +2139,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 28
                 },
                 {
                     "name": "faGripVertical",
@@ -1972,7 +2149,17 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 29
+                },
+                {
+                    "name": "faPencilAlt",
+                    "defaultValue": "faPencilAlt",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 33
                 },
                 {
                     "name": "faTrash",
@@ -1982,32 +2169,34 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 30
                 }
             ],
             "methodsClass": [
                 {
-                    "name": "deleteFile",
+                    "name": "confirmAndDeleteChapter",
                     "args": [
                         {
-                            "name": "chapterid",
+                            "name": "chapterId",
                             "type": "string",
                             "deprecated": false,
-                            "deprecationMessage": ""
+                            "deprecationMessage": "",
+                            "optional": true
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 24,
+                    "line": 73,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
-                            "name": "chapterid",
+                            "name": "chapterId",
                             "type": "string",
                             "deprecated": false,
                             "deprecationMessage": "",
+                            "optional": true,
                             "tagName": {
                                 "text": "param"
                             }
@@ -2015,10 +2204,10 @@
                     ]
                 },
                 {
-                    "name": "duplicateFile",
+                    "name": "deleteChapter",
                     "args": [
                         {
-                            "name": "file",
+                            "name": "chapterId",
                             "type": "string",
                             "deprecated": false,
                             "deprecationMessage": ""
@@ -2027,12 +2216,15 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 32,
+                    "line": 81,
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ],
                     "jsdoctags": [
                         {
-                            "name": "file",
+                            "name": "chapterId",
                             "type": "string",
                             "deprecated": false,
                             "deprecationMessage": "",
@@ -2046,7 +2238,59 @@
                     "name": "exportFile",
                     "args": [
                         {
-                            "name": "file",
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "optional": true
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 91,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "optional": true,
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "finishEditing",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 45,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "renameChapter",
+                    "args": [
+                        {
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "newTitle",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "originalTitle",
                             "type": "string",
                             "deprecated": false,
                             "deprecationMessage": ""
@@ -2055,12 +2299,30 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 28,
+                    "line": 55,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
-                            "name": "file",
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "newTitle",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "originalTitle",
                             "type": "string",
                             "deprecated": false,
                             "deprecationMessage": "",
@@ -2069,6 +2331,16 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "startEditing",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 40,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 }
             ],
             "deprecated": false,
@@ -2088,21 +2360,66 @@
                 {
                     "name": "DragDropModule",
                     "type": "module"
+                },
+                {
+                    "name": "FormsModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFileLines, faGripVertical, faTrash, faFileExport, faClone, } from '@fortawesome/free-solid-svg-icons';\nimport { DragDropModule } from '@angular/cdk/drag-drop';\nimport { CommonModule } from '@angular/common';\n@Component({\n  selector: 'app-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule\n  ],\n  templateUrl: './chapter.component.html',\n})\nexport class ChapterComponent {\n  @Input() title = '';\n  @Input() chapterId: string = '-1';\n\n  faFileLines = faFileLines\n  faGripVertical = faGripVertical\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n\n  deleteFile(chapterid: string): void {\n    // Implement file deletion logic\n  }\n\n  exportFile(file: string): void {\n    // Implement file export logic\n  }\n\n  duplicateFile(file: string): void {\n    // Implement file duplication logic\n  }\n}\n",
+            "sourceCode": "import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';\nimport { FirestoreService } from '../../../services/firestore.service';\nimport { Chapter } from '../../../models/Chapter';\nimport { faFileLines, faGripVertical, faTrash, faFileExport, faClone, faPencilAlt } from '@fortawesome/free-solid-svg-icons';\nimport { DragDropModule } from '@angular/cdk/drag-drop';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { CommonModule } from '@angular/common';\nimport { FormsModule } from '@angular/forms';\n\n@Component({\n  selector: 'app-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, FormsModule\n  ],\n  templateUrl: './chapter.component.html',\n})\nexport class ChapterComponent {\n  @Input() chapter?: Chapter;\n  @Input() bookId?: string;\n  @Output() chapterDeleted = new EventEmitter<string>(); // New event\n  @Output() chapterDuplicated = new EventEmitter<Chapter>(); // New event\n\n\n  editingTitle: boolean = false;\n  editableTitle: string = '';\n\n  faFileLines = faFileLines;\n  faGripVertical = faGripVertical;\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n  faPencilAlt = faPencilAlt;\n\n  constructor(\n    private firestoreService: FirestoreService,\n    private cd: ChangeDetectorRef // Add ChangeDetectorRef\n  ) { }\n\n  startEditing(): void {\n    this.editingTitle = true;\n    this.editableTitle = this.chapter?.title ?? '';\n  }\n\n  finishEditing(): void {\n    if (this.editableTitle.trim() && this.chapter && this.editableTitle !== this.chapter.title) {\n      const originalTitle = this.chapter.title;\n      this.chapter.title = this.editableTitle; // Optimistic update\n\n      this.renameChapter(this.chapter.id, this.editableTitle, originalTitle);\n    }\n    this.editingTitle = false;\n  }\n\n  renameChapter(chapterId: string, newTitle: string, originalTitle: string): void {\n    if (this.bookId) {\n      this.firestoreService.updateChapterTitle(this.bookId, chapterId, newTitle).subscribe({\n        next: () => {\n          console.log('Chapter title updated successfully');\n          this.cd.markForCheck();\n        },\n        error: (err) => {\n          console.error('Error updating chapter title:', err);\n          if (this.chapter) {\n            this.chapter.title = originalTitle; // Revert title on error\n            this.cd.markForCheck();\n          }\n        }\n      });\n    }\n  }\n\n  confirmAndDeleteChapter(chapterId?: string): void {\n    if (chapterId)\n      // Show confirmation modal logic here\n      // If confirmed:\n      this.deleteChapter(chapterId);\n  }\n\n\n  private deleteChapter(chapterId: string): void {\n    if (this.bookId && chapterId) {\n      this.chapterDeleted.emit(chapterId);\n      this.firestoreService.deleteChapter(this.bookId, chapterId).subscribe({\n        next: () => console.log('Chapter deleted successfully'),\n        error: (err) => console.error('Error deleting chapter:', err)\n      });\n    }\n  }\n\n  exportFile(chapterId?: string): void {\n    // Implement file export logic\n  }\n\n\n  // confirmAndDuplicateChapter(chapterId: string): void {\n  //   // Show confirmation modal logic here\n  //   // If confirmed:\n  //   this.duplicateChapter(chapterId);\n  // }\n  // private duplicateChapter(chapterId: string): void {\n  //   if (this.bookId && chapterId) {\n  //     this.firestoreService.fetchChapter(this.bookId, chapterId).subscribe(chapter => {\n  //       if (chapter && this.bookId) {\n  //         const newChapterTitle = `Copy of ${chapter.title}`;\n  //         this.firestoreService.createChapter(this.bookId, newChapterTitle, chapter.content).subscribe({\n  //           next: (newChapterId) => {\n  //             console.log('Chapter duplicated successfully');\n  //             const duplicatedChapter = { id: '', title: newChapterTitle };\n  //             this.chapterDuplicated.emit(duplicatedChapter); // Emit duplication event\n  //           },\n  //           error: (err) => console.error('Error duplicating chapter:', err)\n  //         });\n  //       }\n  //     });\n  //   }\n  // }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "firestoreService",
+                        "type": "FirestoreService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 33,
+                "jsdoctags": [
+                    {
+                        "name": "firestoreService",
+                        "type": "FirestoreService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\" >\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    {{ title }}\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"deleteFile(chapterId)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(chapterId)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(chapterId)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
+            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\">\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    <span *ngIf=\"!editingTitle\">{{ chapter?.title }}</span>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"editableTitle\" \n           (blur)=\"finishEditing()\" \n           (keyup.enter)=\"finishEditing()\" \n           class=\"form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary\">\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"confirmAndDeleteChapter(!chapter?.id)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(chapter?.id)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(chapter?.id)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n    <button *ngIf=\"!editingTitle\" (click)=\"startEditing()\" title=\"Rename File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faPencilAlt\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
         },
         {
             "name": "ChapterOrganizerComponent",
-            "id": "component-ChapterOrganizerComponent-bbe7df3c1026e5733e92812e296e3c270041448cf0ad092409e5f6a8d2c507144836cbd7d3af07b7a5249e116ab732d94d7ae015b5a21263d075e56a35c7d455",
+            "id": "component-ChapterOrganizerComponent-752fdeb480648e830aeb151f91dbe881d40590100c5d1f2e037338cfcd5e3195c43c7d32175772a23ed6f846c595695c770811525c4d7736331239f4806e7e43",
             "file": "src/app/chapter-organiser/chapter-organiser.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2122,8 +2439,16 @@
                     "name": "book",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 20,
-                    "type": "Book",
+                    "line": 26,
+                    "type": "FirebaseBook",
+                    "decorators": []
+                },
+                {
+                    "name": "bookId",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 27,
+                    "type": "string",
                     "decorators": []
                 },
                 {
@@ -2131,7 +2456,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 25,
                     "type": "Chapter[]",
                     "decorators": []
                 }
@@ -2146,10 +2471,150 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 21
+                    "line": 28
+                },
+                {
+                    "name": "routeSubscription",
+                    "defaultValue": "new Subscription()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 29,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "showSkeletonChapter",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 30
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "fetchBookData",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 48,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "handleChapterDeletion",
+                    "args": [
+                        {
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 85,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "handleChapterDuplication",
+                    "args": [
+                        {
+                            "name": "newChapter",
+                            "type": "Chapter",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 90,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "newChapter",
+                            "type": "Chapter",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "handleNewChapterCreating",
+                    "args": [
+                        {
+                            "name": "isCreating",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 62,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "isCreating",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 95,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 38,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
                 {
                     "name": "onDrop",
                     "args": [
@@ -2163,7 +2628,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23,
+                    "line": 75,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2204,17 +2669,95 @@
                 {
                     "name": "ChapterComponent",
                     "type": "component"
+                },
+                {
+                    "name": "SkeletonComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChapterComponent } from './chapter/chapter.component';\nimport { BookTitleComponent } from './book-title/book-title.component';\nimport { CommonModule } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFolderOpen } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { Book } from '../../models/Book';\nimport { Chapter } from '../../models/Chapter';\n@Component({\n  selector: 'app-chapter-organiser',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, BookTitleComponent, ChapterComponent\n  ],\n  templateUrl: './chapter-organiser.component.html',\n})\nexport class ChapterOrganizerComponent {\n  @Input() chapters?: Chapter[] = [];\n  @Input() book?: Book;\n  faFolderOpen = faFolderOpen\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    if (this.chapters)\n      moveItemInArray(this?.chapters, event.previousIndex, event.currentIndex);\n    console.log(this.chapters, event)\n  }\n}\n\n\n",
+            "sourceCode": "import { SkeletonComponent } from './skeleton-chapter/skeleton-chapter.component';\nimport { ChapterComponent } from './chapter/chapter.component';\nimport { BookTitleComponent } from './book-title/book-title.component';\nimport { CommonModule } from '@angular/common';\nimport { Component, Input, ChangeDetectorRef, OnDestroy } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faFolderOpen } from '@fortawesome/free-solid-svg-icons';\nimport { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';\nimport { FirebaseBook } from '../../models/Book';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { ActivatedRoute } from '@angular/router';\nimport { Subscription } from 'rxjs';\nimport { Chapter } from '../../models/Chapter';\nimport { AuthService } from '../../services/auth.service';\n\n@Component({\n  selector: 'app-chapter-organiser',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, BookTitleComponent, ChapterComponent, SkeletonComponent\n  ],\n  templateUrl: './chapter-organiser.component.html',\n})\nexport class ChapterOrganizerComponent implements OnDestroy {\n  @Input() chapters?: Chapter[] = [];\n  @Input() book?: FirebaseBook;\n  @Input() bookId?: string;\n  faFolderOpen = faFolderOpen;\n  private routeSubscription: Subscription = new Subscription();\n  showSkeletonChapter: boolean = false;\n  constructor(\n    private firestoreService: FirestoreService,\n    private authService: AuthService,\n    private route: ActivatedRoute,\n    private cd: ChangeDetectorRef\n  ) { }\n\n  ngOnInit() {\n    this.authService.isSignedIn().subscribe(user => {\n      if (user) {\n        this.fetchBookData();\n      } else {\n        // Handle not authenticated scenario\n      }\n    });\n  }\n\n  private fetchBookData() {\n    this.routeSubscription = this.route.params.subscribe(params => {\n      const bookId = params['bookId'];\n      if (bookId) {\n        this.firestoreService.fetchBook(bookId).subscribe(book => {\n          this.book = book;\n          this.bookId = bookId;\n          this.chapters = book?.chaptersInfo;\n          this.cd.markForCheck();\n        });\n      }\n    });\n  }\n\n  handleNewChapterCreating(isCreating: boolean): void {\n    this.showSkeletonChapter = isCreating;\n    if (isCreating) {\n      // Add a temporary chapter to the chapters array\n      const skeletonChapter: Chapter = { id: 'skeleton', title: 'Loading...' };\n      this.chapters = [...(this.chapters || []), skeletonChapter];\n    } else {\n      // Remove the skeleton chapter from the chapters array\n      this.chapters = this.chapters?.filter(chapter => chapter.id !== 'skeleton');\n    }\n    this.cd.markForCheck();\n  }\n\n  onDrop(event: CdkDragDrop<string[]>) {\n    if (this.chapters && this.bookId) {\n      moveItemInArray(this.chapters, event.previousIndex, event.currentIndex);\n      this.firestoreService.updateChapterOrder(this.bookId, this.chapters).subscribe(() => {\n        // Handle successful update\n        this.cd.markForCheck();\n      });\n    }\n  }\n\n  handleChapterDeletion(chapterId: string): void {\n    this.chapters = this.chapters?.filter(chapter => chapter.id !== chapterId);\n    this.cd.markForCheck();\n  }\n\n  handleChapterDuplication(newChapter: Chapter): void {\n    this.chapters = [...(this.chapters || []), newChapter];\n    this.cd.markForCheck();\n  }\n\n  ngOnDestroy() {\n    if (this.routeSubscription) {\n      this.routeSubscription.unsubscribe();\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "firestoreService",
+                        "type": "FirestoreService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "authService",
+                        "type": "AuthService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "route",
+                        "type": "ActivatedRoute",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 30,
+                "jsdoctags": [
+                    {
+                        "name": "firestoreService",
+                        "type": "FirestoreService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "authService",
+                        "type": "AuthService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "route",
+                        "type": "ActivatedRoute",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<div class=\"p-4 border-2 border-border-color rounded-lg shadow-lg bg-default opacity-80\">\n  <app-book-title></app-book-title>\n  <div class=\"m-2 flex flex-col border-2 border-border-color rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (chapter of chapters; track $index) {\n        <app-chapter></app-chapter>\n    } @empty {\n      <div class=\"text-center text-primary my-8\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+            "implements": [
+                "OnDestroy"
+            ],
+            "templateData": "<div class=\"p-4 border-2 border-border-color rounded-lg shadow-lg bg-default opacity-80\">\n<app-book-title [book]=\"{id:bookId || '', title:book?.title || ''}\" (newChapterCreating)=\"handleNewChapterCreating($event)\"></app-book-title>\n  <div class=\"m-2 flex flex-col border-2 border-border-color rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (chapter of chapters; track $index) {\n      @if(chapter.id === 'skeleton'){        \n        <app-skeleton></app-skeleton>\n      } @else {\n          <app-chapter\n            [chapter]=\"chapter\"\n            [bookId]=\"bookId\"\n            (chapterDeleted)=\"handleChapterDeletion($event)\"\n            (chapterDuplicated)=\"handleChapterDuplication($event)\">\n          </app-chapter>\n      }\n      } @empty {\n      <div class=\"text-center text-primary my-8\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "HomeComponent",
@@ -2458,6 +3001,43 @@
             "stylesData": "",
             "extends": [],
             "templateData": "<div class=\"bg-div text-primary px-4 flex justify-between items-center rounded-b-lg\">\r\n    <div class=\"flex items-center\">\r\n        <span class=\"text-xl font-bold mr-4\"><a  [routerLink]=\"['/']\" routerLinkActive=\"active\" class=\"hover:text-primary-hover\">PseudoWrite</a></span>\r\n        <nav>\r\n            <ul class=\"flex\">\r\n                <li>\r\n                  <a [routerLink]=\"['/about']\" routerLinkActive=\"active\" class=\"flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover active:bg-button-active w-full h-full\">About</a>\r\n                </li>\r\n            </ul>\r\n        </nav>\r\n    </div>\r\n    <div class=\"flex flex-column align-middle justify-center items-center gap-10\">\r\n      <app-theme-switch></app-theme-switch>\r\n      <app-login></app-login>\r\n    </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "SkeletonComponent",
+            "id": "component-SkeletonComponent-3e167f1e8c86183389f3852999b8cc8aec07e087568523251f7f12df9aaa7e67945d271fe368fb47edae54f7c97a05f62f950fe610bb3b5f626d6af5808275bd",
+            "file": "src/app/chapter-organiser/skeleton-chapter/skeleton-chapter.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-skeleton",
+            "styleUrls": [],
+            "styles": [
+                "\n          .skeleton {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            padding: 10px 20px;\n            border-radius: 4px;\n            background-color: var(--color-div);\n            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);\n          }\n\n        .skeleton-line {\n          height: 20px;\n          background-color: var(--color-button);\n          border-radius: 4px;\n        }\n\n        .skeleton-line.short {\n          width: 10%;\n        }\n\n        .skeleton-line.long {\n          width: 60%;\n        }\n\n        .skeleton-line.medium {\n          width: 20%;\n        }\n\n        @keyframes pulse {\n          0%, 100% { background-color: var(--color-button); }\n          50% { background-color: var(--color-button-hover); }\n        }\n\n        .skeleton-line {\n          animation: pulse 1.5s infinite ease-in-out;\n        }\n  "
+            ],
+            "template": "<div class=\"skeleton\">\n  <div class=\"skeleton-line short\"></div>\n  <div class=\"skeleton-line long\"></div>\n  <div class=\"skeleton-line medium\"></div>\n  <div class=\"skeleton-line short\"></div>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-skeleton',\n  standalone: true,\n  template: `\n    <div class=\"skeleton\">\n      <div class=\"skeleton-line short\"></div>\n      <div class=\"skeleton-line long\"></div>\n      <div class=\"skeleton-line medium\"></div>\n      <div class=\"skeleton-line short\"></div>\n    </div>\n  `,\n  styles: [`\n          .skeleton {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            padding: 10px 20px;\n            border-radius: 4px;\n            background-color: var(--color-div);\n            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);\n          }\n\n        .skeleton-line {\n          height: 20px;\n          background-color: var(--color-button);\n          border-radius: 4px;\n        }\n\n        .skeleton-line.short {\n          width: 10%;\n        }\n\n        .skeleton-line.long {\n          width: 60%;\n        }\n\n        .skeleton-line.medium {\n          width: 20%;\n        }\n\n        @keyframes pulse {\n          0%, 100% { background-color: var(--color-button); }\n          50% { background-color: var(--color-button-hover); }\n        }\n\n        .skeleton-line {\n          animation: pulse 1.5s infinite ease-in-out;\n        }\n  `]\n})\nexport class SkeletonComponent { }\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n          .skeleton {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            padding: 10px 20px;\n            border-radius: 4px;\n            background-color: var(--color-div);\n            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);\n          }\n\n        .skeleton-line {\n          height: 20px;\n          background-color: var(--color-button);\n          border-radius: 4px;\n        }\n\n        .skeleton-line.short {\n          width: 10%;\n        }\n\n        .skeleton-line.long {\n          width: 60%;\n        }\n\n        .skeleton-line.medium {\n          width: 20%;\n        }\n\n        @keyframes pulse {\n          0%, 100% { background-color: var(--color-button); }\n          50% { background-color: var(--color-button-hover); }\n        }\n\n        .skeleton-line {\n          animation: pulse 1.5s infinite ease-in-out;\n        }\n  \n",
+            "extends": []
         },
         {
             "name": "TextEditorComponent",
@@ -2732,7 +3312,7 @@
         },
         {
             "name": "WritingWorkspaceComponent",
-            "id": "component-WritingWorkspaceComponent-f9057012eb966093c85bf10643fe3da52a9194b0078c9d0aca67e899d170108f3b3754b3adc9bec06f925e8447e6f7dfb118b2724d16a56d3879e931fe2f5baa",
+            "id": "component-WritingWorkspaceComponent-fb6d13460e43836ef6ffad09e4b6b548f02ad76710351ba5ab702052b8b18df4ef24864f5fc26bab82ddec8a4cfafe68d9c22b9c315efc979f6985bbe4813b87",
             "file": "src/app/writing-workspace/writing-workspace.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -2755,18 +3335,17 @@
                     "name": "book",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "FirebaseBook | undefined",
-                    "optional": false,
+                    "type": "FirebaseBook",
+                    "optional": true,
                     "description": "",
                     "line": 23
                 },
                 {
                     "name": "bookId",
-                    "defaultValue": "null",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string | null",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 21
                 },
@@ -2774,18 +3353,17 @@
                     "name": "chapter",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Chapter | undefined",
-                    "optional": false,
+                    "type": "Chapter",
+                    "optional": true,
                     "description": "",
                     "line": 24
                 },
                 {
                     "name": "chapterId",
-                    "defaultValue": "null",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string | null",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 22
                 }
@@ -2807,7 +3385,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 53,
+                    "line": 52,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -2850,7 +3428,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChapterOrganizerComponent } from './../chapter-organiser/chapter-organiser.component';\nimport { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\nimport { ActivatedRoute } from '@angular/router';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { AuthService } from '../../services/auth.service';\nimport { FirebaseBook } from '../../models/Book';\nimport { Chapter } from '../../models/Chapter';\nimport { CommonModule } from '@angular/common';\nimport { TextEditorComponent } from '../text-editor/text-editor.component';\n\n@Component({\n  selector: 'app-writing-workspace',\n  standalone: true,\n  imports: [\n    CommonModule, ChapterOrganizerComponent, TextEditorComponent\n  ],\n  templateUrl: './writing-workspace.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class WritingWorkspaceComponent implements OnInit {\n  bookId: string | null = null;\n  chapterId: string | null = null;\n  book: FirebaseBook | undefined;\n  chapter: Chapter | undefined;\n\n  constructor(\n    private route: ActivatedRoute,\n    private firestoreService: FirestoreService,\n    private authService: AuthService,\n    private changeDetector: ChangeDetectorRef\n  ) { }\n\n  ngOnInit(): void {\n    this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n        this.retrieveData();\n      } else {\n        console.error('User not authenticated');\n        // Handle unauthenticated user scenario\n      }\n    });\n  }\n\n  private retrieveData(): void {\n    this.bookId = this.route.snapshot.paramMap.get('bookId');\n    this.chapterId = this.route.snapshot.paramMap.get('chapterId');\n\n    if (this.bookId) {\n\n    }\n  }\n\n  private retrieveChapter(): void {\n    if (this.bookId && this.chapterId) {\n\n    }\n  }\n}\n",
+            "sourceCode": "import { ChapterOrganizerComponent } from './../chapter-organiser/chapter-organiser.component';\nimport { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\nimport { ActivatedRoute } from '@angular/router';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { AuthService } from '../../services/auth.service';\nimport { FirebaseBook } from '../../models/Book';\nimport { Chapter } from '../../models/Chapter';\nimport { CommonModule } from '@angular/common';\nimport { TextEditorComponent } from '../text-editor/text-editor.component';\n\n@Component({\n  selector: 'app-writing-workspace',\n  standalone: true,\n  imports: [\n    CommonModule, ChapterOrganizerComponent, TextEditorComponent\n  ],\n  templateUrl: './writing-workspace.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class WritingWorkspaceComponent implements OnInit {\n  bookId?: string | null;\n  chapterId?: string | null;\n  book?: FirebaseBook;\n  chapter?: Chapter;\n\n  constructor(\n    private route: ActivatedRoute,\n    private firestoreService: FirestoreService,\n    private authService: AuthService,\n    private changeDetector: ChangeDetectorRef\n  ) { }\n\n  ngOnInit(): void {\n    this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n        this.retrieveData();\n      } else {\n        console.error('User not authenticated');\n        // Handle unauthenticated user scenario\n      }\n    });\n  }\n\n  private retrieveData(): void {\n    this.bookId = this.route.snapshot.paramMap.get('bookId');\n    this.chapterId = this.route.snapshot.paramMap.get('chapterId');\n    if (this.bookId) {\n\n    }\n  }\n\n  private retrieveChapter(): void {\n    if (this.bookId && this.chapterId) {\n\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2929,7 +3507,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"grid-container grid grid-cols-11 gap-6 m-4 h-screen\">\n  <div class=\"col-span-3\">\n    <app-chapter-organiser [chapters]=\"book?.chaptersInfo\"></app-chapter-organiser>\n  </div>\n  <div class=\"col-start-4 col-span-7\">\n    <app-text-editor></app-text-editor>\n  </div>\n  <div class=\"col-start-11 flex flex-col gap-1 col-span-1\">\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"grid-container grid grid-cols-11 gap-6 m-4 h-screen\">\n  <div class=\"col-span-3\">\n    <app-chapter-organiser [chapters]=\"book?.chaptersInfo\" [book]=\"book\" [bookId] =\"bookId || undefined\"></app-chapter-organiser>\n  </div>\n  <div class=\"col-start-4 col-span-7\">\n    <app-text-editor></app-text-editor>\n  </div>\n  <div class=\"col-start-11 flex flex-col gap-1 col-span-1\">\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n  </div>\n</div>\n"
         }
     ],
     "modules": [],
@@ -2999,16 +3577,6 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/chapter-organiser/chapter-organiser.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/home/home.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -3019,21 +3587,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/navbar/navbar.stories.ts",
+                "file": "src/app/chapter-organiser/chapter-organiser.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => ({})"
+                "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
             },
             {
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/writing-workspace/writing-workspace.stories.ts",
+                "file": "src/app/navbar/navbar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: WritingWorkspaceComponent,\r\n})"
+                "defaultValue": "() => ({})"
             },
             {
                 "name": "Default",
@@ -3054,6 +3622,16 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "() => ({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/writing-workspace/writing-workspace.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: WritingWorkspaceComponent,\r\n})"
             },
             {
                 "name": "Default",
@@ -3294,6 +3872,18 @@
                     "defaultValue": "() => ({\r\n  component: BookCollectionComponent,\r\n  props: { books: [{ title: 'Hello' }, { title: 'The beautiful Mermaid' }, { title: 'The Barbarian & The wild woman' }, { title: 'Batman & Not Robin' }, { title: '7 Heralds' }, { title: 'Samanthat & Melf' }, { title: 'Trouble In Hell' }, { title: 'Temporal Tempest' }] }\r\n})"
                 }
             ],
+            "src/app/home/home.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/home/home.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({})"
+                }
+            ],
             "src/app/chapter-organiser/chapter-organiser.stories.ts": [
                 {
                     "name": "Default",
@@ -3316,18 +3906,6 @@
                     "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: [],\r\n  },\r\n})"
                 }
             ],
-            "src/app/home/home.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/home/home.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "() => ({})"
-                }
-            ],
             "src/app/navbar/navbar.stories.ts": [
                 {
                     "name": "Default",
@@ -3338,18 +3916,6 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "() => ({})"
-                }
-            ],
-            "src/app/writing-workspace/writing-workspace.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/writing-workspace/writing-workspace.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: WritingWorkspaceComponent,\r\n})"
                 }
             ],
             "src/app/text-editor/text-editor.stories.ts": [
@@ -3374,6 +3940,18 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "() => ({})"
+                }
+            ],
+            "src/app/writing-workspace/writing-workspace.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/writing-workspace/writing-workspace.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: WritingWorkspaceComponent,\r\n})"
                 }
             ],
             "src/app/book-collection/book-card/book-card.stories.ts": [
@@ -3638,7 +4216,7 @@
                 "linktype": "component",
                 "name": "BookCollectionComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -3667,7 +4245,7 @@
                 "linktype": "component",
                 "name": "BookTitleComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/14",
+                "coverageCount": "0/17",
                 "status": "low"
             },
             {
@@ -3676,7 +4254,7 @@
                 "linktype": "component",
                 "name": "ChapterOrganizerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/15",
                 "status": "low"
             },
             {
@@ -3705,7 +4283,16 @@
                 "linktype": "component",
                 "name": "ChapterComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/11",
+                "coverageCount": "0/20",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/chapter-organiser/skeleton-chapter/skeleton-chapter.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SkeletonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -3942,7 +4529,7 @@
                 "linktype": "injectable",
                 "name": "FirestoreService",
                 "coveragePercent": 0,
-                "coverageCount": "0/12",
+                "coverageCount": "0/14",
                 "status": "low"
             },
             {

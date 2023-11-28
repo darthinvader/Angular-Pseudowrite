@@ -82,6 +82,16 @@ export class ChapterOrganizerComponent implements OnDestroy {
     }
   }
 
+  handleChapterDeletion(chapterId: string): void {
+    this.chapters = this.chapters?.filter(chapter => chapter.id !== chapterId);
+    this.cd.markForCheck();
+  }
+
+  handleChapterDuplication(newChapter: Chapter): void {
+    this.chapters = [...(this.chapters || []), newChapter];
+    this.cd.markForCheck();
+  }
+
   ngOnDestroy() {
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();

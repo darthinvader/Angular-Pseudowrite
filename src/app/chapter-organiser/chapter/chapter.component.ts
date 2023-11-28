@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FirestoreService } from '../../../services/firestore.service';
 import { Chapter } from '../../../models/Chapter';
 import { faFileLines, faGripVertical, faTrash, faFileExport, faClone, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +18,9 @@ import { FormsModule } from '@angular/forms';
 export class ChapterComponent {
   @Input() chapter?: Chapter;
   @Input() bookId?: string;
+  @Output() chapterDeleted = new EventEmitter<string>(); // New event
+  @Output() chapterDuplicated = new EventEmitter<Chapter>(); // New event
+
 
   editingTitle: boolean = false;
   editableTitle: string = '';
@@ -67,9 +70,17 @@ export class ChapterComponent {
     }
   }
 
+  confirmAndDeleteChapter(chapterId?: string): void {
+    if (chapterId)
+      // Show confirmation modal logic here
+      // If confirmed:
+      this.deleteChapter(chapterId);
+  }
 
-  deleteFile(chapterId?: string): void {
+
+  private deleteChapter(chapterId: string): void {
     if (this.bookId && chapterId) {
+      this.chapterDeleted.emit(chapterId);
       this.firestoreService.deleteChapter(this.bookId, chapterId).subscribe({
         next: () => console.log('Chapter deleted successfully'),
         error: (err) => console.error('Error deleting chapter:', err)
@@ -81,16 +92,27 @@ export class ChapterComponent {
     // Implement file export logic
   }
 
-  duplicateFile(chapterId?: string): void {
-    if (this.bookId && chapterId) {
-      this.firestoreService.fetchChapter(this.bookId, chapterId).subscribe(chapter => {
-        if (chapter && this.bookId) {
-          this.firestoreService.createChapter(this.bookId, `Copy of ${chapter.title}`, chapter.content).subscribe({
-            next: () => console.log('Chapter duplicated successfully'),
-            error: (err) => console.error('Error duplicating chapter:', err)
-          });
-        }
-      });
-    }
+
+  confirmAndDuplicateChapter(chapterId?: string): void {
+    // Show confirmation modal logic here
+    // If confirmed:
+    // this.duplicateChapter(chapterId);
   }
+  // private duplicateChapter(chapterId: string): void {
+  //   if (this.bookId && chapterId) {
+  //     this.firestoreService.fetchChapter(this.bookId, chapterId).subscribe(chapter => {
+  //       if (chapter && this.bookId) {
+  //         const newChapterTitle = `Copy of ${chapter.title}`;
+  //         this.firestoreService.createChapter(this.bookId, newChapterTitle, chapter.content).subscribe({
+  //           next: (newChapterId) => {
+  //             console.log('Chapter duplicated successfully');
+  //             const duplicatedChapter = { id: '', title: newChapterTitle };
+  //             this.chapterDuplicated.emit(duplicatedChapter); // Emit duplication event
+  //           },
+  //           error: (err) => console.error('Error duplicating chapter:', err)
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 }
