@@ -105,28 +105,4 @@ export class ChapterComponent {
   exportFile(chapterId?: string): void {
     // Implement file export logic
   }
-
-
-  confirmAndDuplicateChapter(chapterId?: string): void {
-    // Show confirmation modal logic here
-    // If confirmed:
-    // this.duplicateChapter(chapterId);
-  }
-  // private duplicateChapter(chapterId: string): void {
-  //   if (this.bookId && chapterId) {
-  //     this.firestoreService.fetchChapter(this.bookId, chapterId).subscribe(chapter => {
-  //       if (chapter && this.bookId) {
-  //         const newChapterTitle = `Copy of ${chapter.title}`;
-  //         this.firestoreService.createChapter(this.bookId, newChapterTitle, chapter.content).subscribe({
-  //           next: (newChapterId) => {
-  //             console.log('Chapter duplicated successfully');
-  //             const duplicatedChapter = { id: '', title: newChapterTitle };
-  //             this.chapterDuplicated.emit(duplicatedChapter); // Emit duplication event
-  //           },
-  //           error: (err) => console.error('Error duplicating chapter:', err)
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
 }
