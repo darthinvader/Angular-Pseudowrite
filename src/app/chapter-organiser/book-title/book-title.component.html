@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center mb-6">
   <div class="flex mb-2 justify-center align-middle">
     <div *ngIf="!editingTitle" (click)="onTitleClick()" class="cursor-pointer">
-      <p class="text-2xl font-semibold text-primary">📙{{ book.title }}</p>
+      <p class="text-2xl font-semibold text-primary">{{ book.title }}</p>
     </div>
     <input *ngIf="editingTitle" #titleInput [(ngModel)]="editableTitle" (blur)="onEscapePress()" 
            (keyup.enter)="onTitleEnter()" (keyup.escape)="onEscapePress()" class="form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary">
