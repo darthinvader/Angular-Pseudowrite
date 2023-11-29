@@ -1,7 +1,7 @@
 <angular-editor id="editor" [(ngModel)]="htmlContent" [config]="editorConfig">
 <ng-template #customButtons let-executeCommandFn="executeCommandFn">
     <ae-toolbar-set class="ml-auto">
-      <app-button title="Angular editor logo" (click)="saveContent()">
+      <app-button [class]="'text-xs px-2 py-1'" title="Angular editor logo" (click)="saveContent()">
         Save
       </app-button>
     </ae-toolbar-set>

@@ -18,16 +18,17 @@ $heading-sizes: (
 angular-editor {
   
   .angular-editor-toolbar{
-    @apply p-1 flex align-middle justify-center rounded-lg border-0 shadow-md border-border-color text-primary bg-default #{!important};
+    
+    @apply p-0 flex align-middle justify-center rounded-lg border-0 shadow-md border-border-color text-primary bg-default #{!important};
     .angular-editor-toolbar-set {
       @apply flex m-1 align-middle justify-center #{!important};
-      &:empty{
+      &:nth-child(8),&:nth-child(9),&:nth-child(10){
         display:none!important;
       }
     .angular-editor-button:not([hidden]) {
         @apply text-primary border-0 flex justify-center items-center rounded-full aspect-square bg-transparent #{!important}; 
         i {
-          font-size:0.7rem;
+          font-size:0.6rem;
         }
       }
       .angular-editor-button:not([hidden]):hover {
@@ -111,3 +112,4 @@ ul{
 
 
 }
+

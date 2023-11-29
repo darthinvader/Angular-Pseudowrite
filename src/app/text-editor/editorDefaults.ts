@@ -31,7 +31,6 @@ export const editorConfig: AngularEditorConfig = {
   enableToolbar: true,
   showToolbar: true,
   placeholder: 'Write Chapter Here...',
-  defaultFontName: 'roboto',
   fonts: [
     { class: 'times-new-roman', name: 'Times New Roman' },
     { class: 'merriweather', name: 'Merriweather' },
