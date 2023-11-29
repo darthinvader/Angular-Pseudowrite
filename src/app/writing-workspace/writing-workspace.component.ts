@@ -4,16 +4,17 @@ import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
 import { AuthService } from '../../services/auth.service';
 import { FirebaseBook } from '../../models/Book';
-import { Chapter, FirebaseChapter } from '../../models/Chapter';
+import { FirebaseChapter } from '../../models/Chapter';
 import { CommonModule } from '@angular/common';
 import { TextEditorComponent } from '../text-editor/text-editor.component';
 import { Subscription } from 'rxjs';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-writing-workspace',
   standalone: true,
   imports: [
-    CommonModule, ChapterOrganizerComponent, TextEditorComponent
+    CommonModule, ChapterOrganizerComponent, TextEditorComponent, ButtonComponent
   ],
   templateUrl: './writing-workspace.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

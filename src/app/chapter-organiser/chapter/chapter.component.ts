@@ -7,12 +7,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ButtonComponent } from '../../button/button.component';
 
 @Component({
   selector: 'app-chapter',
   standalone: true,
   imports: [
-    CommonModule, FontAwesomeModule, DragDropModule, FormsModule, RouterModule
+    CommonModule, FontAwesomeModule, DragDropModule, FormsModule, RouterModule, ButtonComponent
   ],
   templateUrl: './chapter.component.html',
 })

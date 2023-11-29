@@ -5,12 +5,13 @@ import { faBookOpen, faFileImport, faPlus } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FirestoreService } from '../../../services/firestore.service';
 import { Book } from '../../../models/Book';
+import { ButtonComponent } from '../../button/button.component';
 
 @Component({
   selector: 'app-book-title',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, FontAwesomeModule
+    CommonModule, FormsModule, FontAwesomeModule, ButtonComponent
   ],
   templateUrl: './book-title.component.html',
 })

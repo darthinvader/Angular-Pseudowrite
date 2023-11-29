@@ -7,10 +7,11 @@ import { FirestoreService } from '../../services/firestore.service';
 import { Book } from '../../models/Book';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { ButtonComponent } from '../button/button.component';
 @Component({
   selector: 'app-book-collection',
   standalone: true,
-  imports: [CommonModule, BookCardComponent],
+  imports: [CommonModule, BookCardComponent, ButtonComponent],
   templateUrl: './book-collection.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

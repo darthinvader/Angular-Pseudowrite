@@ -6,6 +6,6 @@
     <app-text-editor [htmlContent]="chapter?.content || ''" [chapterInfo]="{id:chapterId || '',title:chapter?.title || ''}" [bookId]="bookId || ''"></app-text-editor>
   </div>
   <div class="col-start-11 flex flex-col gap-1 col-span-1">
-    <button class="text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300">Rewrite</button>
+    <app-button>Rewrite</app-button>
   </div>
 </div>
