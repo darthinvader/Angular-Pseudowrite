@@ -7,11 +7,11 @@
            (keyup.enter)="onTitleEnter()" (keyup.escape)="onEscapePress()" class="form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary">
   </div>
   <div class="flex gap-1">
-    <app-button (click)="importFiles()" class="text-sm flex gap-2 font-bold items-center">
+    <app-button (click)="importFiles()" class="text-sm flex gap-2 font-bold">
       <fa-icon [icon]="faFileImport"></fa-icon>
       Import
     </app-button>
-    <app-button (click)="addNewFile()" class="text-sm flex gap-2 font-bold items-center">
+    <app-button (click)="addNewFile()" class="text-sm flex gap-2 font-bold">
       <fa-icon [icon]="faPlus"></fa-icon>
       New Chapter
     </app-button>
