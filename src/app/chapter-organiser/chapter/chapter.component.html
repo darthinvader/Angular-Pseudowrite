@@ -18,9 +18,6 @@
     <button (click)="exportFile(chapter?.id)" title="Export File" class="focus:outline-none">
       <fa-icon [icon]="faFileExport"></fa-icon>
     </button>
-    <button (click)="confirmAndDuplicateChapter(chapter?.id)" title="Duplicate File" class="focus:outline-none">
-      <fa-icon [icon]="faClone"></fa-icon>
-    </button>
     <button *ngIf="!editingTitle" (click)="startEditing()" title="Rename File" class="focus:outline-none">
       <fa-icon [icon]="faPencilAlt"></fa-icon>
     </button>
