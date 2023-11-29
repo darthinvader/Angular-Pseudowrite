@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faRobot, faCircleNotch, faBrain, faUsers, faBook } from '@fortawesome/free-solid-svg-icons';
-
+import { faRobot, faPenNib, faBook, faCircleNotch, faUsers } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-about',
   standalone: true,
@@ -15,7 +14,8 @@ import { faRobot, faCircleNotch, faBrain, faUsers, faBook } from '@fortawesome/f
 })
 export class AboutComponent {
   faRobot = faRobot;
-  faBrain = faBrain
-  faUsers = faUsers
-  faBook = faBook
+  faPenNib = faPenNib;
+  faBook = faBook;
+  faCircleNotch = faCircleNotch;
+  faUsers = faUsers;
 }

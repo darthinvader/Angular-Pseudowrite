@@ -1276,11 +1276,99 @@
     "guards": [],
     "interceptors": [],
     "classes": [],
-    "directives": [],
+    "directives": [
+        {
+            "name": "TransferAttributesDirective",
+            "id": "directive-TransferAttributesDirective-0ec4265f9cf1c0075a209af96323ca2a606c5c5591a26e6e076c5142135b4f1ce04c1e5f93a284155925da9bf6ca921fb2fe5905d2e7073fa946ac471f9d3efd",
+            "file": "src/services/transfer-attributes.directive.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, ElementRef, Input, Renderer2, OnInit } from '@angular/core';\n\n@Directive({\n  selector: '[transferAttributes]',\n  standalone: true\n})\nexport class TransferAttributesDirective implements OnInit {\n  @Input() transferAttributes: { [key: string]: any } = {};\n\n  constructor(private el: ElementRef, private renderer: Renderer2) { }\n\n  ngOnInit(): void {\n    Object.keys(this.transferAttributes).forEach(key => {\n      if (key.startsWith('on')) { // For event listeners\n        const eventType = key.slice(2).toLowerCase();\n        this.renderer.listen(this.el.nativeElement, eventType, this.transferAttributes[key]);\n      } else { // For attributes\n        this.renderer.setAttribute(this.el.nativeElement, key, this.transferAttributes[key]);\n      }\n    });\n  }\n}\n",
+            "selector": "[transferAttributes]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [
+                {
+                    "name": "transferAttributes",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 8,
+                    "type": "literal type",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "extends": [],
+            "implements": [
+                "OnInit"
+            ],
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 8,
+                "jsdoctags": [
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
     "components": [
         {
             "name": "AboutComponent",
-            "id": "component-AboutComponent-42568c707ebe8500ee90c6ed595a0bc4af9e8d1a1e41c2301c969f31e0a4b8bf23a4beadf6783a66cbcfd819551ca35a38f4346d8fb5d3746f1acf88640000db",
+            "id": "component-AboutComponent-d8c95c0614918cc2e1114cd677e00db5f54d4bcf38e71df7f64c53e1da8a16e6133e3d669d97f8e462da6e46c840c88a94f379e40710270c63513329dcf78c92",
             "file": "src/app/about/about.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -1307,17 +1395,27 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 18
                 },
                 {
-                    "name": "faBrain",
-                    "defaultValue": "faBrain",
+                    "name": "faCircleNotch",
+                    "defaultValue": "faCircleNotch",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
+                },
+                {
+                    "name": "faPenNib",
+                    "defaultValue": "faPenNib",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
                 },
                 {
                     "name": "faRobot",
@@ -1327,7 +1425,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 16
                 },
                 {
                     "name": "faUsers",
@@ -1337,7 +1435,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
                 }
             ],
             "methodsClass": [],
@@ -1359,13 +1457,13 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faRobot, faCircleNotch, faBrain, faUsers, faBook } from '@fortawesome/free-solid-svg-icons';\n\n@Component({\n  selector: 'app-about',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule\n  ],\n  styleUrl: './about.component.scss',\n  templateUrl: './about.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AboutComponent {\n  faRobot = faRobot;\n  faBrain = faBrain\n  faUsers = faUsers\n  faBook = faBook\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faRobot, faPenNib, faBook, faCircleNotch, faUsers } from '@fortawesome/free-solid-svg-icons';\n@Component({\n  selector: 'app-about',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule\n  ],\n  styleUrl: './about.component.scss',\n  templateUrl: './about.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AboutComponent {\n  faRobot = faRobot;\n  faPenNib = faPenNib;\n  faBook = faBook;\n  faCircleNotch = faCircleNotch;\n  faUsers = faUsers;\n}\n",
             "styleUrl": "./about.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"bg-gradient-to-r text-primary px-6 py-12 rounded-lg shadow-xl animate-fadeIn m-8\">\n  <h1 class=\"text-4xl font-bold mb-6 flex items-center\">\n    🤖 About PseudoWrite ✍️\n  </h1>\n  <div class=\"space-y-4 ml-6\">\n    <p class=\"flex items-center animate-slideInLeft\">\n      <span class=\"text-xl animate-bounce\">📘</span>\n      Welcome to PseudoWrite, where your writing journey is assisted by cutting-edge AI technology. Our platform offers unique tools to help authors at every stage of their writing process, from brainstorming ideas to polishing final drafts.\n    </p>\n    <p class=\"flex items-center animate-slideInRight\">\n      <span class=\"text-xl animate-wiggle\">🖲️</span>\n      Our AI-driven features provide personalized suggestions, plot development ideas, character insights, and much more, helping you overcome writer's block and enhance your storytelling.\n    </p>\n    <p class=\"flex items-center animate-slideInLeft\">\n      <span class=\"text-xl\">👥</span>\n      Whether you're a seasoned author or just starting, PseudoWrite is here to support your creative journey. Embrace the future of writing with PseudoWrite, where every story finds its voice.\n    </p>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"bg-gradient-to-r text-primary px-6 py-12 rounded-lg shadow-xl m-8 animate-fadeIn\">\n  <h1 class=\"text-4xl font-bold mb-6 flex items-center\">\n    <fa-icon [icon]=\"faRobot\"></fa-icon> About PseudoWrite <fa-icon [icon]=\"faPenNib\"></fa-icon>\n  </h1>\n  <div class=\"space-y-4 ml-6\">\n    <p class=\"flex items-center\">\n      <fa-icon [icon]=\"faBook\" class=\"text-xl animate-bounce\"></fa-icon>\n      Welcome to PseudoWrite, where your writing journey is assisted by cutting-edge AI technology...\n    </p>\n    <p class=\"flex items-center\">\n      <fa-icon [icon]=\"faCircleNotch\" class=\"text-xl animate-wiggle\"></fa-icon>\n      Our AI-driven features provide personalized suggestions, plot development ideas...\n    </p>\n    <p class=\"flex items-center\">\n      <fa-icon [icon]=\"faUsers\" class=\"text-xl\"></fa-icon>\n      Whether you're a seasoned author or just starting, PseudoWrite is here to support your creative journey...\n    </p>\n  </div>\n</div>\n"
         },
         {
             "name": "AppComponent",
@@ -1487,7 +1585,7 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div class=\"bg-page w-screen h-screen\">\r\n  <app-navbar></app-navbar>\r\n  <router-outlet></router-outlet>\r\n</div>"
+            "templateData": "<div class=\"bg-page w-screen h-max\">\r\n  <app-navbar></app-navbar>\r\n  <router-outlet></router-outlet>\r\n</div>"
         },
         {
             "name": "BackgroundComponent",
@@ -1535,7 +1633,7 @@
         },
         {
             "name": "BookCardComponent",
-            "id": "component-BookCardComponent-e8296231f99e332925350afd93a7b71c60f94cee08e92b1f7410be8af69472f12c03067651e14cf3064912df9003262f7893d25999adf4792392a0edeff683d2",
+            "id": "component-BookCardComponent-1dc131bbb904967188ef47183c90280b7764dc388121d35629f115e9be433cf91c1d9972eeb25e9d857d84b08747ddbe97cca9da2271551a735d036183bd4952",
             "file": "src/app/book-collection/book-card/book-card.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -1574,38 +1672,7 @@
                     "line": 21
                 }
             ],
-            "methodsClass": [
-                {
-                    "name": "click",
-                    "args": [
-                        {
-                            "name": "book",
-                            "type": "Book",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "optional": true
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 23,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "book",
-                            "type": "Book",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "optional": true,
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
+            "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -1628,16 +1695,16 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { Book } from '../../../models/Book';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faTrashAlt } from '@fortawesome/free-solid-svg-icons';\nimport { RouterModule } from '@angular/router';\n\n@Component({\n  selector: 'app-book-card',\n  standalone: true,\n  imports: [\n    CommonModule,\n    FontAwesomeModule,\n    RouterModule,\n  ],\n  templateUrl: './book-card.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCardComponent {\n  @Input() book?: Book;\n  faTrashAlt = faTrashAlt;\n\n  click(book?: Book) { console.log(book) }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { Book } from '../../../models/Book';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { faTrashAlt } from '@fortawesome/free-solid-svg-icons';\nimport { RouterModule } from '@angular/router';\n\n@Component({\n  selector: 'app-book-card',\n  standalone: true,\n  imports: [\n    CommonModule,\n    FontAwesomeModule,\n    RouterModule,\n  ],\n  templateUrl: './book-card.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCardComponent {\n  @Input() book?: Book;\n  faTrashAlt = faTrashAlt;\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "  <div class=\"max-w bg-div rounded overflow-hidden shadow-lg cursor-pointer hover:scale-105 transform duration-300 ease-in-out\">\n    <a [routerLink]=\"['/book', book?.id, 'chapter']\" routerLinkActive=\"active\" (click)=\"click(book)\">\n          <div class=\"h-full\">\n        <div class=\"p-6 flex justify-center align-middle\">\n          <div class=\"font-bold text-2xl mb-2\">{{ book?.title }}</div>\n        </div>\n      </div>\n    </a>\n  </div>\n"
+            "templateData": "  <div class=\"max-w bg-div rounded overflow-hidden shadow-lg cursor-pointer hover:scale-105 transform duration-300 ease-in-out\">\n    <a [routerLink]=\"['/book', book?.id, 'chapter']\" routerLinkActive=\"active\">\n          <div class=\"h-full\">\n        <div class=\"p-6 flex justify-center align-middle\">\n          <div class=\"font-bold text-2xl mb-2\">{{ book?.title }}</div>\n        </div>\n      </div>\n    </a>\n  </div>\n"
         },
         {
             "name": "BookCollectionComponent",
-            "id": "component-BookCollectionComponent-d9ff56513b592958e01c22acd224aa93cfe9ac681b822cddd8f2c062d7ec82461d5845bb7ceca3dc3df4967090542acc87a782648804825ea0357f390ad18405",
+            "id": "component-BookCollectionComponent-6d1ce4cdb8e0ba05eff42dd3290726279a806931ae6c96256eac7984f9c339b52542e324014ab1e56f0f09576067b72d03376597e1341627289c096e98901902",
             "file": "src/app/book-collection/book-collection.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -1729,7 +1796,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\nimport { ChangeDetectorRef } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\nimport { BookCardComponent } from './book-card/book-card.component';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { Book } from '../../models/Book';\nimport { Subscription } from 'rxjs';\nimport { AuthService } from '../../services/auth.service';\n@Component({\n  selector: 'app-book-collection',\n  standalone: true,\n  imports: [CommonModule, BookCardComponent],\n  templateUrl: './book-collection.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class BookCollectionComponent {\n  @Input() books: Book[] = [];\n  faPlus = faPlus;\n  private authSubscription: Subscription | undefined;\n\n  constructor(\n    private firestore: FirestoreService,\n    private authService: AuthService,\n    private cd: ChangeDetectorRef\n  ) { }\n\n  ngOnInit() {\n    this.authSubscription = this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n        this.firestore.fetchUserData().subscribe(userData => {\n          this.books = userData?.booksInfo || [];\n          this.cd.markForCheck();\n        });\n      } else {\n        this.books = [];\n      }\n    });\n  }\n\n  addNewBook() {\n    console.log('Adding new book:');\n    this.firestore.createBook('New Book').subscribe({\n      next: () => {\n        console.log('New book added successfully');\n        this.cd.markForCheck();\n      },\n      error: (err) => console.error('Error adding new book:', err),\n      complete: () => console.log('Completed adding new book'),\n    });\n  }\n\n}\n",
+            "sourceCode": "import { faPlus } from '@fortawesome/free-solid-svg-icons';\r\nimport { ChangeDetectorRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { BookCardComponent } from './book-card/book-card.component';\r\nimport { FirestoreService } from '../../services/firestore.service';\r\nimport { Book } from '../../models/Book';\r\nimport { Subscription } from 'rxjs';\r\nimport { AuthService } from '../../services/auth.service';\r\n@Component({\r\n  selector: 'app-book-collection',\r\n  standalone: true,\r\n  imports: [CommonModule, BookCardComponent],\r\n  templateUrl: './book-collection.component.html',\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n})\r\nexport class BookCollectionComponent {\r\n  @Input() books: Book[] = [];\r\n  faPlus = faPlus;\r\n  private authSubscription: Subscription | undefined;\r\n\r\n  constructor(\r\n    private firestore: FirestoreService,\r\n    private authService: AuthService,\r\n    private cd: ChangeDetectorRef\r\n  ) { }\r\n\r\n  ngOnInit() {\r\n    this.authSubscription = this.authService.isSignedIn().subscribe(authenticated => {\r\n      if (authenticated) {\r\n        this.firestore.fetchUserData().subscribe(userData => {\r\n          this.books = userData?.booksInfo || [];\r\n          this.cd.markForCheck();\r\n        });\r\n      } else {\r\n        this.books = [];\r\n      }\r\n    });\r\n  }\r\n\r\n  addNewBook() {\r\n    console.log('Adding new book:');\r\n    this.firestore.createBook('New Book').subscribe({\r\n      next: () => {\r\n        console.log('New book added successfully');\r\n        this.cd.markForCheck();\r\n      },\r\n      error: (err) => console.error('Error adding new book:', err),\r\n      complete: () => console.log('Completed adding new book'),\r\n    });\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1790,11 +1857,11 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div class=\"flex flex-col bg-div p-8 rounded-lg text-primary\">\n  <div class=\"flex flex-col justify-between items-center align-middle\"> \n    <div class=\"text-3xl text-center flex-1\">Your Books📚</div>\n    <button (click)=\"addNewBook()\"\n            class=\"absolute self-end text-md gap-2 px-6 py-2 bg-opacity-90 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:scale-95 transition ease-in-out duration-300\" >\n      ➕ Create New Book\n    </button>\n  </div>\n  @if(books.length != 0){\n    <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 border-border-color border shadow rounded-lg\">\n      @for(book of books; track book.id){\n        <app-book-card [book]=\"book\"></app-book-card>\n      }\n    </div>\n  } @else{\n    <div *ngIf=\"books.length === 0\" class=\"text-primary text-center p-6 m-4 border-border-color border shadow rounded-lg\">\n      <p>No books yet. Click \"Add New Book\" to start!📖</p>\n    </div>\n  }\n</div>\n"
+            "templateData": "<div class=\"flex flex-col bg-div p-8 rounded-lg text-primary\">\r\n  <div class=\"flex flex-col justify-between items-center align-middle\"> \r\n    <div class=\"text-3xl text-center flex-1\">Your Books📚</div>\r\n    <button (click)=\"addNewBook()\"\r\n            class=\"absolute self-end text-md gap-2 px-6 py-2 bg-opacity-90 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:scale-95 transition ease-in-out duration-300\" >\r\n      ➕ Create New Book\r\n    </button>\r\n  </div>\r\n  @if(books.length != 0){\r\n    <div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 m-4 border-border-color border shadow rounded-lg\">\r\n      @for(book of books; track book.id){\r\n        <app-book-card [book]=\"book\"></app-book-card>\r\n      }\r\n    </div>\r\n  } @else{\r\n    <div *ngIf=\"books.length === 0\" class=\"text-primary text-center p-6 m-4 border-border-color border shadow rounded-lg\">\r\n      <p>No books yet. Click \"Add New Book\" to start!📖</p>\r\n    </div>\r\n  }\r\n</div>\r\n"
         },
         {
             "name": "BookTitleComponent",
-            "id": "component-BookTitleComponent-f6f6891cfd88f37aade1232dc9d1e0f7b5005e03229b3373491fab10ccae12d51bfbac2379b61e7dc0716f75ccd4e999e91d46d3e3b873679f36fd184c49877f",
+            "id": "component-BookTitleComponent-7153e837570f40a2ba0ab663c0a4a0663128e75490592f9c691b49d774e7d4f023ef12c571da910adfff28043ca3d940f5439c96e743a1d1e332c88dc7968623",
             "file": "src/app/chapter-organiser/book-title/book-title.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1826,7 +1893,7 @@
                     "defaultValue": "new EventEmitter<boolean>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 26,
+                    "line": 27,
                     "type": "EventEmitter"
                 }
             ],
@@ -1900,6 +1967,24 @@
                     "optional": false,
                     "description": "",
                     "line": 21
+                },
+                {
+                    "name": "titleInput",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ElementRef",
+                    "optional": true,
+                    "description": "",
+                    "line": 26,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'titleInput'"
+                        }
+                    ],
+                    "modifierKind": [
+                        170
+                    ]
                 }
             ],
             "methodsClass": [
@@ -1909,7 +1994,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 68,
+                    "line": 75,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1919,17 +2004,17 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 64,
+                    "line": 71,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
                 {
-                    "name": "onTitleBlur",
+                    "name": "onEscapePress",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 44,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1939,7 +2024,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 32,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1949,7 +2034,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1959,7 +2044,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 46,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -1989,7 +2074,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Input, Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { faBookOpen, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\r\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\r\nimport { FirestoreService } from '../../../services/firestore.service';\r\nimport { Book } from '../../../models/Book';\r\n\r\n@Component({\r\n  selector: 'app-book-title',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule, FormsModule, FontAwesomeModule\r\n  ],\r\n  templateUrl: './book-title.component.html',\r\n})\r\nexport class BookTitleComponent {\r\n  @Input() book: Book = { id: '', title: '' };\r\n  editingTitle: boolean = false;\r\n  editableTitle: string = '';\r\n  originalBookName: string = '';\r\n  isCreatingChapter: boolean = false;\r\n  faFileImport = faFileImport;\r\n  faPlus = faPlus;\r\n  faBookOpen = faBookOpen;\r\n  @Output() newChapterCreating = new EventEmitter<boolean>();\r\n  constructor(\r\n    private firestoreService: FirestoreService,\r\n    private cd: ChangeDetectorRef\r\n  ) { }\r\n\r\n  onTitleClick(): void {\r\n    this.editingTitle = true;\r\n    this.editableTitle = this.book.title;\r\n    this.originalBookName = this.book.title;\r\n  }\r\n\r\n  onTitleEnter(): void {\r\n    this.updateTitle();\r\n  }\r\n\r\n  onTitleBlur(): void {\r\n    this.updateTitle();\r\n  }\r\n\r\n  private updateTitle(): void {\r\n    if (this.editableTitle.trim() && this.editableTitle !== this.originalBookName) {\r\n      this.firestoreService.writeBook(this.book.id, this.editableTitle).subscribe({\r\n        next: () => {\r\n          console.log('Book title updated successfully');\r\n          this.book.title = this.editableTitle;\r\n          this.cd.markForCheck();\r\n        },\r\n        error: (err: any) => {\r\n          console.error('Error updating book title:', err);\r\n          this.book.title = this.originalBookName;\r\n          this.cd.markForCheck();\r\n        }\r\n      });\r\n    }\r\n    this.editingTitle = false;\r\n  }\r\n\r\n  importFiles(): void {\r\n    // Implement file import logic here\r\n  }\r\n\r\n  addNewFile(): void {\r\n    if (!this.book.id) {\r\n      console.error('Book ID is not provided');\r\n      return;\r\n    }\r\n\r\n    this.isCreatingChapter = true;\r\n    this.newChapterCreating.emit(true); // Emit event\r\n\r\n    this.firestoreService.createChapter(this.book.id, 'New Chapter', '').subscribe({\r\n      next: (chapterId) => {\r\n        console.log('New chapter added successfully, ID:', chapterId);\r\n\r\n        // Navigate to the new chapter's route or update the UI as needed\r\n      },\r\n      error: (err: any) => {\r\n        console.error('Error adding new chapter:', err);\r\n        this.isCreatingChapter = false; // Hide skeleton loader on error\r\n        this.newChapterCreating.emit(false); // Emit event\r\n      },\r\n      complete: () => {\r\n        this.isCreatingChapter = false; // Hide skeleton loader\r\n        this.newChapterCreating.emit(false); // Emit event\r\n      }\r\n    });\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Input, Component, ChangeDetectorRef, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { faBookOpen, faFileImport, faPlus } from '@fortawesome/free-solid-svg-icons';\r\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\r\nimport { FirestoreService } from '../../../services/firestore.service';\r\nimport { Book } from '../../../models/Book';\r\n\r\n@Component({\r\n  selector: 'app-book-title',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule, FormsModule, FontAwesomeModule\r\n  ],\r\n  templateUrl: './book-title.component.html',\r\n})\r\nexport class BookTitleComponent {\r\n  @Input() book: Book = { id: '', title: '' };\r\n  editingTitle: boolean = false;\r\n  editableTitle: string = '';\r\n  originalBookName: string = '';\r\n  isCreatingChapter: boolean = false;\r\n  faFileImport = faFileImport;\r\n  faPlus = faPlus;\r\n  faBookOpen = faBookOpen;\r\n  @ViewChild('titleInput') titleInput?: ElementRef;\r\n  @Output() newChapterCreating = new EventEmitter<boolean>();\r\n  constructor(\r\n    private firestoreService: FirestoreService,\r\n    private cd: ChangeDetectorRef\r\n  ) { }\r\n\r\n  onTitleClick(): void {\r\n    this.editingTitle = true;\r\n    this.editableTitle = this.book.title;\r\n    this.originalBookName = this.book.title;\r\n    setTimeout(() => {\r\n      if (this.titleInput) {\r\n        this.titleInput.nativeElement.focus();\r\n      }\r\n    }, 0);\r\n  }\r\n\r\n  onEscapePress(): void {\r\n    this.editableTitle = this.originalBookName;\r\n    this.editingTitle = false;\r\n  }\r\n\r\n  onTitleEnter(): void {\r\n    this.updateTitle();\r\n  }\r\n\r\n  private updateTitle(): void {\r\n    if (this.editableTitle.trim() && this.editableTitle !== this.originalBookName) {\r\n      this.firestoreService.writeBook(this.book.id, this.editableTitle).subscribe({\r\n        next: () => {\r\n          console.log('Book title updated successfully');\r\n          this.book.title = this.editableTitle;\r\n          this.cd.markForCheck();\r\n        },\r\n        error: (err: any) => {\r\n          console.error('Error updating book title:', err);\r\n          this.book.title = this.originalBookName;\r\n          this.cd.markForCheck();\r\n        }\r\n      });\r\n    }\r\n    this.editingTitle = false;\r\n  }\r\n\r\n  importFiles(): void {\r\n    // Implement file import logic here\r\n  }\r\n\r\n  addNewFile(): void {\r\n    if (!this.book.id) {\r\n      console.error('Book ID is not provided');\r\n      return;\r\n    }\r\n\r\n    this.isCreatingChapter = true;\r\n    this.newChapterCreating.emit(true); // Emit event\r\n\r\n    this.firestoreService.createChapter(this.book.id, 'New Chapter', '').subscribe({\r\n      next: (chapterId) => {\r\n        console.log('New chapter added successfully, ID:', chapterId);\r\n      },\r\n      error: (err: any) => {\r\n        console.error('Error adding new chapter:', err);\r\n        this.isCreatingChapter = false; // Hide skeleton loader on error\r\n        this.newChapterCreating.emit(false); // Emit event\r\n      },\r\n      complete: () => {\r\n        this.isCreatingChapter = false; // Hide skeleton loader\r\n        this.newChapterCreating.emit(false); // Emit event\r\n      }\r\n    });\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2012,7 +2097,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 26,
+                "line": 27,
                 "jsdoctags": [
                     {
                         "name": "firestoreService",
@@ -2035,11 +2120,73 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div class=\"flex flex-col items-center mb-6\">\n  <div class=\"flex mb-2 justify-center align-middle\">\n    <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\n      <p class=\"text-2xl font-semibold text-primary\">📙{{ book.title }}</p>\n    </div>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"editableTitle\" (blur)=\"onTitleBlur()\" \n           (keyup.enter)=\"onTitleEnter()\" class=\"form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary\">\n  </div>\n  <div class=\"flex gap-1\">\n    <button (click)=\"importFiles()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\n      <fa-icon [icon]=\"faFileImport\"></fa-icon>\n      Import\n    </button>\n    <button (click)=\"addNewFile()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\n      <fa-icon [icon]=\"faPlus\"></fa-icon>\n      Add New\n    </button>\n  </div>\n  \n</div>\n"
+            "templateData": "<div class=\"flex flex-col items-center mb-6\">\r\n  <div class=\"flex mb-2 justify-center align-middle\">\r\n    <div *ngIf=\"!editingTitle\" (click)=\"onTitleClick()\" class=\"cursor-pointer\">\r\n      <p class=\"text-2xl font-semibold text-primary\">📙{{ book.title }}</p>\r\n    </div>\r\n    <input *ngIf=\"editingTitle\" #titleInput [(ngModel)]=\"editableTitle\" (blur)=\"onEscapePress()\" \r\n           (keyup.enter)=\"onTitleEnter()\" (keyup.escape)=\"onEscapePress()\" class=\"form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary\">\r\n  </div>\r\n  <div class=\"flex gap-1\">\r\n    <button (click)=\"importFiles()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\r\n      <fa-icon [icon]=\"faFileImport\"></fa-icon>\r\n      Import\r\n    </button>\r\n    <button (click)=\"addNewFile()\" class=\"flex gap-1 bg-button text-primary hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active font-bold py-1 px-4 rounded items-center\">\r\n      <fa-icon [icon]=\"faPlus\"></fa-icon>\r\n      New Chapter\r\n    </button>\r\n  </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "ButtonComponent",
+            "id": "component-ButtonComponent-b54e172847cd480460c874720f601991ddae9d7c51f60c988884e3fac5413124d934d53184079ecd8d49ea03b3c180058c9016729798e1b9896bcce6bd20d6a4",
+            "file": "src/app/button/button.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-button",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./button.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "otherAttrs",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 13,
+                    "type": "literal type",
+                    "decorators": []
+                },
+                {
+                    "name": "twClasses",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "TransferAttributesDirective",
+                    "type": "directive"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, ChangeDetectionStrategy } from '@angular/core';\nimport { TransferAttributesDirective } from '../../services/transfer-attributes.directive';\n\n@Component({\n  selector: 'app-button',\n  standalone: true,\n  templateUrl: './button.component.html',\n  imports: [TransferAttributesDirective],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ButtonComponent {\n  @Input() twClasses = '';\n  @Input() otherAttrs: { [key: string]: any } = {}; // Object for all other attributes\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<button [class]=\"'text-md px-6 py-2 bg-button text-primary rounded-lg shadow hover:bg-button-hover hover:text-primary-hover active:bg-button-active active:text-primary-active focus:outline-none transition ease-in-out duration-300' + twClasses\" [transferAttributes]=\"otherAttrs\" >\n  <ng-content></ng-content>\n</button>"
         },
         {
             "name": "ChapterComponent",
-            "id": "component-ChapterComponent-dd01cbf6c164dc8d560d070a72b03a26fc6037856f593e077da91f3b4e6eb51789f47833967237552ac8c2a3a1892ee5548758ab30cac5f2e499bf3087422fdd",
+            "id": "component-ChapterComponent-0ed4f55f166db9602b823859c5422dbfbe3111e071c788654b20878b4e8cc8369ded827d197ccbaed34504cf9cb96e6ef316037b2297acb47755be37af88c1c1",
             "file": "src/app/chapter-organiser/chapter/chapter.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2059,7 +2206,7 @@
                     "name": "bookId",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 20,
+                    "line": 21,
                     "type": "string",
                     "decorators": []
                 },
@@ -2067,7 +2214,7 @@
                     "name": "chapter",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 20,
                     "type": "Chapter",
                     "decorators": []
                 }
@@ -2078,7 +2225,7 @@
                     "defaultValue": "new EventEmitter<string>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 21,
+                    "line": 22,
                     "type": "EventEmitter"
                 },
                 {
@@ -2086,7 +2233,7 @@
                     "defaultValue": "new EventEmitter<Chapter>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 22,
+                    "line": 23,
                     "type": "EventEmitter"
                 }
             ],
@@ -2099,7 +2246,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 26
+                    "line": 28
                 },
                 {
                     "name": "editingTitle",
@@ -2109,7 +2256,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 25
+                    "line": 27
                 },
                 {
                     "name": "faClone",
@@ -2119,7 +2266,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 32
+                    "line": 34
                 },
                 {
                     "name": "faFileExport",
@@ -2129,7 +2276,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 31
+                    "line": 33
                 },
                 {
                     "name": "faFileLines",
@@ -2139,7 +2286,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 28
+                    "line": 30
                 },
                 {
                     "name": "faGripVertical",
@@ -2149,7 +2296,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 29
+                    "line": 31
                 },
                 {
                     "name": "faPencilAlt",
@@ -2159,7 +2306,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 33
+                    "line": 35
                 },
                 {
                     "name": "faTrash",
@@ -2169,7 +2316,25 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 30
+                    "line": 32
+                },
+                {
+                    "name": "titleInput",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ElementRef",
+                    "optional": true,
+                    "description": "",
+                    "line": 24,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'titleInput'"
+                        }
+                    ],
+                    "modifierKind": [
+                        170
+                    ]
                 }
             ],
             "methodsClass": [
@@ -2187,7 +2352,37 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 73,
+                    "line": 86,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "optional": true,
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "confirmAndDuplicateChapter",
+                    "args": [
+                        {
+                            "name": "chapterId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "optional": true
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 109,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2216,7 +2411,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 81,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -2248,7 +2443,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 91,
+                    "line": 104,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2270,7 +2465,17 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 45,
+                    "line": 53,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onEscapePress",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 63,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2299,7 +2504,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 55,
+                    "line": 68,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2338,7 +2543,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -2364,12 +2569,16 @@
                 {
                     "name": "FormsModule",
                     "type": "module"
+                },
+                {
+                    "name": "RouterModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';\nimport { FirestoreService } from '../../../services/firestore.service';\nimport { Chapter } from '../../../models/Chapter';\nimport { faFileLines, faGripVertical, faTrash, faFileExport, faClone, faPencilAlt } from '@fortawesome/free-solid-svg-icons';\nimport { DragDropModule } from '@angular/cdk/drag-drop';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { CommonModule } from '@angular/common';\nimport { FormsModule } from '@angular/forms';\n\n@Component({\n  selector: 'app-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, FormsModule\n  ],\n  templateUrl: './chapter.component.html',\n})\nexport class ChapterComponent {\n  @Input() chapter?: Chapter;\n  @Input() bookId?: string;\n  @Output() chapterDeleted = new EventEmitter<string>(); // New event\n  @Output() chapterDuplicated = new EventEmitter<Chapter>(); // New event\n\n\n  editingTitle: boolean = false;\n  editableTitle: string = '';\n\n  faFileLines = faFileLines;\n  faGripVertical = faGripVertical;\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n  faPencilAlt = faPencilAlt;\n\n  constructor(\n    private firestoreService: FirestoreService,\n    private cd: ChangeDetectorRef // Add ChangeDetectorRef\n  ) { }\n\n  startEditing(): void {\n    this.editingTitle = true;\n    this.editableTitle = this.chapter?.title ?? '';\n  }\n\n  finishEditing(): void {\n    if (this.editableTitle.trim() && this.chapter && this.editableTitle !== this.chapter.title) {\n      const originalTitle = this.chapter.title;\n      this.chapter.title = this.editableTitle; // Optimistic update\n\n      this.renameChapter(this.chapter.id, this.editableTitle, originalTitle);\n    }\n    this.editingTitle = false;\n  }\n\n  renameChapter(chapterId: string, newTitle: string, originalTitle: string): void {\n    if (this.bookId) {\n      this.firestoreService.updateChapterTitle(this.bookId, chapterId, newTitle).subscribe({\n        next: () => {\n          console.log('Chapter title updated successfully');\n          this.cd.markForCheck();\n        },\n        error: (err) => {\n          console.error('Error updating chapter title:', err);\n          if (this.chapter) {\n            this.chapter.title = originalTitle; // Revert title on error\n            this.cd.markForCheck();\n          }\n        }\n      });\n    }\n  }\n\n  confirmAndDeleteChapter(chapterId?: string): void {\n    if (chapterId)\n      // Show confirmation modal logic here\n      // If confirmed:\n      this.deleteChapter(chapterId);\n  }\n\n\n  private deleteChapter(chapterId: string): void {\n    if (this.bookId && chapterId) {\n      this.chapterDeleted.emit(chapterId);\n      this.firestoreService.deleteChapter(this.bookId, chapterId).subscribe({\n        next: () => console.log('Chapter deleted successfully'),\n        error: (err) => console.error('Error deleting chapter:', err)\n      });\n    }\n  }\n\n  exportFile(chapterId?: string): void {\n    // Implement file export logic\n  }\n\n\n  // confirmAndDuplicateChapter(chapterId: string): void {\n  //   // Show confirmation modal logic here\n  //   // If confirmed:\n  //   this.duplicateChapter(chapterId);\n  // }\n  // private duplicateChapter(chapterId: string): void {\n  //   if (this.bookId && chapterId) {\n  //     this.firestoreService.fetchChapter(this.bookId, chapterId).subscribe(chapter => {\n  //       if (chapter && this.bookId) {\n  //         const newChapterTitle = `Copy of ${chapter.title}`;\n  //         this.firestoreService.createChapter(this.bookId, newChapterTitle, chapter.content).subscribe({\n  //           next: (newChapterId) => {\n  //             console.log('Chapter duplicated successfully');\n  //             const duplicatedChapter = { id: '', title: newChapterTitle };\n  //             this.chapterDuplicated.emit(duplicatedChapter); // Emit duplication event\n  //           },\n  //           error: (err) => console.error('Error duplicating chapter:', err)\n  //         });\n  //       }\n  //     });\n  //   }\n  // }\n}\n",
+            "sourceCode": "import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';\nimport { FirestoreService } from '../../../services/firestore.service';\nimport { Chapter } from '../../../models/Chapter';\nimport { faFileLines, faGripVertical, faTrash, faFileExport, faClone, faPencilAlt } from '@fortawesome/free-solid-svg-icons';\nimport { DragDropModule } from '@angular/cdk/drag-drop';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { CommonModule } from '@angular/common';\nimport { FormsModule } from '@angular/forms';\nimport { RouterModule } from '@angular/router';\n\n@Component({\n  selector: 'app-chapter',\n  standalone: true,\n  imports: [\n    CommonModule, FontAwesomeModule, DragDropModule, FormsModule, RouterModule\n  ],\n  templateUrl: './chapter.component.html',\n})\nexport class ChapterComponent {\n  @Input() chapter?: Chapter;\n  @Input() bookId?: string;\n  @Output() chapterDeleted = new EventEmitter<string>(); // New event\n  @Output() chapterDuplicated = new EventEmitter<Chapter>(); // New event\n  @ViewChild('titleInput') titleInput?: ElementRef;\n\n\n  editingTitle: boolean = false;\n  editableTitle: string = '';\n\n  faFileLines = faFileLines;\n  faGripVertical = faGripVertical;\n  faTrash = faTrash;\n  faFileExport = faFileExport;\n  faClone = faClone;\n  faPencilAlt = faPencilAlt;\n\n  constructor(\n    private firestoreService: FirestoreService,\n    private cd: ChangeDetectorRef // Add ChangeDetectorRef\n  ) { }\n\n  startEditing(): void {\n    this.editingTitle = true;\n    this.editableTitle = this.chapter?.title ?? '';\n    setTimeout(() => {\n      if (this.titleInput) {\n        this.titleInput.nativeElement.focus();\n      }\n    }, 0);\n  }\n\n\n  finishEditing(): void {\n    if (this.editableTitle.trim() && this.chapter && this.editableTitle !== this.chapter.title) {\n      const originalTitle = this.chapter.title;\n      this.chapter.title = this.editableTitle; // Optimistic update\n\n      this.renameChapter(this.chapter.id, this.editableTitle, originalTitle);\n    }\n    this.editingTitle = false;\n  }\n\n  onEscapePress(): void {\n    this.editableTitle = this.chapter?.title ?? '';\n    this.editingTitle = false;\n  }\n\n  renameChapter(chapterId: string, newTitle: string, originalTitle: string): void {\n    if (this.bookId) {\n      this.firestoreService.updateChapterTitle(this.bookId, chapterId, newTitle).subscribe({\n        next: () => {\n          console.log('Chapter title updated successfully');\n          this.cd.markForCheck();\n        },\n        error: (err) => {\n          console.error('Error updating chapter title:', err);\n          if (this.chapter) {\n            this.chapter.title = originalTitle; // Revert title on error\n            this.cd.markForCheck();\n          }\n        }\n      });\n    }\n  }\n\n  confirmAndDeleteChapter(chapterId?: string): void {\n    if (chapterId)\n      // Show confirmation modal logic here\n      // If confirmed:\n      this.deleteChapter(chapterId);\n  }\n\n\n  private deleteChapter(chapterId: string): void {\n    if (this.bookId && chapterId) {\n      this.chapterDeleted.emit(chapterId);\n      this.firestoreService.deleteChapter(this.bookId, chapterId).subscribe({\n        next: () => console.log('Chapter deleted successfully'),\n        error: (err) => console.error('Error deleting chapter:', err)\n      });\n    }\n  }\n\n  exportFile(chapterId?: string): void {\n    // Implement file export logic\n  }\n\n\n  confirmAndDuplicateChapter(chapterId?: string): void {\n    // Show confirmation modal logic here\n    // If confirmed:\n    // this.duplicateChapter(chapterId);\n  }\n  // private duplicateChapter(chapterId: string): void {\n  //   if (this.bookId && chapterId) {\n  //     this.firestoreService.fetchChapter(this.bookId, chapterId).subscribe(chapter => {\n  //       if (chapter && this.bookId) {\n  //         const newChapterTitle = `Copy of ${chapter.title}`;\n  //         this.firestoreService.createChapter(this.bookId, newChapterTitle, chapter.content).subscribe({\n  //           next: (newChapterId) => {\n  //             console.log('Chapter duplicated successfully');\n  //             const duplicatedChapter = { id: '', title: newChapterTitle };\n  //             this.chapterDuplicated.emit(duplicatedChapter); // Emit duplication event\n  //           },\n  //           error: (err) => console.error('Error duplicating chapter:', err)\n  //         });\n  //       }\n  //     });\n  //   }\n  // }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2392,7 +2601,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 33,
+                "line": 35,
                 "jsdoctags": [
                     {
                         "name": "firestoreService",
@@ -2415,7 +2624,7 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm\">\n  <div class=\"flex items-center gap-1\">\n    <button class=\"focus:outline-none\" title=\"Drag File\">\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\n    </button>\n    <fa-icon [icon]=\"faFileLines\"></fa-icon>\n    <span *ngIf=\"!editingTitle\">{{ chapter?.title }}</span>\n    <input *ngIf=\"editingTitle\" [(ngModel)]=\"editableTitle\" \n           (blur)=\"finishEditing()\" \n           (keyup.enter)=\"finishEditing()\" \n           class=\"form-input border border-border-color rounded py-1 px-2 text-xl bg-button text-primary\">\n  </div>\n  <div class=\"flex items-center gap-2\">\n    <button (click)=\"confirmAndDeleteChapter(!chapter?.id)\" title=\"Delete File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\n    </button>\n    <button (click)=\"exportFile(chapter?.id)\" title=\"Export File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\n    </button>\n    <button (click)=\"duplicateFile(chapter?.id)\" title=\"Duplicate File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faClone\"></fa-icon>\n    </button>\n    <button *ngIf=\"!editingTitle\" (click)=\"startEditing()\" title=\"Rename File\" class=\"focus:outline-none\">\n      <fa-icon [icon]=\"faPencilAlt\"></fa-icon>\n    </button>\n  </div>\n</div>\n"
+            "templateData": "<div cdkDrag class=\"py-2 px-4 flex justify-between items-center bg-transparent font-semibold hover:bg-button-hover text-primary hover:text-primary-hover rounded hover:shadow-sm\">\r\n  <div class=\"flex items-center gap-1 flex-1\">\r\n    <button class=\"focus:outline-none\" title=\"Drag File\">\r\n      <fa-icon [icon]=\"faGripVertical\"></fa-icon>\r\n    </button>\r\n    \r\n    <a class=\"w-full flex-1 flex gap-2 cursor-pointer\" [routerLink]=\"['/book', bookId, 'chapter', chapter?.id]\" routerLinkActive=\"active\" *ngIf=\"!editingTitle\"><fa-icon [icon]=\"faFileLines\"></fa-icon>{{ chapter?.title }}</a>\r\n    <input #titleInput *ngIf=\"editingTitle\" [(ngModel)]=\"editableTitle\" \r\n       (blur)=\"onEscapePress()\" \r\n       (keyup.enter)=\"finishEditing()\" \r\n       (keyup.escape)=\"onEscapePress()\" \r\n       class=\"form-input border border-border-color rounded py-1 px-2 text-md bg-button text-primary\">\r\n  </div>\r\n  <div class=\"flex items-center gap-2\">\r\n    <button (click)=\"confirmAndDeleteChapter(chapter?.id)\" title=\"Delete File\" class=\"focus:outline-none\">\r\n      <fa-icon [icon]=\"faTrash\"></fa-icon>\r\n    </button>\r\n    <button (click)=\"exportFile(chapter?.id)\" title=\"Export File\" class=\"focus:outline-none\">\r\n      <fa-icon [icon]=\"faFileExport\"></fa-icon>\r\n    </button>\r\n    <button (click)=\"confirmAndDuplicateChapter(chapter?.id)\" title=\"Duplicate File\" class=\"focus:outline-none\">\r\n      <fa-icon [icon]=\"faClone\"></fa-icon>\r\n    </button>\r\n    <button *ngIf=\"!editingTitle\" (click)=\"startEditing()\" title=\"Rename File\" class=\"focus:outline-none\">\r\n      <fa-icon [icon]=\"faPencilAlt\"></fa-icon>\r\n    </button>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "ChapterOrganizerComponent",
@@ -2757,7 +2966,7 @@
             "implements": [
                 "OnDestroy"
             ],
-            "templateData": "<div class=\"p-4 border-2 border-border-color rounded-lg shadow-lg bg-default opacity-80\">\n<app-book-title [book]=\"{id:bookId || '', title:book?.title || ''}\" (newChapterCreating)=\"handleNewChapterCreating($event)\"></app-book-title>\n  <div class=\"m-2 flex flex-col border-2 border-border-color rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (chapter of chapters; track $index) {\n      @if(chapter.id === 'skeleton'){        \n        <app-skeleton></app-skeleton>\n      } @else {\n          <app-chapter\n            [chapter]=\"chapter\"\n            [bookId]=\"bookId\"\n            (chapterDeleted)=\"handleChapterDeletion($event)\"\n            (chapterDuplicated)=\"handleChapterDuplication($event)\">\n          </app-chapter>\n      }\n      } @empty {\n      <div class=\"text-center text-primary my-8\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
+            "templateData": "<div class=\"p-4 border-2 border-border-color rounded-lg shadow-lg bg-default opacity-80\">\n<app-book-title [book]=\"{id:bookId || '', title:book?.title || ''}\" (newChapterCreating)=\"handleNewChapterCreating($event)\"></app-book-title>\n  <div class=\"m-2 flex flex-col border-2 border-border-color rounded-lg shadow-md\" cdkDropList (cdkDropListDropped)=\"onDrop($event)\">\n    @for (chapter of chapters; track $index) {\n      @if(chapter.id === 'skeleton'){        \n        <app-skeleton></app-skeleton>\n      } @else {\n          <app-chapter\n            [textContent]=\"\"\n            [chapter]=\"chapter\"\n            [bookId]=\"bookId\"\n            (chapterDeleted)=\"handleChapterDeletion($event)\"\n            (chapterDuplicated)=\"handleChapterDuplication($event)\">\n          </app-chapter>\n      }\n      } @empty {\n      <div class=\"text-center text-primary my-8\">\n        <fa-icon [icon]=\"faFolderOpen\" class=\"text-3xl\"></fa-icon>\n        <p>No files yet. Click \"Add New\" to start!</p>\n      </div>\n    }\n  </div>\n</div>"
         },
         {
             "name": "HomeComponent",
@@ -3041,7 +3250,7 @@
         },
         {
             "name": "TextEditorComponent",
-            "id": "component-TextEditorComponent-8744eed19c2b97abe54a4685f7dba9d2dd086d005193ad4a5cb74f35ed4aa508b15086544fdef9340592550910f76556e2701006efcba0a66f011fc929ee6338",
+            "id": "component-TextEditorComponent-5dcb11a4b9fccd3653be2dbd355598421316421367e6aed8463113b8672d30bf53894f3cf8f9ab464132edfe3d7c183db910f66f8dcfbd062c540675c81f1851",
             "file": "src/app/text-editor/text-editor.component.ts",
             "encapsulation": [
                 "ViewEncapsulation.None"
@@ -3060,11 +3269,29 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
+                    "name": "bookId",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "chapterInfo",
+                    "defaultValue": "{ id: '', title: '' }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 22,
+                    "type": "Chapter",
+                    "decorators": []
+                },
+                {
                     "name": "editorConfig",
                     "defaultValue": "editorConfig",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 18,
+                    "line": 23,
                     "type": "any",
                     "decorators": []
                 },
@@ -3073,50 +3300,21 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 17,
+                    "line": 20,
                     "type": "string",
                     "decorators": []
                 }
             ],
-            "outputsClass": [
-                {
-                    "name": "htmlContentChange",
-                    "defaultValue": "new EventEmitter()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 19,
-                    "type": "EventEmitter"
-                }
-            ],
+            "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [
-                {
-                    "name": "giveDifferentWording",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "any",
-                    "typeParameters": [],
-                    "line": 46,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "performRequest",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "any",
-                    "typeParameters": [],
-                    "line": 28,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
                 {
                     "name": "saveContent",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23,
+                    "line": 27,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -3146,12 +3344,16 @@
                 {
                     "name": "HttpClientModule",
                     "type": "module"
+                },
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { HttpClient, HttpClientModule } from '@angular/common/http';\r\nimport { AngularEditorModule } from '@kolkov/angular-editor';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { editorConfig } from './editorDefaults';\r\n\r\n@Component({\r\n  selector: 'app-text-editor',\r\n  standalone: true,\r\n  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule],\r\n  templateUrl: './text-editor.component.html',\r\n  styleUrl: './text-editor.component.scss',\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class TextEditorComponent {\r\n  @Input() htmlContent = ''\r\n  @Input() editorConfig = editorConfig\r\n  @Output() htmlContentChange = new EventEmitter();\r\n\r\n  constructor(private http: HttpClient) { }\r\n\r\n  saveContent() {\r\n    // Emitting the current htmlContent\r\n    this.htmlContentChange.emit(this.htmlContent);\r\n  }\r\n\r\n  performRequest() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Always answer in rhymes.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n  giveDifferentWording() {\r\n    const url = 'http://localhost:1234/v1/chat/completions';\r\n\r\n    if (window.getSelection) {\r\n      let selection = window.getSelection();\r\n      const body = {\r\n        messages: [\r\n          { role: 'system', content: 'Reword the specific message, do not say anything before or after the rewording.' },\r\n          { role: 'user', content: selection?.toString() }\r\n        ],\r\n        temperature: 0.7,\r\n        max_tokens: -1,\r\n        stream: false\r\n      };\r\n      return this.http.post(url, body, { headers: { 'Content-Type': 'application/json' } }).subscribe((object => console.log(object)));\r\n    }\r\n    return null\r\n  }\r\n}",
+            "sourceCode": "import { Chapter } from './../../models/Chapter';\r\nimport { Component, Input, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { HttpClientModule } from '@angular/common/http';\r\nimport { AngularEditorModule } from '@kolkov/angular-editor';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { editorConfig } from './editorDefaults';\r\nimport { ButtonComponent } from '../button/button.component';\r\nimport { FirestoreService } from '../../services/firestore.service';\r\n\r\n@Component({\r\n  selector: 'app-text-editor',\r\n  standalone: true,\r\n  imports: [CommonModule, HttpClientModule, AngularEditorModule, FormsModule, HttpClientModule, ButtonComponent],\r\n  templateUrl: './text-editor.component.html',\r\n  styleUrl: './text-editor.component.scss',\r\n  encapsulation: ViewEncapsulation.None\r\n})\r\nexport class TextEditorComponent {\r\n  @Input() htmlContent = ''\r\n  @Input() bookId = ''\r\n  @Input() chapterInfo: Chapter = { id: '', title: '' }\r\n  @Input() editorConfig = editorConfig\r\n  constructor(private firestoreService: FirestoreService,\r\n    private cd: ChangeDetectorRef) { }\r\n\r\n  saveContent() {\r\n    const bookId = this.bookId; // You should get this from your application context\r\n    const chapterId = this.chapterInfo.id; // As above\r\n    this.firestoreService.writeChapter(bookId, chapterId, this.chapterInfo.title, this.htmlContent).subscribe({\r\n      next: () => {\r\n        console.log('Content saved successfully');\r\n        this.cd.markForCheck();\r\n      },\r\n      error: (err) => {\r\n        console.error('Error saving content:', err);\r\n        this.cd.markForCheck();\r\n      }\r\n    });\r\n  }\r\n}",
             "styleUrl": "./text-editor.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -3163,17 +3365,32 @@
                 "deprecationMessage": "",
                 "args": [
                     {
-                        "name": "http",
-                        "type": "HttpClient",
+                        "name": "firestoreService",
+                        "type": "FirestoreService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
                         "deprecated": false,
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 19,
+                "line": 23,
                 "jsdoctags": [
                     {
-                        "name": "http",
-                        "type": "HttpClient",
+                        "name": "firestoreService",
+                        "type": "FirestoreService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -3183,7 +3400,7 @@
                 ]
             },
             "extends": [],
-            "templateData": "<angular-editor id=\"editor\" [(ngModel)]=\"htmlContent\" [config]=\"editorConfig\"></angular-editor>"
+            "templateData": "<angular-editor id=\"editor\" [(ngModel)]=\"htmlContent\" [config]=\"editorConfig\">\r\n<ng-template #customButtons let-executeCommandFn=\"executeCommandFn\">\r\n    <ae-toolbar-set>\r\n      <app-button  title=\"Angular editor logo\" (click)=\"saveContent()\">\r\n        Save\r\n      </app-button>\r\n    </ae-toolbar-set>\r\n  </ng-template>\r\n</angular-editor>"
         },
         {
             "name": "ThemeSwitchComponent",
@@ -3312,7 +3529,7 @@
         },
         {
             "name": "WritingWorkspaceComponent",
-            "id": "component-WritingWorkspaceComponent-fb6d13460e43836ef6ffad09e4b6b548f02ad76710351ba5ab702052b8b18df4ef24864f5fc26bab82ddec8a4cfafe68d9c22b9c315efc979f6985bbe4813b87",
+            "id": "component-WritingWorkspaceComponent-e32f767a06035ca8416c940d6e1e10ccba28bf51b25cd137e9f4658ce61041a645f829153fbe08131b13efd59ce31350f8092117a0c24193e02e5ea2ad059d2c",
             "file": "src/app/writing-workspace/writing-workspace.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3338,7 +3555,7 @@
                     "type": "FirebaseBook",
                     "optional": true,
                     "description": "",
-                    "line": 23
+                    "line": 24
                 },
                 {
                     "name": "bookId",
@@ -3347,16 +3564,16 @@
                     "type": "string | null",
                     "optional": true,
                     "description": "",
-                    "line": 21
+                    "line": 22
                 },
                 {
                     "name": "chapter",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Chapter",
+                    "type": "FirebaseChapter",
                     "optional": true,
                     "description": "",
-                    "line": 24
+                    "line": 25
                 },
                 {
                     "name": "chapterId",
@@ -3365,17 +3582,39 @@
                     "type": "string | null",
                     "optional": true,
                     "description": "",
-                    "line": 22
+                    "line": 23
+                },
+                {
+                    "name": "routeSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription",
+                    "optional": true,
+                    "description": "",
+                    "line": 26,
+                    "modifierKind": [
+                        123
+                    ]
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 73,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 35,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -3385,7 +3624,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 52,
+                    "line": 61,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -3398,7 +3637,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 44,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -3428,7 +3667,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChapterOrganizerComponent } from './../chapter-organiser/chapter-organiser.component';\nimport { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\nimport { ActivatedRoute } from '@angular/router';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { AuthService } from '../../services/auth.service';\nimport { FirebaseBook } from '../../models/Book';\nimport { Chapter } from '../../models/Chapter';\nimport { CommonModule } from '@angular/common';\nimport { TextEditorComponent } from '../text-editor/text-editor.component';\n\n@Component({\n  selector: 'app-writing-workspace',\n  standalone: true,\n  imports: [\n    CommonModule, ChapterOrganizerComponent, TextEditorComponent\n  ],\n  templateUrl: './writing-workspace.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class WritingWorkspaceComponent implements OnInit {\n  bookId?: string | null;\n  chapterId?: string | null;\n  book?: FirebaseBook;\n  chapter?: Chapter;\n\n  constructor(\n    private route: ActivatedRoute,\n    private firestoreService: FirestoreService,\n    private authService: AuthService,\n    private changeDetector: ChangeDetectorRef\n  ) { }\n\n  ngOnInit(): void {\n    this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n        this.retrieveData();\n      } else {\n        console.error('User not authenticated');\n        // Handle unauthenticated user scenario\n      }\n    });\n  }\n\n  private retrieveData(): void {\n    this.bookId = this.route.snapshot.paramMap.get('bookId');\n    this.chapterId = this.route.snapshot.paramMap.get('chapterId');\n    if (this.bookId) {\n\n    }\n  }\n\n  private retrieveChapter(): void {\n    if (this.bookId && this.chapterId) {\n\n    }\n  }\n}\n",
+            "sourceCode": "import { ChapterOrganizerComponent } from './../chapter-organiser/chapter-organiser.component';\nimport { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\nimport { ActivatedRoute } from '@angular/router';\nimport { FirestoreService } from '../../services/firestore.service';\nimport { AuthService } from '../../services/auth.service';\nimport { FirebaseBook } from '../../models/Book';\nimport { Chapter, FirebaseChapter } from '../../models/Chapter';\nimport { CommonModule } from '@angular/common';\nimport { TextEditorComponent } from '../text-editor/text-editor.component';\nimport { Subscription } from 'rxjs';\n\n@Component({\n  selector: 'app-writing-workspace',\n  standalone: true,\n  imports: [\n    CommonModule, ChapterOrganizerComponent, TextEditorComponent\n  ],\n  templateUrl: './writing-workspace.component.html',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class WritingWorkspaceComponent implements OnInit {\n  bookId?: string | null;\n  chapterId?: string | null;\n  book?: FirebaseBook;\n  chapter?: FirebaseChapter;\n  private routeSubscription?: Subscription;\n  constructor(\n    private route: ActivatedRoute,\n    private firestoreService: FirestoreService,\n    private authService: AuthService,\n    private changeDetector: ChangeDetectorRef\n  ) { }\n\n\n  ngOnInit(): void {\n    this.authService.isSignedIn().subscribe(authenticated => {\n      if (authenticated) {\n        this.retrieveData()\n        this.routeSubscription = this.route.paramMap.subscribe(params => {\n          this.bookId = params.get('bookId');\n          this.chapterId = params.get('chapterId');\n          if (this.chapterId) {\n            this.retrieveChapter();\n          }\n        });\n      } else {\n        console.error('User not authenticated');\n        // Handle unauthenticated user scenario\n      }\n    });\n  }\n\n  private retrieveData(): void {\n    this.bookId = this.route.snapshot.paramMap.get('bookId');\n    this.chapterId = this.route.snapshot.paramMap.get('chapterId');\n    if (this.bookId) {\n\n    }\n  }\n\n  private retrieveChapter(): void {\n    if (this.bookId && this.chapterId) {\n      this.firestoreService.fetchChapter(this.bookId, this.chapterId)\n        .subscribe(chapter => {\n          this.chapter = chapter;\n          this.changeDetector.markForCheck(); // Trigger change detection\n        }, error => {\n          console.error('Error fetching chapter:', error);\n          // Handle error scenario\n        });\n    }\n  }\n  ngOnDestroy(): void {\n    this.routeSubscription?.unsubscribe();\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3463,7 +3702,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 24,
+                "line": 26,
                 "jsdoctags": [
                     {
                         "name": "route",
@@ -3507,7 +3746,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"grid-container grid grid-cols-11 gap-6 m-4 h-screen\">\n  <div class=\"col-span-3\">\n    <app-chapter-organiser [chapters]=\"book?.chaptersInfo\" [book]=\"book\" [bookId] =\"bookId || undefined\"></app-chapter-organiser>\n  </div>\n  <div class=\"col-start-4 col-span-7\">\n    <app-text-editor></app-text-editor>\n  </div>\n  <div class=\"col-start-11 flex flex-col gap-1 col-span-1\">\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"grid-container grid grid-cols-11 gap-6 m-4 h-screen\">\n  <div class=\"col-span-3\">\n    <app-chapter-organiser [chapters]=\"book?.chaptersInfo\" [book]=\"book\" [bookId] =\"bookId || undefined\"></app-chapter-organiser>\n  </div>\n  <div class=\"col-start-4 col-span-7\">\n    <app-text-editor [htmlContent]=\"chapter?.content || ''\" [chapterInfo]=\"{id:chapterId || '',title:chapter?.title || ''}\" [bookId]=\"bookId || ''\"></app-text-editor>\n  </div>\n  <div class=\"col-start-11 flex flex-col gap-1 col-span-1\">\n    <button class=\"text-md px-6 py-2 bg-button text-primary rounded shadow hover:bg-button-hover hover:text-primary-hover hover:shadow-lg focus:outline-none active:bg-button-active transition ease-in-out duration-300\">Rewrite</button>\n  </div>\n</div>\n"
         }
     ],
     "modules": [],
@@ -3551,7 +3790,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => ({})"
+                "defaultValue": "() => ({\r\n  component: AboutComponent,\r\n})"
             },
             {
                 "name": "Default",
@@ -3562,6 +3801,16 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "() => ({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/chapter-organiser/chapter-organiser.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
             },
             {
                 "name": "Default",
@@ -3587,16 +3836,6 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/chapter-organiser/chapter-organiser.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/navbar/navbar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -3617,21 +3856,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/theme-switch/theme-switch.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "() => ({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/writing-workspace/writing-workspace.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "() => ({\r\n  component: WritingWorkspaceComponent,\r\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/theme-switch/theme-switch.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({})"
             },
             {
                 "name": "Default",
@@ -3651,7 +3890,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "AngularEditorConfig",
-                "defaultValue": "{\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n}"
+                "defaultValue": "{\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n    { class: 'merriweather', name: 'Merriweather' },\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'lora', name: 'Lora' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n}"
             },
             {
                 "name": "Empty",
@@ -3835,7 +4074,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "() => ({})"
+                    "defaultValue": "() => ({\r\n  component: AboutComponent,\r\n})"
                 }
             ],
             "src/app/background/background.stories.ts": [
@@ -3848,6 +4087,28 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "() => ({})"
+                }
+            ],
+            "src/app/chapter-organiser/chapter-organiser.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/chapter-organiser/chapter-organiser.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
+                },
+                {
+                    "name": "Empty",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/chapter-organiser/chapter-organiser.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: [],\r\n  },\r\n})"
                 }
             ],
             "src/app/book-collection/book-collection.stories.ts": [
@@ -3884,28 +4145,6 @@
                     "defaultValue": "() => ({})"
                 }
             ],
-            "src/app/chapter-organiser/chapter-organiser.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/chapter-organiser/chapter-organiser.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: ['File 1', 'File 2', 'File 3'],\r\n  },\r\n})"
-                },
-                {
-                    "name": "Empty",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/chapter-organiser/chapter-organiser.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: ChapterOrganizerComponent,\r\n  props: {\r\n    chapters: [],\r\n  },\r\n})"
-                }
-            ],
             "src/app/navbar/navbar.stories.ts": [
                 {
                     "name": "Default",
@@ -3930,18 +4169,6 @@
                     "defaultValue": "() => ({})"
                 }
             ],
-            "src/app/theme-switch/theme-switch.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/theme-switch/theme-switch.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "() => ({})"
-                }
-            ],
             "src/app/writing-workspace/writing-workspace.stories.ts": [
                 {
                     "name": "Default",
@@ -3952,6 +4179,18 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "() => ({\r\n  component: WritingWorkspaceComponent,\r\n})"
+                }
+            ],
+            "src/app/theme-switch/theme-switch.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/theme-switch/theme-switch.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({})"
                 }
             ],
             "src/app/book-collection/book-card/book-card.stories.ts": [
@@ -3985,7 +4224,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "AngularEditorConfig",
-                    "defaultValue": "{\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n}"
+                    "defaultValue": "{\r\n  editable: true,\r\n  spellcheck: true,\r\n  height: 'calc(100vh - 100px)',\r\n  minHeight: '0',\r\n  maxHeight: 'auto',\r\n  width: 'auto',\r\n  minWidth: '0',\r\n  translate: 'yes',\r\n  enableToolbar: true,\r\n  showToolbar: true,\r\n  placeholder: 'Write Chapter Here...',\r\n  defaultFontName: 'roboto',\r\n  fonts: [\r\n    { class: 'times-new-roman', name: 'Times New Roman' },\r\n    { class: 'merriweather', name: 'Merriweather' },\r\n    { class: 'roboto', name: 'Roboto' },\r\n    { class: 'arial', name: 'Arial' },\r\n    { class: 'lora', name: 'Lora' },\r\n  ],\r\n  sanitize: true,\r\n  toolbarPosition: 'top',\r\n  toolbarHiddenButtons: toolbarHiddenButtons,\r\n}"
                 },
                 {
                     "name": "toolbarHiddenButtons",
@@ -4110,7 +4349,7 @@
                 "linktype": "component",
                 "name": "AboutComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -4187,7 +4426,7 @@
                 "linktype": "component",
                 "name": "BookCardComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -4240,12 +4479,21 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/button/button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/chapter-organiser/book-title/book-title.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "BookTitleComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/17",
+                "coverageCount": "0/18",
                 "status": "low"
             },
             {
@@ -4283,7 +4531,7 @@
                 "linktype": "component",
                 "name": "ChapterComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/20",
+                "coverageCount": "0/23",
                 "status": "low"
             },
             {
@@ -4368,7 +4616,7 @@
                 "linktype": "component",
                 "name": "TextEditorComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -4406,7 +4654,7 @@
                 "linktype": "component",
                 "name": "WritingWorkspaceComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {
@@ -4567,6 +4815,15 @@
                 "name": "THEMES",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/services/transfer-attributes.directive.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "TransferAttributesDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
                 "status": "low"
             }
         ]
