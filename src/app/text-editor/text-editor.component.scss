@@ -35,7 +35,8 @@ angular-editor {
       }
     }
     ae-select {
-      @apply bg-transparent #{!important};
+      
+      @apply bg-transparent w-full #{!important};
       .ae-picker-options {
         @apply rounded-b-xl shadow-lg border-0 #{!important};
         .ae-picker-item{
@@ -49,7 +50,7 @@ angular-editor {
         }
       }
       button.ae-picker-label {
-        @apply bg-default text-primary z-0 cursor-pointer border-0 #{!important};
+        @apply bg-default text-primary z-0 cursor-pointer border-0 pr-6 #{!important};
         &:focus{
           @apply outline-none shadow-md #{!important};
         }

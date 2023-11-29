@@ -1,6 +1,6 @@
 <angular-editor id="editor" [(ngModel)]="htmlContent" [config]="editorConfig">
 <ng-template #customButtons let-executeCommandFn="executeCommandFn">
-    <ae-toolbar-set>
+    <ae-toolbar-set class="ml-auto">
       <app-button  title="Angular editor logo" (click)="saveContent()">
         Save
       </app-button>
