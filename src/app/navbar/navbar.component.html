@@ -1,7 +1,9 @@
-<div class="bg-div text-primary px-4 flex justify-between items-center rounded-b-lg">
+<div class="bg-transparent text-primary px-4 flex justify-between items-center rounded-b-lg">
     <div class="flex items-center">
         <span class="text-xl font-bold mr-4"><a  [routerLink]="['/']" routerLinkActive="active" class="hover:text-primary-hover">PseudoWrite</a></span>
-        <app-button>Hello</app-button>
+        @if(isBookPage){
+          <app-button>Hello</app-button>
+        }
     </div>
     <div class="flex flex-column align-middle justify-center items-center gap-10">
       <app-theme-switch></app-theme-switch>

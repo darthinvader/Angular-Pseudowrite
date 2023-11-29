@@ -1,0 +1,9 @@
+<div class="inline-flex relative">
+  <button (click)="onClick?.()">Main Action</button>
+  <button class="border-1 border-border-color" (click)="toggleDropdown()">▼</button>
+  @if(dropdownOpen){
+  <div class="block absolute top-full left-0 z-50 bg-button">
+    <ng-container></ng-container>
+  </div>
+  }
+</div>
