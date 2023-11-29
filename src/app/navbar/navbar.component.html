@@ -1,13 +1,7 @@
 <div class="bg-div text-primary px-4 flex justify-between items-center rounded-b-lg">
     <div class="flex items-center">
         <span class="text-xl font-bold mr-4"><a  [routerLink]="['/']" routerLinkActive="active" class="hover:text-primary-hover">PseudoWrite</a></span>
-        <nav>
-            <ul class="flex">
-                <li>
-                  <a [routerLink]="['/about']" routerLinkActive="active" class="flex hover:text-primary-hover px-6 py-4 hover:bg-button-hover active:bg-button-active w-full h-full">About</a>
-                </li>
-            </ul>
-        </nav>
+        <app-button>Hello</app-button>
     </div>
     <div class="flex flex-column align-middle justify-center items-center gap-10">
       <app-theme-switch></app-theme-switch>

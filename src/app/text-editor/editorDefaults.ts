@@ -22,7 +22,7 @@ export const toolbarHiddenButtons = [
 export const editorConfig: AngularEditorConfig = {
   editable: true,
   spellcheck: true,
-  height: 'calc(100vh - 100px)',
+  height: 'calc(70vh - 70px)',
   minHeight: '0',
   maxHeight: 'auto',
   width: 'auto',
